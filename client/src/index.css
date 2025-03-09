@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+=======
+>>>>>>> 01b19ea (created client template)
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -19,6 +22,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+<<<<<<< HEAD
 body {
   margin: 0;
   padding: 0;
@@ -34,6 +38,8 @@ body {
   min-height: 100vh;
 }
 
+=======
+>>>>>>> 01b19ea (created client template)
 a {
   font-weight: 500;
   color: #646cff;
@@ -43,6 +49,17 @@ a:hover {
   color: #535bf2;
 }
 
+<<<<<<< HEAD
+=======
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+>>>>>>> 01b19ea (created client template)
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
