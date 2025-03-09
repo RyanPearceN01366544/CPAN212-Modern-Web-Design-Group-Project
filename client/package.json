@@ -2,6 +2,7 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -9,10 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/react": "^2.2.0",
-    "formik": "^2.4.6",
-    "framer-motion": "^12.6.3",
     "react": "^19.0.0",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -88,6 +87,9 @@
     "react-router-dom": "^7.4.1",
     "yup": "^1.6.1"
 >>>>>>> 3a3be73 (edit)
+=======
+    "react-dom": "^19.0.0"
+>>>>>>> 551f956 (created client template)
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
