@@ -2,18 +2,16 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "vite --mode development",
-    "build": "vite build --mode production",
-    "test": "vitest --mode test",
-    "preview": "vite preview --mode production",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/react": "^2.2.0",
-    "formik": "^2.4.6",
-    "framer-motion": "^12.6.3",
     "react": "^19.0.0",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     "react-dom": "^19.0.0",
@@ -79,6 +77,9 @@
     "react-router-dom": "^7.4.1",
     "yup": "^1.6.1"
 >>>>>>> 348536c (edit)
+=======
+    "react-dom": "^19.0.0"
+>>>>>>> 8e5f4c4 (created client template)
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -86,18 +87,24 @@
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "autoprefixer": "^10.4.21",
 =======
 >>>>>>> 01b19ea (created client template)
+=======
+>>>>>>> 8e5f4c4 (created client template)
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "postcss": "^8.5.3",
     "tailwindcss": "^4.0.14",
 =======
 >>>>>>> 01b19ea (created client template)
+=======
+>>>>>>> 8e5f4c4 (created client template)
     "vite": "^6.2.0"
   }
 }
