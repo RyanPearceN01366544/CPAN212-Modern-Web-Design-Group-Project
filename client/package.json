@@ -4,6 +4,7 @@
   "version": "0.0.0",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "scripts": {
     "dev": "vite --mode development",
     "build": "vite build --mode production",
@@ -30,6 +31,9 @@
   "type": "module",
 =======
 >>>>>>> 8c18dd4 (edit)
+=======
+  "type": "module",
+>>>>>>> 8c0bcd6 (created client template)
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -37,10 +41,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/react": "^2.2.0",
-    "formik": "^2.4.6",
-    "framer-motion": "^12.6.3",
     "react": "^19.0.0",
+<<<<<<< HEAD
 <<<<<<< HEAD
     "react-dom": "^19.0.0"
 >>>>>>> 01b19ea (created client template)
@@ -49,6 +51,9 @@
     "react-router-dom": "^7.4.1",
     "yup": "^1.6.1"
 >>>>>>> 8c18dd4 (edit)
+=======
+    "react-dom": "^19.0.0"
+>>>>>>> 8c0bcd6 (created client template)
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
