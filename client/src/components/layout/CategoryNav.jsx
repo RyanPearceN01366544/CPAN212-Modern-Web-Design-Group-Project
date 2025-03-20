@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CategoryNav.css';
 
 const CategoryNav = ({ onCategorySelect }) => {
   const [showAllCategories, setShowAllCategories] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
+  const navigate = useNavigate();
 
   // Main shopping categories that are commonly used in e-commerce
   const categories = [
@@ -64,6 +66,7 @@ const CategoryNav = ({ onCategorySelect }) => {
   const handleCategoryClick = (category, event) => {
     event.preventDefault();
     onCategorySelect(category);
+    navigate('/'); // Navigate back to home page
     setShowAllCategories(false);
   };
 

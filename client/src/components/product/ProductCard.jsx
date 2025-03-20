@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { FaStar, FaRegStar, FaShoppingCart, FaHeart, FaRegHeart } from 'react-icons/fa';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaStar, FaRegStar, FaShoppingCart } from 'react-icons/fa';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
-
   const {
     image,
     title,
@@ -13,10 +12,9 @@ const ProductCard = ({ product }) => {
     rating,
     reviews,
     inStock,
-    freeShipping
+    freeShipping,
+    id
   } = product;
-
-  const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
 
   const renderStars = (rating) => {
     const stars = [];
@@ -32,56 +30,49 @@ const ProductCard = ({ product }) => {
     return stars;
   };
 
-  const toggleWishlist = () => {
-    setIsWishlisted(!isWishlisted);
-  };
-
   return (
-    <div className="product-card">
+    <Link to={`/product/${id}`} className="product-card">
       <div className="product-image-container">
         <img src={image} alt={title} className="product-image" />
-        <button 
-          className="wishlist-button"
-          onClick={toggleWishlist}
-          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-        >
-          {isWishlisted ? <FaHeart /> : <FaRegHeart />}
-        </button>
-        {discount > 0 && (
-          <div className="discount-badge">-{discount}%</div>
-        )}
       </div>
 
       <div className="product-info">
         <h3 className="product-title">{title}</h3>
         
-        <div className="product-price">
+        <div className="price-row">
           <span className="current-price">${price.toFixed(2)}</span>
           {originalPrice && (
             <span className="original-price">${originalPrice.toFixed(2)}</span>
           )}
         </div>
 
-        <div className="product-rating">
+        <div className="rating-row">
           <div className="stars">{renderStars(rating)}</div>
           <span className="review-count">({reviews})</span>
         </div>
 
-        {freeShipping && (
-          <div className="shipping-info">Free Shipping</div>
-        )}
+        <div className="shipping-info-container">
+          {freeShipping ? (
+            <div className="shipping-info">Free Shipping</div>
+          ) : (
+            <div className="shipping-info-placeholder"></div>
+          )}
+        </div>
 
         <div className="product-actions">
-          <button 
-            className={`add-to-cart-btn ${!inStock ? 'out-of-stock' : ''}`}
-            disabled={!inStock}
-          >
-            <FaShoppingCart />
-            {inStock ? 'Add to Cart' : 'Out of Stock'}
-          </button>
+          {inStock ? (
+            <button className="add-to-cart-btn">
+              <span className="cart-icon"><FaShoppingCart /></span>
+              Add to Cart
+            </button>
+          ) : (
+            <button className="out-of-stock-btn">
+              Out of Stock
+            </button>
+          )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
