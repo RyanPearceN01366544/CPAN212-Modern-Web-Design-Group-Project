@@ -10,6 +10,7 @@ import ProductDetail from './components/product/ProductDetail';
 import SignIn from './components/auth/SignIn';
 import Register from './components/auth/Register';
 import ForgotPassword from './components/auth/ForgotPassword';
+import ResetPassword from './components/auth/ResetPassword';
 import { searchProducts } from './services/api';
 import './App.css';
 
@@ -91,6 +92,11 @@ function App() {
             <Route path="/forgot-password" element={
               <main className="main-content">
                 <ForgotPassword />
+              </main>
+            } />
+            <Route path="/reset-password/:token" element={
+              <main className="main-content">
+                <ResetPassword />
               </main>
             } />
           </Routes>

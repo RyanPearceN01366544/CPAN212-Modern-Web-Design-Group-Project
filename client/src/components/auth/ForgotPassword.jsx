@@ -5,47 +5,80 @@ import './Auth.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Will implement actual password reset later
-    setMessage('Password reset link has been sent to your email.');
-    setIsSubmitted(true);
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send reset link');
+      }
+
+      setIsSubmitted(true);
+    } catch (err) {
+      setError(err.message || 'Failed to send reset link. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (isSubmitted) {
+    return (
+      <div className="auth-container">
+        <div className="auth-box">
+          <h2>Check Your Email</h2>
+          <p className="success-message">
+            If an account exists for {email}, you will receive a password reset link shortly.
+          </p>
+          <div className="auth-links">
+            <Link to="/signin">Back to Sign In</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h2>Reset Password</h2>
-        {!isSubmitted ? (
-          <>
-            <p className="auth-description">
-              Enter your email address and we'll send you a link to reset your password.
-            </p>
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <div className="input-icon">
-                  <FaEnvelope />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-              <button type="submit" className="auth-button">Send Reset Link</button>
-            </form>
-          </>
-        ) : (
-          <div className="success-message">
-            <p>{message}</p>
-            <p>Didn't receive the email? Check your spam folder or try again.</p>
+        <h2>Forgot Password</h2>
+        {error && <div className="error-message">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <div className="input-icon">
+              <FaEnvelope />
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
           </div>
-        )}
+          <button 
+            type="submit" 
+            className="auth-button"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Sending...' : 'Send Reset Link'}
+          </button>
+        </form>
         <div className="auth-links">
           <Link to="/signin">Back to Sign In</Link>
         </div>
