@@ -14,7 +14,8 @@ app.get('/', (req, res) => {
       users: '/api/users',
       register: '/api/auth/register',
       forgotPassword: '/api/auth/forgot-password',
-      resetPassword: '/api/auth/reset-password'
+      resetPassword: '/api/auth/reset-password',
+      login: '/api/auth/login'
     }
   });
 });
@@ -101,6 +102,26 @@ app.post('/api/auth/reset-password', (req, res) => {
   resetTokens.delete(token);
   
   res.json({ message: 'Password reset successful' });
+});
+
+// Login endpoint
+app.post('/api/auth/login', (req, res) => {
+  const { email, password } = req.body;
+  console.log('Login attempt:', { email });
+
+  const user = users.get(email);
+  if (!user || user.password !== password) { // In production: compare hashed passwords
+    return res.status(401).json({ message: 'Invalid email or password' });
+  }
+
+  // Return user data (exclude password)
+  res.json({
+    message: 'Login successful',
+    user: {
+      name: user.name,
+      email: user.email
+    }
+  });
 });
 
 // Debug endpoint to view registered users (remove in production)

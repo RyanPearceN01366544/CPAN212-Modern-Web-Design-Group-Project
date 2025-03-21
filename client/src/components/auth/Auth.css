@@ -4,7 +4,7 @@
   align-items: center;
   min-height: calc(100vh - 60px);
   background-color: #f8f9fa;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .auth-box {
@@ -45,7 +45,9 @@
   position: absolute;
   left: 1rem;
   color: #6c757d;
-  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  pointer-events: none;
 }
 
 .input-icon input {
@@ -78,6 +80,11 @@
   background-color: #34495e;
 }
 
+.auth-button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
 /* Google Sign-In Button */
 .google-auth-button {
   width: 100%;
@@ -101,6 +108,9 @@
 }
 
 .google-auth-button svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.5rem;
   color: #4285f4;
   font-size: 1.2rem;
 }
@@ -111,6 +121,7 @@
   align-items: center;
   text-align: center;
   margin: 1.5rem 0;
+  color: #6c757d;
 }
 
 .divider::before,
@@ -122,14 +133,11 @@
 
 .divider span {
   padding: 0 1rem;
-  color: #6c757d;
-  font-size: 0.9rem;
-  text-transform: uppercase;
 }
 
 .auth-links {
-  margin-top: 1.5rem;
   text-align: center;
+  margin-top: 1.5rem;
 }
 
 .auth-links a {
@@ -143,48 +151,76 @@
   text-decoration: underline;
 }
 
-.auth-links p {
-  margin: 1rem 0 0;
-  color: #6c757d;
-}
-
-/* Success Message */
-.success-message {
-  text-align: center;
-  color: #2c3e50;
-  margin: 1rem 0;
-}
-
-.success-message p {
-  margin: 0.5rem 0;
-  line-height: 1.5;
-}
-
-.success-message p:last-child {
-  color: #6c757d;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-}
-
-/* Error Message */
 .error-message {
-  background-color: #fee2e2;
-  border: 1px solid #ef4444;
-  color: #dc2626;
-  padding: 0.75rem;
-  border-radius: 4px;
+  color: #e74c3c;
+  text-align: center;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  text-align: center;
 }
 
-/* Responsive design */
+.success-message {
+  color: #27ae60;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
 @media (max-width: 480px) {
+  .auth-container {
+    padding: 0.5rem;
+    min-height: calc(100vh - 56px); /* Adjusted for smaller header on mobile */
+  }
+
   .auth-box {
     padding: 1.5rem;
+    border-radius: 4px;
   }
 
   .auth-box h2 {
     font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-icon input {
+    padding: 0.7rem 1rem 0.7rem 2.5rem;
+    font-size: 0.95rem;
+  }
+
+  .input-icon svg {
+    left: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .auth-button,
+  .google-auth-button {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .divider {
+    margin: 1rem 0;
+  }
+
+  .auth-links {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 320px) {
+  .auth-box {
+    padding: 1rem;
+  }
+
+  .auth-box h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .input-icon input {
+    padding: 0.6rem 1rem 0.6rem 2.3rem;
+    font-size: 0.9rem;
   }
 }
