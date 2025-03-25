@@ -10,12 +10,40 @@ const SignIn = () => {
     password: ''
   });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Will implement actual authentication later
-    console.log('Sign in attempt:', formData);
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Store user data in localStorage
+      localStorage.setItem('user', JSON.stringify(data.user));
+      
+      // Redirect to home page
+      navigate('/');
+    } catch (err) {
+      setError(err.message || 'Login failed. Please try again.');
+      console.error('Login error:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -102,7 +130,7 @@ const SignIn = () => {
               />
             </div>
           </div>
-          <button type="submit" className="auth-button">Sign In</button>
+          <button type="submit" className="auth-button" disabled={isLoading}>Sign In</button>
           
           <div className="divider">
             <span>or</span>

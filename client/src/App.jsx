@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import Header from './components/layout/Header';
+import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import CategoryNav from './components/layout/CategoryNav';
 import ProductGrid from './components/product/ProductGrid';
 import ProductFilter from './components/product/ProductFilter';
 import ProductDetail from './components/product/ProductDetail';
@@ -55,11 +54,10 @@ function App() {
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <Router>
         <div className="app">
-          <Header onSearch={handleSearch} />
-          <CategoryNav onCategorySelect={handleCategorySelect} />
-          <Routes>
-            <Route path="/" element={
-              <main className="main-content">
+          <Navbar onSearch={handleSearch} />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={
                 <div className="content-wrapper">
                   <aside className="filter-sidebar">
                     <ProductFilter onFilterChange={handleFilterChange} />
@@ -72,34 +70,24 @@ function App() {
                     />
                   </div>
                 </div>
-              </main>
-            } />
-            <Route path="/product/:id" element={
-              <main className="main-content">
+              } />
+              <Route path="/product/:id" element={
                 <ProductDetail />
-              </main>
-            } />
-            <Route path="/signin" element={
-              <main className="main-content">
+              } />
+              <Route path="/signin" element={
                 <SignIn />
-              </main>
-            } />
-            <Route path="/register" element={
-              <main className="main-content">
+              } />
+              <Route path="/register" element={
                 <Register />
-              </main>
-            } />
-            <Route path="/forgot-password" element={
-              <main className="main-content">
+              } />
+              <Route path="/forgot-password" element={
                 <ForgotPassword />
-              </main>
-            } />
-            <Route path="/reset-password/:token" element={
-              <main className="main-content">
+              } />
+              <Route path="/reset-password/:token" element={
                 <ResetPassword />
-              </main>
-            } />
-          </Routes>
+              } />
+            </Routes>
+          </main>
           <Footer />
         </div>
       </Router>
