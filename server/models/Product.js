@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// == R ==
 // -- Product Vars Todo List --
 // 1. SKU [Required] [Unique Key] (Example: "SKE-SHO-SNE-949291")
 // 2. Name [Required] (Example: "Men's Hands Free Slip-Ins" [you get the rest])
@@ -13,4 +14,5 @@ import mongoose from "mongoose";
 const productSchema = mongoose.Schema({
     
 });
+const Product = mongoose.model("Product", productSchema);
 export default productSchema;
