@@ -11,6 +11,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> fd8ba99 (edit)
 =======
@@ -21,6 +22,8 @@
 =======
   "type": "module",
 >>>>>>> 42cf969 (created client template)
+=======
+>>>>>>> fbb5ff8 (edit)
   "scripts": {
     "dev": "vite --mode development",
     "build": "vite build --mode production",
