@@ -5,10 +5,14 @@ import mongoose from 'mongoose';
 import user_router from './routers/user_router.js';
 import product_router from './routers/product_router.js';
 
-dotenv.config(); // Doesn't look nice but order of operations. Make sure to init the dotenv before setting PORT.
+dotenv.config(); // R: Doesn't look nice but order of operations. Make sure to init the dotenv before setting PORT.
 const PORT = process.env.PORT || 8000;
 const app = express();
-app.use(cors());
+const corsOptions = { // R: Setting up Cors.
+    origin: 'http://localhost:5173', // R: Default VITE port.
+    method: ["GET", "POST", 'PUT', "DELETE"],
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
