@@ -7,6 +7,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fd8ba99 (edit)
   "scripts": {
     "dev": "vite --mode development",
     "build": "vite build --mode production",
