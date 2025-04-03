@@ -2,7 +2,6 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite --mode development",
     "build": "vite build --mode production",
@@ -11,7 +10,11 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "formik": "^2.4.6",
+    "framer-motion": "^12.6.3",
     "react": "^19.0.0",
+<<<<<<< HEAD
 <<<<<<< HEAD
     "react-dom": "^19.0.0",
 <<<<<<< HEAD
@@ -71,6 +74,11 @@
 =======
     "react-dom": "^19.0.0"
 >>>>>>> f3a1b10 (created client template)
+=======
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.4.1",
+    "yup": "^1.6.1"
+>>>>>>> 348536c (edit)
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
