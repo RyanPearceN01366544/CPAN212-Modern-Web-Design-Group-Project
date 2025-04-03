@@ -2,32 +2,7 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fd8ba99 (edit)
-=======
   "type": "module",
->>>>>>> f6f2ca5 (created client template)
-=======
->>>>>>> 6c96f7b (edit)
-=======
-  "type": "module",
->>>>>>> 42cf969 (created client template)
-=======
->>>>>>> fbb5ff8 (edit)
-=======
-  "type": "module",
->>>>>>> e29fa9a (created client template)
   "scripts": {
     "dev": "vite --mode development",
     "build": "vite build --mode production",
