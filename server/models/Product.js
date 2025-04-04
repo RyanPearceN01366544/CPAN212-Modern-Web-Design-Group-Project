@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 // == R ==
 // -- Product Vars Todo List --
 // 1. SKU [Required] [Unique Key] (Example: "SKE-SHO-SNE-949291")
@@ -11,8 +9,55 @@ import mongoose from "mongoose";
 // 6. Type (Example: "Sneakers")
 // 7. Brand (Example: "Skechers")
 
-const productSchema = mongoose.Schema({
-    
+import mongoose from "mongoose";
+
+// Product Schema
+const productSchema = new mongoose.Schema({
+  sku: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  images: {
+    link1: {
+      type: String,
+      required: true
+    },
+    link2: {
+      type: String,
+      required: true
+    }
+  },
+  price: {
+    type: Number,
+    required: true,
+    min: 0
+  },
+  itemsLeft: {
+    type: Number,
+    required: true,
+    min: 0
+  },
+  category: {
+    type: String,
+    default: "Uncategorized"
+  },
+  type: {
+    type: String,
+    default: ""
+  },
+  brand: {
+    type: String,
+    default: ""
+  }
+}, {
+  timestamps: true
 });
+
 const Product = mongoose.model("Product", productSchema);
-export default productSchema;
+export default Product;
