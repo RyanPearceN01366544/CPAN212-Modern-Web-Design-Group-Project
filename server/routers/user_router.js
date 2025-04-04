@@ -15,6 +15,7 @@ const user_router = express.Router();
 // ResetPassword -> When the user resets their password. (WIP)
 // GetCart -> Get the cart. 
 // GetUserInfo -> Get information about the current user or ID of a using.
+<<<<<<< HEAD
 
 // == EMAIL STUFF == <- R
 const transporter = nodemailer.createTransport({ // R: Creates an Email!
@@ -39,12 +40,19 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
 
 // == ROUTES == <- R
 user_router.post("/Register", async (req, res) => {
+=======
+user_router.post("/Register/", async (req, res) => {
+    console.log("=== Registration Request ===");
+    console.log("Request Body:", req.body);
+>>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
     try {
         const { username, email, password, firstName, lastName } = req.body;
+        console.log("Parsed Data:", { username, email, firstName, lastName });
     
         // Check if the user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
+          console.log("User already exists with email:", email);
           return res.status(400).json({ message: "User already exists" });
         }
     
@@ -60,6 +68,7 @@ user_router.post("/Register", async (req, res) => {
         });
     
         await newUser.save();
+        console.log("User registered successfully:", { username, email });
         res.status(201).json({
           message: "User registered successfully",
         });
@@ -69,9 +78,16 @@ user_router.post("/Register", async (req, res) => {
       }
 });
 
+<<<<<<< HEAD
 user_router.get("/Login", async (req, res) => {
+=======
+user_router.post("/Login/", async (req, res) => {
+    console.log("=== Login Request ===");
+    console.log("Request Body:", req.body);
+>>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
     try {
         const { login, password } = req.body;
+        console.log("Login attempt with:", { login });
     
         // R: Check if the user exists (Using or to get either Username or Email.)
         const user = await User.findOne({ 
@@ -83,17 +99,20 @@ user_router.get("/Login", async (req, res) => {
         });
 
         if (!user) {
+          console.log("User not found with login:", login);
           return res.status(400).json({ message: "User not found! Please Register!" });
         }
     
         // r: Compare the passwords
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
+          console.log("Incorrect password for user:", login);
           return res.status(400).json({ message: "Incorrect Password!" });
         }
     
         // r: Generate JWT token
         const token = auth.generateToken(user);
+        console.log("Login successful for user:", login);
     
         res.status(200).json({
           message: "Login successful",
@@ -106,8 +125,15 @@ user_router.get("/Login", async (req, res) => {
       }
     }
 );
+<<<<<<< HEAD
 user_router.get("/Logout", async(req, res) => {
   res.status(200).json({message: "You have been logged out."});
+=======
+
+user_router.get("/Logout/", async(req, res) => {
+    console.log("=== Logout Request ===");
+    res.status(200).json({message: "You have been logged out."});
+>>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
 })
 
 user_router.post("/ForgotPassword", async(req, res) => {
@@ -170,32 +196,29 @@ user_router.post("/ResetPassword", async(req, res) => {
 
 
 // R: Using prefix 'Get' before id... otherwise it thinks 'Register' is the :id.
-user_router.get("/Get", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
+user_router.get("/Get/", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
+    console.log("=== Get User Info Request ===");
+    console.log("User:", req.user);
     if (req.user) { // R: Is the user existing? If so then...
-        console.log(req.user);
         res.json(req.user);
     } // R: Otherwise, do nothing as verifyToken will stop them.
 });
 
 user_router.get('/Get/:id', auth.verifyToken, async(req, res) => { // R: Get Information obout user.
+    console.log("=== Get User By ID Request ===");
     const userID = req.user; // R: Get the requesting user's id.
     const lookupID = req.params.id; // R: The user's information that is being requested.
+    console.log("Looking up user:", lookupID);
 
-    const requestingUser = User.findById(userID); // R: The user requesting this information.
-    const requestedUser = User.findById(lookupID); // R: The user we are looking for.
+    const requestingUser = await User.findById(userID); // R: The user requesting this information.
+    const lookupUser = await User.findById(lookupID); // R: The user being looked up.
 
-    if (requestingUser && requestedUser) { // R: Check if the user and user searching actually exists.
-        console.log(requestingUser);
-        console.log(requestedUser);
-        if (requestingUser.permissions.includes("UserInformation")){
-            res.json(requestedUser); // R: Just send all the data that should be accessible.
-        }
-        else{
-            const filteredData_ = { // R: Basic User's Information Should Be Limited!
-                username: requestedUser.username // R: I've seen options for allowing others to see their username based on the user's security settings.
-            }
-            res.json(filteredData_); // R: Doing this in case we have more data to send.
-        }
+    if (!lookupUser) { // R: Check if the user exists.
+        console.log("User not found:", lookupID);
+        return res.status(404).json({ message: "User not found." });
     }
+
+    res.json(lookupUser); // R: Return the user's information.
 });
+
 export default user_router;
