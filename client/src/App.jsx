@@ -60,15 +60,6 @@ function App() {
                 <Route path="/reset-password/:token" element={
                   <ResetPassword />
                 } />
-                 <Route path="/cart" element={
-                  <CartPage/>
-                } />
-                 <Route path="/checkout" element={
-                  <CheckoutPage/> 
-                } />
-                 <Route path="/user" element={
-                  <UserPage />
-                } /> 
               </Routes>
             </main>
             <Footer />
