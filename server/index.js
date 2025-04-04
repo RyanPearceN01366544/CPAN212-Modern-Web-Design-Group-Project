@@ -13,7 +13,11 @@ const PORT = process.env.PORT || 8000;
 
 // Middleware
 app.use(cors({
+<<<<<<< HEAD
     origin: ['http://localhost:5173', 'http://localhost:5175'], // Allow both ports
+=======
+    origin: 'http://localhost:5173', // Allow client application
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));

@@ -33,6 +33,7 @@ const Register = () => {
 
     try {
       const { confirmPassword, ...registrationData } = formData;
+<<<<<<< HEAD
       const response = await authService.register(registrationData);
       setSuccess('Account registered successfully!');
       // Wait for 2 seconds to show success message, then redirect to login
@@ -45,6 +46,12 @@ const Register = () => {
       } else {
         setError(err.message || 'Registration failed. Please try again.');
       }
+=======
+      await authService.register(registrationData);
+      navigate('/signin');
+    } catch (err) {
+      setError(err.message || 'Registration failed. Please try again.');
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
       console.error('Registration error:', err);
     } finally {
       setIsLoading(false);

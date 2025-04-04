@@ -314,6 +314,7 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
     const userID = req.user.userID; // R: Get the requesting user's id.
 >>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
     const lookupID = req.params.id; // R: The user's information that is being requested.
+    console.log("Looking up user:", lookupID);
 
     const requestingUser = await User.findById(userID); // R: The user requesting this information.
     const lookupUser = await User.findById(lookupID); // R: The user being looked up.
@@ -322,6 +323,7 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
         console.log("User not found:", lookupID);
         return res.status(404).json({ message: "User not found." });
     }
+<<<<<<< HEAD
     // R: Continue and get the privacy settings versus permissions.
     let dataToSend_ = {};
     if (requestingUser.permissionLevel >= 2 && requestingUser.permissionLevel > lookupUser.permissionLevel) { 
@@ -529,5 +531,10 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
     return res.status(400).json({message: "An unexpected error has occured."});
   }
 });
+=======
+
+    res.json(lookupUser); // R: Return the user's information.
+});
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
 
 export default user_router;

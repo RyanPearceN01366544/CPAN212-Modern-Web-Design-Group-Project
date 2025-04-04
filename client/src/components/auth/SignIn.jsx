@@ -22,9 +22,14 @@ const SignIn = () => {
 
     try {
       const response = await authService.login(formData.login, formData.password);
+<<<<<<< HEAD
       console.log('Login response:', response);
       // Force reload the page to update the navbar
       window.location.href = '/';
+=======
+      setIsLoading(false);
+      navigate('/');
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
     } catch (err) {
       console.log('Login error details:', err);
       setError(err.message || 'Login failed. Please try again.');

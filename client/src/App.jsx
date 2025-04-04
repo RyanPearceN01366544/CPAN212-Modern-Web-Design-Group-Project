@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './context/AuthContext';
+<<<<<<< HEAD
 import { CartProvider } from "./context/CartContext"; // ✅ Added CartProvider
+=======
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ProductGrid from './components/product/ProductGrid';
@@ -64,6 +67,7 @@ function App() {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <AuthProvider>
+<<<<<<< HEAD
         <CartProvider> 
           <Router>
             <div className="app">
@@ -85,6 +89,25 @@ function App() {
                     </div>
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+        <Router>
+          <div className="app">
+            <Navbar onSearch={handleSearch} />
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={
+                  <div className="content-wrapper">
+                    <aside className="filter-sidebar">
+                      <ProductFilter onFilterChange={handleFilterChange} />
+                    </aside>
+                    <div className="product-content">
+                      <ProductGrid 
+                        selectedCategory={selectedCategory}
+                        searchResults={searchResults}
+                        filters={filters}
+                      />
+                    </div>
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
                   </div>
                 } />
                 <Route path="/product/:id" element={
@@ -102,6 +125,7 @@ function App() {
                 <Route path="/reset-password/:token" element={
                   <ResetPassword />
                 } />
+<<<<<<< HEAD
                  <Route path="/cart" element={
                   <CartPage/>
                 } />
@@ -121,11 +145,14 @@ function App() {
 >>>>>>> 93241b1 (Pages)
 =======
 >>>>>>> 33d27ad (Checkout/Cart)
+=======
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
               </Routes>
             </main>
             <Footer />
           </div>
         </Router>
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> ea2b2a5 (edit shopping cart and checkout)
@@ -148,6 +175,8 @@ function App() {
 >>>>>>> 23ea5f4 (edit shopping cart and checkout)
 =======
 >>>>>>> ea2b2a5 (edit shopping cart and checkout)
+=======
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
       </AuthProvider>
     </GoogleOAuthProvider>
   );

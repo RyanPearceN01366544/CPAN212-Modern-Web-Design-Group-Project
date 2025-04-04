@@ -88,17 +88,26 @@ const Navbar = () => {
                   className="account-button" 
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
+<<<<<<< HEAD
                   {user.username || 'Account'}
+=======
+                  {user.name}
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
                 </button>
                 {isMenuOpen && (
                   <div className="account-dropdown">
                     <Link 
+<<<<<<< HEAD
                       to="/user" 
+=======
+                      to="/account" 
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
                       onClick={() => {
                         setIsMenuOpen(false);
                         setIsMobileMenuOpen(false);
                       }}
                     >
+<<<<<<< HEAD
                       My Account
                     </Link>
                     <Link 
@@ -109,6 +118,9 @@ const Navbar = () => {
                       }}
                     >
                       My Cart
+=======
+                      Account Info
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
                     </Link>
                     <Link 
                       to="/orders" 
@@ -117,18 +129,34 @@ const Navbar = () => {
                         setIsMobileMenuOpen(false);
                       }}
                     >
+<<<<<<< HEAD
                       My Orders
                     </Link>
                     <button onClick={handleLogout}>
                       Sign Out
+=======
+                      Order Info
+                    </Link>
+                    <button onClick={handleLogout}>
+                      Log Out
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
                     </button>
                   </div>
                 )}
               </>
             ) : (
               <div className="auth-buttons">
+<<<<<<< HEAD
                 <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
                 <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>Register</Link>
+=======
+                <Link to="/signin" onClick={() => setIsMobileMenuOpen(false)}>
+                  Sign In
+                </Link>
+                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
+                  Register
+                </Link>
+>>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
               </div>
             )}
           </div>
