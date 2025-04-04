@@ -1,19 +1,43 @@
 import express from "express";
 import bcrypt from 'bcrypt';
+import nodemailer from 'nodemailer';
+import jwt from 'jsonwebtoken';
 import auth from "../middleware/auth.js";
 import User from "../models/User.js";
 
 const user_router = express.Router();
 
 // == R ==
-// TODO: 
-// Register -> Registers a user.
-// Login -> Login the user with a token.
-// GetCart -> Get the cart.
+// TODO:  
+// Register -> Registers a user. (DONE)
+// Login -> Login the user with a token. (DONE)
+// ForgotPassword -> When the user wants to send a password reset request. (WIP)
+// ResetPassword -> When the user resets their password. (WIP)
+// GetCart -> Get the cart. 
 // GetUserInfo -> Get information about the current user or ID of a using.
-user_router.post("/Register/", async (req, res) => {
-    console.log("=== Registration Request ===");
-    console.log("Request Body:", req.body);
+// == EMAIL STUFF == <- R
+const transporter = nodemailer.createTransport({ // R: Creates an Email!
+  host: process.env.EMAIL_SERVICE,
+  port: 465,
+  auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD
+  }
+})
+let mailOptions = {};
+const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Reset.
+  mailOptions = {
+    from: `"ShopEase Support Employee" <${process.env.EMAIL_USER}>`,
+    to: to_,
+    subject: "Password Reset",
+    text: 'Click the following link to reset your password: http://localhost:5173/Reset-Password/...', // Plain text fallback
+    html: `<p>Click <a href="${resetLink_}">here</a> to reset your password</p>`
+  }
+}
+
+
+// == ROUTES == <- R
+user_router.post("/Register", async (req, res) => {
     try {
         const { username, email, password, firstName, lastName } = req.body;
         console.log("Parsed Data:", { username, email, firstName, lastName });
@@ -47,14 +71,12 @@ user_router.post("/Register/", async (req, res) => {
       }
 });
 
-user_router.post("/Login/", async (req, res) => {
-    console.log("=== Login Request ===");
-    console.log("Request Body:", req.body);
+user_router.get("/Login", async (req, res) => {
     try {
         const { login, password } = req.body;
         console.log("Login attempt with:", { login });
     
-        // Check if the user exists (Using or to get either Username or Email.)
+        // R: Check if the user exists (Using or to get either Username or Email.)
         const user = await User.findOne({ 
             $or:
             [
@@ -68,14 +90,14 @@ user_router.post("/Login/", async (req, res) => {
           return res.status(400).json({ message: "User not found! Please Register!" });
         }
     
-        // Compare the passwords
+        // r: Compare the passwords
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
           console.log("Incorrect password for user:", login);
           return res.status(400).json({ message: "Incorrect Password!" });
         }
     
-        // Generate JWT token
+        // r: Generate JWT token
         const token = auth.generateToken(user);
         console.log("Login successful for user:", login);
     
@@ -90,17 +112,71 @@ user_router.post("/Login/", async (req, res) => {
       }
     }
 );
-
-user_router.get("/Logout/", async(req, res) => {
-    console.log("=== Logout Request ===");
-    res.status(200).json({message: "You have been logged out."});
+user_router.get("/Logout", async(req, res) => {
+  res.status(200).json({message: "You have been logged out."});
 })
+
+user_router.post("/ForgotPassword", async(req, res) => {
+  const {email} = req.body;
+  
+  const existingUser = await User.findOne({ email });
+  if (existingUser)
+  {
+    const token = jwt.sign(
+      {
+        // R: -- Insert Email into Token --
+        email: existingUser.email,
+      },
+      process.env.JWT_SECRET, // R: --> Process Secret
+      { expiresIn: '2h'} // R: --> 2 Hours.
+    );
+    setMailOptions(email, `http://localhost:5173/Reset-Password/${token}`);
+    console.log(mailOptions);
+    transporter.sendMail(mailOptions, (err_, info_) => {
+      if (err_){
+        console.log(err_);
+        console.log(err_.name);
+        console.log(err_.cause);
+        console.log(err_.message);
+      }
+      else{
+        console.log(info_);
+      }
+    });
+    res.json({resetPasswordToken: token});
+  }
+  else {
+    res.status(401).json({message: "User doesn't exist!"})
+  }
+})
+user_router.post("/ResetPassword", async(req, res) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+  const {email, newPassword} = req.body;
+
+  if (!token) {
+    return res.status(401).json({message: "Authorization token required!"});
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user_ = User.findOne({email});
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    if (user_ && decoded) {
+      User.findOneAndUpdate({email}, {$set: {password: hashedPassword}});
+    }
+    else{
+      return res.status(401).json({message: "User doesn't exist!"});
+    }
+  }
+  catch (err){
+    return res.status(400).json({message: "Invalid or expired token!"});
+  }
+});
 
 
 // R: Using prefix 'Get' before id... otherwise it thinks 'Register' is the :id.
-user_router.get("/Get/", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
-    console.log("=== Get User Info Request ===");
-    console.log("User:", req.user);
+user_router.get("/Get", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
     if (req.user) { // R: Is the user existing? If so then...
         res.json(req.user);
     } // R: Otherwise, do nothing as verifyToken will stop them.

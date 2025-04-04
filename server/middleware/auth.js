@@ -13,8 +13,8 @@ const generateToken = (user) => {
             lastName: user.lastName,
             permissions: user.permissions
         },
-        process.env.JWT_SECRET, // R: -- Process Secret --
-        { expiresIn: '1d'} // R: -- 
+        process.env.JWT_SECRET, // R: --> Process Secret
+        { expiresIn: '1d'} // R: --> 1 Day
     );
 }
 
