@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ProductGrid from './components/product/ProductGrid';
@@ -52,45 +53,47 @@ function App() {
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <Router>
-        <div className="app">
-          <Navbar onSearch={handleSearch} />
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={
-                <div className="content-wrapper">
-                  <aside className="filter-sidebar">
-                    <ProductFilter onFilterChange={handleFilterChange} />
-                  </aside>
-                  <div className="product-content">
-                    <ProductGrid 
-                      selectedCategory={selectedCategory}
-                      searchResults={searchResults}
-                      filters={filters}
-                    />
+      <AuthProvider>
+        <Router>
+          <div className="app">
+            <Navbar onSearch={handleSearch} />
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={
+                  <div className="content-wrapper">
+                    <aside className="filter-sidebar">
+                      <ProductFilter onFilterChange={handleFilterChange} />
+                    </aside>
+                    <div className="product-content">
+                      <ProductGrid 
+                        selectedCategory={selectedCategory}
+                        searchResults={searchResults}
+                        filters={filters}
+                      />
+                    </div>
                   </div>
-                </div>
-              } />
-              <Route path="/product/:id" element={
-                <ProductDetail />
-              } />
-              <Route path="/signin" element={
-                <SignIn />
-              } />
-              <Route path="/register" element={
-                <Register />
-              } />
-              <Route path="/forgot-password" element={
-                <ForgotPassword />
-              } />
-              <Route path="/reset-password/:token" element={
-                <ResetPassword />
-              } />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
+                } />
+                <Route path="/product/:id" element={
+                  <ProductDetail />
+                } />
+                <Route path="/signin" element={
+                  <SignIn />
+                } />
+                <Route path="/register" element={
+                  <Register />
+                } />
+                <Route path="/forgot-password" element={
+                  <ForgotPassword />
+                } />
+                <Route path="/reset-password/:token" element={
+                  <ResetPassword />
+                } />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </AuthProvider>
     </GoogleOAuthProvider>
   );
 }
