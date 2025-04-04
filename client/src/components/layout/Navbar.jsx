@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import CategoryNav from './CategoryNav';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -39,74 +40,81 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  const handleCategorySelect = (category) => {
+    console.log('Selected category:', category);
+  };
+
   return (
-    <nav className="navbar">
-      <div className="nav-brand">
-        <Link to="/">ShopEase</Link>
-      </div>
-      
-      <button className="mobile-menu-button" onClick={toggleMobileMenu}>
-        {isMobileMenuOpen ? '✕' : '☰'}
-      </button>
-
-      <div className="nav-search">
-        <input type="text" placeholder="Search products..." />
-        <button>Search</button>
-      </div>
-
-      <div className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-        <Link to="/cart" className="nav-cart" onClick={() => setIsMobileMenuOpen(false)}>
-          Cart <span className="cart-count">0</span>
-        </Link>
-        
-        <div className="nav-account" ref={menuRef}>
-          {user ? (
-            <>
-              <button 
-                className="account-button" 
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                {user.name}
-              </button>
-              {isMenuOpen && (
-                <div className="account-dropdown">
-                  <Link 
-                    to="/account" 
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    Account Info
-                  </Link>
-                  <Link 
-                    to="/orders" 
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    Order Info
-                  </Link>
-                  <button onClick={handleLogout}>
-                    Log Out
-                  </button>
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="auth-buttons">
-              <Link to="/signin" onClick={() => setIsMobileMenuOpen(false)}>
-                Sign In
-              </Link>
-              <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
-                Register
-              </Link>
-            </div>
-          )}
+    <header>
+      <nav className="navbar">
+        <div className="nav-brand">
+          <Link to="/">ShopEase</Link>
         </div>
-      </div>
-    </nav>
+        
+        <button className="mobile-menu-button" onClick={toggleMobileMenu}>
+          {isMobileMenuOpen ? '✕' : '☰'}
+        </button>
+
+        <div className="nav-search">
+          <input type="text" placeholder="Search products..." />
+          <button>Search</button>
+        </div>
+
+        <div className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+          <Link to="/cart" className="nav-cart" onClick={() => setIsMobileMenuOpen(false)}>
+            Cart <span className="cart-count">0</span>
+          </Link>
+          
+          <div className="nav-account" ref={menuRef}>
+            {user ? (
+              <>
+                <button 
+                  className="account-button" 
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                  {user.name}
+                </button>
+                {isMenuOpen && (
+                  <div className="account-dropdown">
+                    <Link 
+                      to="/account" 
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      Account Info
+                    </Link>
+                    <Link 
+                      to="/orders" 
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      Order Info
+                    </Link>
+                    <button onClick={handleLogout}>
+                      Log Out
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="auth-buttons">
+                <Link to="/signin" onClick={() => setIsMobileMenuOpen(false)}>
+                  Sign In
+                </Link>
+                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
+                  Register
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      </nav>
+      <CategoryNav onCategorySelect={handleCategorySelect} />
+    </header>
   );
 };
 
