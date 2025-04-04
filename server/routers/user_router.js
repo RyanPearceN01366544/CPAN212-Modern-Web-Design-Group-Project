@@ -43,6 +43,7 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 // == ROUTES == <- R
 <<<<<<< HEAD
@@ -70,6 +71,11 @@ user_router.put("/Register", async (req, res) => {
 // == ROUTES == <- R
 user_router.post("/Register", async (req, res) => {
 >>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
+=======
+// R: == ROUTES ==
+// R: -- REGISTRY --
+user_router.put("/Register", async (req, res) => {
+>>>>>>> a6f76e3 (Fixed Dumb Mistake.)
     try {
         const { username, email, password, firstName, lastName } = req.body;
         console.log("Parsed Data:", { username, email, firstName, lastName });
@@ -117,6 +123,7 @@ user_router.post("/Register", async (req, res) => {
 });
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -139,6 +146,9 @@ user_router.post("/Login", async (req, res) => {
 =======
 user_router.get("/Login", async (req, res) => {
 >>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
+=======
+user_router.post("/Login", async (req, res) => {
+>>>>>>> a6f76e3 (Fixed Dumb Mistake.)
     try {
         const { login, password } = req.body;
         console.log("Login attempt with:", { login });
@@ -184,6 +194,7 @@ user_router.get("/Login", async (req, res) => {
 user_router.get("/Logout", async(req, res) => {
   res.status(200).json({message: "You have been logged out."});
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 user_router.get("/Logout/", async(req, res) => {
@@ -196,6 +207,8 @@ user_router.get("/Logout/", async(req, res) => {
 user_router.get("/Logout", async(req, res) => {
   res.status(200).json({message: "You have been logged out."});
 >>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
+=======
+>>>>>>> a6f76e3 (Fixed Dumb Mistake.)
 })
 // R: -- FORGOT/CHANGE PASSWORD --
 user_router.post("/ForgotPassword", async(req, res) => {
@@ -255,6 +268,7 @@ user_router.post("/ResetPassword", async(req, res) => {
     }
     else{
 <<<<<<< HEAD
+<<<<<<< HEAD
       return res.status(401).json({message: "User Doesn't Exist!"});
     }
   }
@@ -283,21 +297,32 @@ user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through
 >>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
 =======
       return res.status(401).json({message: "User doesn't exist!"});
+=======
+      return res.status(401).json({message: "User Doesn't Exist!"});
+>>>>>>> a6f76e3 (Fixed Dumb Mistake.)
     }
   }
   catch (err){
-    return res.status(400).json({message: "Invalid or expired token!"});
+    return res.status(400).json({message: "Invalid or Expired Token!"});
   }
 });
 
+<<<<<<< HEAD
 
 // R: Using prefix 'Get' before id... otherwise it thinks 'Register' is the :id.
 user_router.get("/Get", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
 >>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
+=======
+// -- USER DATA & MANAGEMENT --
+// R: Using prefix 'Info' before id... otherwise it thinks 'Register' or other routes are the :id.
+// R: The route below this is for the user requesting information of their own account.
+user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
+>>>>>>> a6f76e3 (Fixed Dumb Mistake.)
     if (req.user) { // R: Is the user existing? If so then...
         res.json(req.user);
     } // R: Otherwise, do nothing as verifyToken will stop them.
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -316,8 +341,12 @@ user_router.get('/Get/:id', auth.verifyToken, async(req, res) => { // R: Get Inf
 user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
     const userID = req.user.userID; // R: Get the requesting user's id.
 >>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
+=======
+// R: The route below is the same as above but it's when a user requests the data of a specific user.
+user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
+    const userID = req.user.userID; // R: Get the requesting user's id.
+>>>>>>> a6f76e3 (Fixed Dumb Mistake.)
     const lookupID = req.params.id; // R: The user's information that is being requested.
-    console.log("Looking up user:", lookupID);
 
     const requestingUser = await User.findById(userID); // R: The user requesting this information.
     const lookupUser = await User.findById(lookupID); // R: The user being looked up.
@@ -327,6 +356,9 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
         return res.status(404).json({ message: "User not found." });
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a6f76e3 (Fixed Dumb Mistake.)
     // R: Continue and get the privacy settings versus permissions.
     let dataToSend_ = {};
     if (requestingUser.permissionLevel >= 2 && requestingUser.permissionLevel > lookupUser.permissionLevel) { 
@@ -350,6 +382,7 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
         address: "[Hidden]", // R: Should always be hidden from users.
       }
     }
+<<<<<<< HEAD
 
     return res.json(dataToSend_); // R: This will send the appropriate data.
 });
@@ -535,20 +568,121 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
   }
 });
 =======
+=======
+>>>>>>> a6f76e3 (Fixed Dumb Mistake.)
 
-    res.json(lookupUser); // R: Return the user's information.
+    return res.json(dataToSend_); // R: This will send the appropriate data.
+});
+// R: The last of these routes are the same but they set data.
+user_router.post("/Info", auth.verifyToken, async(req, res) => {
+  try{
+    const user = await User.findById(req.user.userID);
+    if (!user){
+      return res.json({message: "Missing User!"});
+    }
+
+    Object.keys(req.body).forEach((key) => { // R: Get each variable inside req.body
+      if (user[key] !== undefined && key !== "privacySettings" && key != "permissionLevel") { // R: Check if the user's var is in the Schema.
+        user[key] = req.body[key]; // R: Update the user's var.
+      }
+      else if (key === "privacySettings"){ // R: Addition to avoid mistakes.
+        Object.keys(user[key]).forEach((setting) => { // R: So, it will go through privacySettings and check if it is undefined, if it is then set it to what it's already at.
+          user[key][setting] = req.body[key][setting] !== undefined ? req.body[key][setting] : user[key][setting];
+        })
+      }
+    });
+    await user.save(); // R: Save the user.
+    return res.json({message: "Account Edited!"});
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An unexpected error has occured!"});
+  }
+});
+user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
+  try{ // R: Same thing but we check the user's permissionLevel and the user's permissionLevel.
+    const user = await User.findById(req.user.userID);
+    const target = await User.findById(req.params.id);
+    if (!user){
+      return res.json({message: "Missing User!"});
+    }
+    if (!target){
+      return res.json({message: "Missing Target!"});
+    }
+    if (user.permissionLevel <= 2 || user.permissionLevel <= target.permissionLevel)
+    {
+      return res.json({message: "You can't change the information of this account. You don't have the proper authority."});
+    }
+
+    Object.keys(req.body).forEach((key) => { // R: Same thing as PUT /Info route.
+      if (target[key] !== undefined && key !== "privacySettings" && key !== "permissionLevel") { // R: All except privacy settings, don't change that.
+        target[key] = req.body[key];
+      }
+      else if (key === "permissionLevel"){
+        if (req.body[key] >= user[key]) {
+          target[key] = (user[key] - 1) < 0 ? 0 : user[key] - 1; // Make it one below their rank.
+        }
+        else {
+          target[key] = req.body[key];
+        }
+      }
+    });
+    await target.save(); // R: Save the user.
+    res.json({message: "Account Edited!"});
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An Unexpected Error has Occurred!"});
+  }
 });
 >>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
 
-
 // R: == CART ROUTERS ==
-user_router.get("/Cart/Add", auth.verifyToken, (req, res) => {
-  const {itemID, quantity} = req.body;
-  const userData = User.findById(req.user);
+user_router.get("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    await User.findById(req.user.userID).then((user) => {
+      res.json({cart: user.cart});
+    })
+  }
+  catch (err_) {
+    console.log(err_);
+    res.status(400).json({message: "An Unexpected Error has Occurred!"});
+  }
+})
+
+user_router.post("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = await User.findById(req.user.userID);
+    
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An Unexpected Error Has Occured!"});
+  }
+});
+
+user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = User.findById(req.user.userID);
   
-  let newCart_ = userData.cart;
-  newCart_.push();
-  User.findByIdAndUpdate({_id: req.user._id}, {$set: {cart: newCart_}})
+    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
+      if (user.cart[x].product === product){ // R: if the product is the same key we're looking for...
+        user.cart[x].quantity -= quantity; // R: Decrease by quantity.
+        if (user.cart[x].quantity <= 0) { // R: If the quantity is too low...
+          user.cart.splice(x, 1); // R: Remove it from the array.
+        }
+        break; // R: Stop the loop.
+      }
+    }
+    await user.save(); // R: Save changes.
+    return res.json(user.cart); // R: Return the cart.
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An unexpected error has occured."});
+  }
 });
 
 export default user_router;
