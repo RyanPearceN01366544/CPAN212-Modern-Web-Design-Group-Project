@@ -49,6 +49,7 @@ const userSchema = mongoose.Schema(
         balance: {
             type: Number,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             required: true,
         },
@@ -64,6 +65,15 @@ const userSchema = mongoose.Schema(
             hideAddress: {type: Boolean, required: true, default: true},
         },
 <<<<<<< HEAD
+=======
+            required: true,
+        },
+        cart: {
+            type: [Object],
+            required: true,
+            enum: []
+        },
+>>>>>>> b397ff3 (Added Router Stuff (WIP))
         permissions: {
             type: [String],
 >>>>>>> 8f0a197 (Added Router Stuff (WIP))
