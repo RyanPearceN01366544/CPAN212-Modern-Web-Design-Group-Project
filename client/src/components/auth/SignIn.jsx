@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import { FaEnvelope, FaLock, FaGoogle } from 'react-icons/fa';
+import authService from '../../services/auth.service';
 import './Auth.css';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
-    email: '',
+    login: '',
     password: ''
   });
   const [error, setError] = useState('');
@@ -19,24 +20,8 @@ const SignIn = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
-      // Store user data in localStorage
-      localStorage.setItem('user', JSON.stringify(data.user));
-      
-      // Redirect to home page
+      const response = await authService.login(formData.login, formData.password);
+      setIsLoading(false);
       navigate('/');
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.');
@@ -108,10 +93,10 @@ const SignIn = () => {
             <div className="input-icon">
               <FaEnvelope />
               <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
+                type="text"
+                name="login"
+                placeholder="Email or Username"
+                value={formData.login}
                 onChange={handleChange}
                 required
               />
@@ -130,7 +115,9 @@ const SignIn = () => {
               />
             </div>
           </div>
-          <button type="submit" className="auth-button" disabled={isLoading}>Sign In</button>
+          <button type="submit" className="auth-button" disabled={isLoading}>
+            {isLoading ? 'Signing in...' : 'Sign In'}
+          </button>
           
           <div className="divider">
             <span>or</span>
