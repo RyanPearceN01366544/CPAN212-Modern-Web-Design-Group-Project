@@ -434,4 +434,16 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
   }
 });
 
+
+// R: == CART ROUTERS ==
+user_router.get("/Cart/Add", auth.verifyToken, (req, res) => {
+  const {itemID, quantity} = req.body;
+  const userData = User.findById(req.user);
+  
+  let newCart_ = userData.cart;
+  newCart_.push();
+  User.findByIdAndUpdate({_id: req.user._id}, {$set: {cart:}})
+
+});
+
 export default user_router;
