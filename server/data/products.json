@@ -1,0 +1,159 @@
+[
+    {
+      "sku": "GEN-SHO-MEN-1001",
+      "name": "Men's Running Shoes - Black",
+      "images": {
+        "link1": "https://example.com/images/menshoe_black.png"
+      },
+      "price": 75.00,
+      "itemsLeft": 20,
+      "category": "Shoes",
+      "type": "Running Shoes",
+      "target": "Men",
+      "color": "Black"
+    },
+    {
+      "sku": "GEN-SHO-MEN-1002",
+      "name": "Men's Running Shoes - White",
+      "images": {
+        "link1": "https://example.com/images/menshoe_white.png"
+      },
+      "price": 75.00,
+      "itemsLeft": 15,
+      "category": "Shoes",
+      "type": "Running Shoes",
+      "target": "Men",
+      "color": "White"
+    },
+    {
+      "sku": "GEN-CLO-MEN-2001",
+      "name": "Men's Basic T-Shirt - Blue",
+      "images": {
+        "link1": "https://example.com/images/mentee_blue.png"
+      },
+      "price": 20.00,
+      "itemsLeft": 50,
+      "category": "Clothing",
+      "type": "T-Shirt",
+      "target": "Men",
+      "color": "Blue"
+    },
+    {
+      "sku": "GEN-CLO-MEN-2002",
+      "name": "Men's Basic T-Shirt - Gray",
+      "images": {
+        "link1": "https://example.com/images/mentee_gray.png"
+      },
+      "price": 20.00,
+      "itemsLeft": 45,
+      "category": "Clothing",
+      "type": "T-Shirt",
+      "target": "Men",
+      "color": "Gray"
+    },
+    {
+      "sku": "GEN-CLO-WOM-3001",
+      "name": "Women's Summer Dress - Yellow",
+      "images": {
+        "link1": "https://example.com/images/womdress_yellow.png"
+      },
+      "price": 35.00,
+      "itemsLeft": 30,
+      "category": "Clothing",
+      "type": "Dress",
+      "target": "Women",
+      "color": "Yellow"
+    },
+    {
+      "sku": "GEN-CLO-WOM-3002",
+      "name": "Women's Summer Dress - Floral",
+      "images": {
+        "link1": "https://example.com/images/womdress_floral.png"
+      },
+      "price": 35.00,
+      "itemsLeft": 28,
+      "category": "Clothing",
+      "type": "Dress",
+      "target": "Women",
+      "color": "Floral"
+    },
+    {
+      "sku": "GEN-ACC-WOM-4001",
+      "name": "Women's Shoulder Bag - Beige",
+      "images": {
+        "link1": "https://example.com/images/wombag_beige.png"
+      },
+      "price": 40.00,
+      "itemsLeft": 14,
+      "category": "Accessories",
+      "type": "Bag",
+      "target": "Women",
+      "color": "Beige"
+    },
+    {
+      "sku": "GEN-ACC-WOM-4002",
+      "name": "Women's Shoulder Bag - Navy",
+      "images": {
+        "link1": "https://example.com/images/wombag_navy.png"
+      },
+      "price": 40.00,
+      "itemsLeft": 12,
+      "category": "Accessories",
+      "type": "Bag",
+      "target": "Women",
+      "color": "Navy"
+    },
+    {
+      "sku": "GEN-SHO-KID-5001",
+      "name": "Kids' Sneakers - Red",
+      "images": {
+        "link1": "https://example.com/images/kidsneaker_red.png"
+      },
+      "price": 30.00,
+      "itemsLeft": 35,
+      "category": "Shoes",
+      "type": "Sneakers",
+      "target": "Boys",
+      "color": "Red"
+    },
+    {
+      "sku": "GEN-CLO-GIR-6001",
+      "name": "Girls' Graphic T-Shirt - Pink",
+      "images": {
+        "link1": "https://example.com/images/girltshirt_pink.png"
+      },
+      "price": 18.00,
+      "itemsLeft": 40,
+      "category": "Clothing",
+      "type": "T-Shirt",
+      "target": "Girls",
+      "color": "Pink"
+    },
+    {
+      "sku": "GEN-CLO-GIR-6002",
+      "name": "Girls' Graphic T-Shirt - Purple",
+      "images": {
+        "link1": "https://example.com/images/girltshirt_purple.png"
+      },
+      "price": 18.00,
+      "itemsLeft": 40,
+      "category": "Clothing",
+      "type": "T-Shirt",
+      "target": "Girls",
+      "color": "Purple"
+    },
+    {
+      "sku": "GEN-ACC-UNI-7001",
+      "name": "Unisex Canvas Backpack - Green",
+      "images": {
+        "link1": "https://example.com/images/backpack_green.png"
+      },
+      "price": 32.00,
+      "itemsLeft": 20,
+      "category": "Accessories",
+      "type": "Bag",
+      "target": "Unisex",
+      "color": "Green"
+    }
+  ]
+  
