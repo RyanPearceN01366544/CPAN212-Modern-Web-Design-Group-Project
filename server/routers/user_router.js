@@ -211,7 +211,6 @@ user_router.get("/Get/", auth.verifyToken, (req, res) => { // R: Passing through
         res.json(req.user);
     } // R: Otherwise, do nothing as verifyToken will stop them.
 });
-
 user_router.get('/Get/:id', auth.verifyToken, async(req, res) => { // R: Get Information obout user.
     console.log("=== Get User By ID Request ===");
     const userID = req.user; // R: Get the requesting user's id.
@@ -227,6 +226,18 @@ user_router.get('/Get/:id', auth.verifyToken, async(req, res) => { // R: Get Inf
     }
 
     res.json(lookupUser); // R: Return the user's information.
+});
+
+
+// R: == CART ROUTERS ==
+user_router.get("/Cart/Add", auth.verifyToken, (req, res) => {
+  const {itemID, quantity} = req.body;
+  const userData = User.findById(req.user);
+  
+  let newCart_ = userData.cart;
+  newCart_.push();
+  User.findByIdAndUpdate({_id: req.user._id}, {$set: {cart:}})
+
 });
 
 export default user_router;
