@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
+import authService from '../../services/auth.service';
 import './Auth.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    firstName: '',
+    lastName: ''
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,41 +30,12 @@ const Register = () => {
     }
 
     try {
-      console.log('Sending registration request:', {
-        name: formData.name,
-        email: formData.email
-      });
-
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password
-        }),
-      });
-
-      const data = await response.json();
-      console.log('Registration response:', data);
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
-      }
-
-      // Store user data
-      localStorage.setItem('user', JSON.stringify({
-        name: data.user.name,
-        email: data.user.email
-      }));
-
-      // Redirect to home page
-      navigate('/');
+      const { confirmPassword, ...registrationData } = formData;
+      await authService.register(registrationData);
+      navigate('/signin');
     } catch (err) {
-      console.error('Registration error:', err);
       setError(err.message || 'Registration failed. Please try again.');
+      console.error('Registration error:', err);
     } finally {
       setIsLoading(false);
     }
@@ -85,9 +59,35 @@ const Register = () => {
               <FaUser />
               <input
                 type="text"
-                name="name"
-                placeholder="Full Name"
-                value={formData.name}
+                name="username"
+                placeholder="Username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="input-icon">
+              <FaUser />
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="input-icon">
+              <FaUser />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
                 onChange={handleChange}
                 required
               />
@@ -116,7 +116,6 @@ const Register = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                minLength={8}
               />
             </div>
           </div>
@@ -130,15 +129,10 @@ const Register = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-                minLength={8}
               />
             </div>
           </div>
-          <button 
-            type="submit" 
-            className="auth-button"
-            disabled={isLoading}
-          >
+          <button type="submit" className="auth-button" disabled={isLoading}>
             {isLoading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>

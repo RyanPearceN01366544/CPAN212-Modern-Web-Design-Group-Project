@@ -1,36 +1,41 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from "dotenv";
 import mongoose from 'mongoose';
-import user_router from './routers/user_router.js';
-import product_router from './routers/product_router.js';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import userRouter from './routers/user_router.js';
+import productRouter from './routers/product_router.js';
 
-dotenv.config(); // R: Doesn't look nice but order of operations. Make sure to init the dotenv before setting PORT.
-const PORT = process.env.PORT || 8000;
+dotenv.config();
+
 const app = express();
-const corsOptions = { // R: Setting up Cors.
-    origin: 'http://localhost:5173', // R: Default VITE port.
-    method: ["GET", "POST", 'PUT', "DELETE"],
-};
-app.use(cors(corsOptions));
+const PORT = process.env.PORT || 8000;
+
+// Middleware
+app.use(cors({
+    origin: 'http://localhost:5173', // Allow client application
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
 
-// Routers
-app.use('/User/', user_router);
-app.use('/Product/', product_router);
-
-// Start Up.
-mongoose.connect(process.env.MONGODB_URL)
-    .then(() => {
-        console.log("DB is Connected!");
-        app.listen(PORT, () => {
-            console.log(`http://localhost:${PORT}`);
-        })
-    }
-);
+// Routes
+app.use('/User', userRouter);
+app.use('/Product', productRouter);
 
 // Unknown Website Exception Catching.
 app.use("", (req, res) => {
-  res.status(404).send("Page not found!");
+    res.status(404).json({ message: "Resource not found" });
 });
+
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/shopease')
+    .then(() => {
+        console.log('Connected to MongoDB');
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    })
+    .catch((error) => {
+        console.error('MongoDB connection error:', error);
+    });
