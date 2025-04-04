@@ -207,7 +207,7 @@ user_router.get("/Cart/Add", auth.verifyToken, (req, res) => {
   
   let newCart_ = userData.cart;
   newCart_.push();
-  User.findByIdAndUpdate({_id: req.user._id}, {$set: {cart:}})
+  User.findByIdAndUpdate({_id: req.user._id}, {$set: {cart: newCart_}})
 
 });
 
