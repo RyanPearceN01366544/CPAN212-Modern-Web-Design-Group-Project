@@ -351,6 +351,7 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
     const userID = req.user.userID; // R: Get the requesting user's id.
 >>>>>>> a6f76e3 (Fixed Dumb Mistake.)
     const lookupID = req.params.id; // R: The user's information that is being requested.
+    console.log("Looking up user:", lookupID);
 
     const requestingUser = await User.findById(userID); // R: The user requesting this information.
     const lookupUser = await User.findById(lookupID); // R: The user being looked up.
