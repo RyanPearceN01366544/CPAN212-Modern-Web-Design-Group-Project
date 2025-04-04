@@ -4,7 +4,9 @@ import auth from "../middleware/auth.js";
 
 const product_router = express.Router();
 
-// GET all products (short list)
+// == ROUTES ==
+
+// 🔍 GET all products (limit to 10 for preview)
 product_router.get("/", async (req, res) => {
   try {
     const products = await Product.find().limit(10);
@@ -14,7 +16,7 @@ product_router.get("/", async (req, res) => {
   }
 });
 
-// GET product by SKU
+// 🔍 GET product by SKU
 product_router.get("/:sku", async (req, res) => {
   try {
     const product = await Product.findOne({ sku: req.params.sku });
@@ -26,14 +28,32 @@ product_router.get("/:sku", async (req, res) => {
   }
 });
 
-// POST new product (optional: admin only)
+// 🧠 FILTER products by query (category, gender, type, color)
+product_router.get("/filter/search", async (req, res) => {
+  const { category, gender, type, color } = req.query;
+
+  const filter = {};
+  if (category) filter.category = category;
+  if (gender) filter.gender = gender;
+  if (type) filter.type = type;
+  if (color) filter.color = color;
+
+  try {
+    const products = await Product.find(filter);
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to filter products" });
+  }
+});
+
+// ➕ POST new product (secure with token)
 product_router.post("/", auth.verifyToken, async (req, res) => {
   try {
     const user = req.user;
 
-    // TODO: You can check for admin permissions here if needed
+    // TODO: Optional permission check
     // if (!user.permissions?.includes("CreateProduct")) {
-    //   return res.status(403).json({ message: "Not authorized" });
+    //   return res.status(403).json({ message: "Not authorized to add products" });
     // }
 
     const newProduct = new Product(req.body);
