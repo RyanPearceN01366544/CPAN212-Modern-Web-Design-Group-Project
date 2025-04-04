@@ -48,6 +48,18 @@ const userSchema = mongoose.Schema(
         },
         balance: {
             type: Number,
+<<<<<<< HEAD
+=======
+            required: true,
+        },
+        cart: {
+            type: [Object],
+            required: true,
+            enum: []
+        },
+        permissions: {
+            type: [String],
+>>>>>>> 8f0a197 (Added Router Stuff (WIP))
             required: true,
         },
         cart: [{
