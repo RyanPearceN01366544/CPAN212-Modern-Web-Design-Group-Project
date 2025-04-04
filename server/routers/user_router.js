@@ -366,7 +366,6 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
     const userID = req.user.userID; // R: Get the requesting user's id.
 >>>>>>> a6f76e3 (Fixed Dumb Mistake.)
     const lookupID = req.params.id; // R: The user's information that is being requested.
-    console.log("Looking up user:", lookupID);
 
     const requestingUser = await User.findById(userID); // R: The user requesting this information.
     const lookupUser = await User.findById(lookupID); // R: The user being looked up.
@@ -787,15 +786,52 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
   }
 });
 
-
 // R: == CART ROUTERS ==
-user_router.get("/Cart/Add", auth.verifyToken, (req, res) => {
-  const {itemID, quantity} = req.body;
-  const userData = User.findById(req.user);
+user_router.get("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    await User.findById(req.user.userID).then((user) => {
+      res.json({cart: user.cart});
+    })
+  }
+  catch (err_) {
+    console.log(err_);
+    res.status(400).json({message: "An Unexpected Error has Occurred!"});
+  }
+})
+
+user_router.post("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = await User.findById(req.user.userID);
+    
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An Unexpected Error Has Occured!"});
+  }
+});
+
+user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = User.findById(req.user.userID);
   
-  let newCart_ = userData.cart;
-  newCart_.push();
-  User.findByIdAndUpdate({_id: req.user._id}, {$set: {cart: newCart_}})
+    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
+      if (user.cart[x].product === product){ // R: if the product is the same key we're looking for...
+        user.cart[x].quantity -= quantity; // R: Decrease by quantity.
+        if (user.cart[x].quantity <= 0) { // R: If the quantity is too low...
+          user.cart.splice(x, 1); // R: Remove it from the array.
+        }
+        break; // R: Stop the loop.
+      }
+    }
+    await user.save(); // R: Save changes.
+    return res.json(user.cart); // R: Return the cart.
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An unexpected error has occured."});
+  }
 });
 
 export default user_router;
