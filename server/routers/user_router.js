@@ -16,6 +16,9 @@ const user_router = express.Router();
 // GetCart -> Get the cart. 
 // GetUserInfo -> Get information about the current user or ID of a using.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
 
 // == EMAIL STUFF == <- R
 const transporter = nodemailer.createTransport({ // R: Creates an Email!
@@ -37,6 +40,7 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
   }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -61,6 +65,11 @@ user_router.put("/Register", async (req, res) => {
 // R: -- REGISTRY --
 user_router.put("/Register", async (req, res) => {
 >>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
+=======
+
+// == ROUTES == <- R
+user_router.post("/Register", async (req, res) => {
+>>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
     try {
         const { username, email, password, firstName, lastName } = req.body;
         console.log("Parsed Data:", { username, email, firstName, lastName });
@@ -111,6 +120,7 @@ user_router.put("/Register", async (req, res) => {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 user_router.get("/Login", async (req, res) => {
 =======
 user_router.post("/Login/", async (req, res) => {
@@ -126,6 +136,9 @@ user_router.post("/Login", async (req, res) => {
 =======
 user_router.post("/Login", async (req, res) => {
 >>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
+=======
+user_router.get("/Login", async (req, res) => {
+>>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
     try {
         const { login, password } = req.body;
         console.log("Login attempt with:", { login });
@@ -167,6 +180,7 @@ user_router.post("/Login", async (req, res) => {
     }
 );
 <<<<<<< HEAD
+<<<<<<< HEAD
 user_router.get("/Logout", async(req, res) => {
   res.status(200).json({message: "You have been logged out."});
 <<<<<<< HEAD
@@ -178,11 +192,21 @@ user_router.get("/Logout/", async(req, res) => {
 >>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
 =======
 >>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
+=======
+user_router.get("/Logout", async(req, res) => {
+  res.status(200).json({message: "You have been logged out."});
+>>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
 })
 // R: -- FORGOT/CHANGE PASSWORD --
 user_router.post("/ForgotPassword", async(req, res) => {
   const {email} = req.body;
 
+<<<<<<< HEAD
+=======
+user_router.post("/ForgotPassword", async(req, res) => {
+  const {email} = req.body;
+
+>>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
   const existingUser = await User.findOne({ email });
   if (existingUser)
   {
@@ -230,6 +254,7 @@ user_router.post("/ResetPassword", async(req, res) => {
       User.findOneAndUpdate({email}, {$set: {password: hashedPassword}});
     }
     else{
+<<<<<<< HEAD
       return res.status(401).json({message: "User Doesn't Exist!"});
     }
   }
@@ -256,6 +281,19 @@ user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through
 >>>>>>> 051283f (Fixed Dumb Mistake.)
 =======
 >>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
+=======
+      return res.status(401).json({message: "User doesn't exist!"});
+    }
+  }
+  catch (err){
+    return res.status(400).json({message: "Invalid or expired token!"});
+  }
+});
+
+
+// R: Using prefix 'Get' before id... otherwise it thinks 'Register' is the :id.
+user_router.get("/Get", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
+>>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
     if (req.user) { // R: Is the user existing? If so then...
         res.json(req.user);
     } // R: Otherwise, do nothing as verifyToken will stop them.
