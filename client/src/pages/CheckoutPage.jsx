@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState } from "react";
 =======
 import React from "react";
@@ -95,31 +96,18 @@ import React from "react";
 =======
 import React, { useState } from "react";
 >>>>>>> c9bb840 (Checkout/Cart)
+=======
+import React from "react";
+>>>>>>> b501ffc (Pages)
 import { useNavigate } from "react-router-dom";
 import "./Checkout.css";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    payment: "Credit Card",
-  });
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.address) {
-      alert("Please fill out all required fields.");
-      return;
-    }
+  const handleCheckout = () => {
     alert("Thank you for your purchase!");
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -142,6 +130,9 @@ const CheckoutPage = () => {
 =======
     navigate("/");
 >>>>>>> c9bb840 (Checkout/Cart)
+=======
+    navigate("/"); // Redirect to homepage or shop
+>>>>>>> b501ffc (Pages)
   };
 
   return (
@@ -221,29 +212,14 @@ const CheckoutPage = () => {
 >>>>>>> 33d27ad (Checkout/Cart)
 =======
       <p>Enter your details to complete the purchase.</p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name<span>*</span>:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Your Full Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+      <form>
+        <label>Name:</label>
+        <input type="text" placeholder="Your Name" required />
 
-        <label htmlFor="address">Address<span>*</span>:</label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          placeholder="Shipping Address"
-          value={formData.address}
-          onChange={handleChange}
-          required
-        />
+        <label>Address:</label>
+        <input type="text" placeholder="Your Address" required />
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -280,11 +256,16 @@ const CheckoutPage = () => {
 >>>>>>> 1d4ac54 (Pages)
 =======
 >>>>>>> c9bb840 (Checkout/Cart)
+=======
+        <label>Payment Method:</label>
+        <select required>
+>>>>>>> b501ffc (Pages)
           <option>Credit Card</option>
           <option>PayPal</option>
           <option>Cash on Delivery</option>
         </select>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -312,6 +293,9 @@ const CheckoutPage = () => {
 =======
         <button type="submit" className="confirm-btn">
 >>>>>>> c9bb840 (Checkout/Cart)
+=======
+        <button type="submit" className="confirm-btn" onClick={handleCheckout}>
+>>>>>>> b501ffc (Pages)
           Confirm Order
         </button>
       </form>
