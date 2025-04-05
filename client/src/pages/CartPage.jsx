@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext"; // Import CartContext
@@ -33,11 +34,19 @@ const CartPage = ({ cart = [], setCart = () => {} }) => {
 >>>>>>> 33d27ad (Checkout/Cart)
 =======
 >>>>>>> cbd676a (Pages)
+=======
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./Cart.css";
+
+const CartPage = ({ cart = [], setCart = () => {} }) => {
+>>>>>>> 90c915d (Checkout/Cart)
   const navigate = useNavigate();
 
   const updateQuantity = (id, amount) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -55,6 +64,11 @@ const CartPage = ({ cart = [], setCart = () => {} }) => {
 =======
         item.id === id ? { ...item, quantity: Math.max(1, item.quantity + amount) } : item
 >>>>>>> cbd676a (Pages)
+=======
+        item.id === id
+          ? { ...item, quantity: Math.max(1, item.quantity + amount) }
+          : item
+>>>>>>> 90c915d (Checkout/Cart)
       )
     );
   };

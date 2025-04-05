@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./User.css";
 
 const UserPage = () => {
+<<<<<<< HEAD
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -10,12 +11,21 @@ const UserPage = () => {
 
   const [isEditing, setIsEditing] = useState(true); 
 
+=======
+  const [user] = useState({
+    name: "John Doe",
+    email: "john.doe@example.com",
+    address: "123 Main Street, New York, NY",
+  });
+
+>>>>>>> 90c915d (Checkout/Cart)
   const [orders] = useState([
     { id: 1, date: "2025-04-01", total: "$59.99", status: "Delivered" },
     { id: 2, date: "2025-03-22", total: "$120.00", status: "Shipped" },
     { id: 3, date: "2025-03-10", total: "$35.00", status: "Processing" },
   ]);
 
+<<<<<<< HEAD
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -32,12 +42,15 @@ const UserPage = () => {
     setIsEditing(true);
   };
 
+=======
+>>>>>>> 90c915d (Checkout/Cart)
   return (
     <div className="user-container">
       <h2>User Account</h2>
 
       <div className="user-info">
         <h3>Profile Information</h3>
+<<<<<<< HEAD
         {isEditing ? (
           <>
             <label>
@@ -81,6 +94,12 @@ const UserPage = () => {
             </button>
           </>
         )}
+=======
+        <p><strong>Name:</strong> {user.name}</p>
+        <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Address:</strong> {user.address}</p>
+        <button className="edit-btn">Edit Profile</button>
+>>>>>>> 90c915d (Checkout/Cart)
       </div>
 
       <div className="order-history">
