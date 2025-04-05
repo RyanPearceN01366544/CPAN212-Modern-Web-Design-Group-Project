@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 
-const CartPage = ({ cart = [], setCart = () => {} }) => {
+const CartPage = () => {
+  const [cart, setCart] = useState([
+    { id: 1, name: "Product 1", price: 20, quantity: 1 },
+    { id: 2, name: "Product 2", price: 35, quantity: 1 },
+  ]);
   const navigate = useNavigate();
 
   const updateQuantity = (id, amount) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + amount) }
-          : item
+        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + amount) } : item
       )
     );
   };
