@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext"; // Import CartContext
@@ -8,6 +9,8 @@ import "./Cart.css";
 <<<<<<< HEAD
 const CartPage = ({ cart = [], setCart = () => {} }) => {
 =======
+=======
+>>>>>>> cbd676a (Pages)
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
@@ -17,6 +20,7 @@ const CartPage = () => {
     { id: 1, name: "Product 1", price: 20, quantity: 1 },
     { id: 2, name: "Product 2", price: 35, quantity: 1 },
   ]);
+<<<<<<< HEAD
 >>>>>>> 93241b1 (Pages)
 =======
 import React from "react";
@@ -27,11 +31,14 @@ import "./Cart.css";
 <<<<<<< HEAD
 const CartPage = ({ cart = [], setCart = () => {} }) => {
 >>>>>>> 33d27ad (Checkout/Cart)
+=======
+>>>>>>> cbd676a (Pages)
   const navigate = useNavigate();
 
   const updateQuantity = (id, amount) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         item.id === id
@@ -45,6 +52,9 @@ const CartPage = ({ cart = [], setCart = () => {} }) => {
           ? { ...item, quantity: Math.max(1, item.quantity + amount) }
           : item
 >>>>>>> 33d27ad (Checkout/Cart)
+=======
+        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + amount) } : item
+>>>>>>> cbd676a (Pages)
       )
     );
   };
@@ -57,6 +67,7 @@ const CartPage = ({ cart = [], setCart = () => {} }) => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   };
 
+<<<<<<< HEAD
 =======
 const CartPage = () => {
   const { cartItems, updateQuantity, removeFromCart, getCartTotal } = useCart();
@@ -73,10 +84,17 @@ const CartPage = () => {
     <div className="cart-container">
       <h2>Shopping Cart</h2>
       {cartItems.length === 0 ? (
+=======
+  return (
+    <div className="cart-container">
+      <h2>Shopping Cart</h2>
+      {cart.length === 0 ? (
+>>>>>>> cbd676a (Pages)
         <p>Your cart is empty.</p>
       ) : (
         <>
           <ul>
+<<<<<<< HEAD
             {cartItems.map((item) => (
               <li key={item.id} className="cart-item">
                 <span>{item.name}</span>
@@ -88,6 +106,19 @@ const CartPage = () => {
             ))}
           </ul>
           <h3>Total: ${getCartTotal().toFixed(2)}</h3>
+=======
+            {cart.map((item) => (
+              <li key={item.id} className="cart-item">
+                <span>{item.name}</span>
+                <span>${item.price} x {item.quantity}</span>
+                <button onClick={() => updateQuantity(item.id, -1)}>-</button>
+                <button onClick={() => updateQuantity(item.id, 1)}>+</button>
+                <button onClick={() => removeItem(item.id)}>Remove</button>
+              </li>
+            ))}
+          </ul>
+          <h3>Total: ${getTotal()}</h3>
+>>>>>>> cbd676a (Pages)
           <button className="checkout-btn" onClick={() => navigate("/checkout")}>
             Proceed to Checkout
           </button>

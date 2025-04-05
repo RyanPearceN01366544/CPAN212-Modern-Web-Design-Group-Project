@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState } from "react";
 =======
 import React from "react";
@@ -72,11 +73,24 @@ const CheckoutPage = () => {
 =======
     navigate("/");
 >>>>>>> 33d27ad (Checkout/Cart)
+=======
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./Checkout.css";
+
+const CheckoutPage = () => {
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    alert("Thank you for your purchase!");
+    navigate("/"); // Redirect to homepage or shop
+>>>>>>> cbd676a (Pages)
   };
 
   return (
     <div className="checkout-container">
       <h2>Checkout</h2>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       <p>Enter your details to complete the purchase.</p>
@@ -148,11 +162,24 @@ const CheckoutPage = () => {
           required
         >
 >>>>>>> 33d27ad (Checkout/Cart)
+=======
+      <p>Enter your details to complete the purchase.</p>
+      <form>
+        <label>Name:</label>
+        <input type="text" placeholder="Your Name" required />
+
+        <label>Address:</label>
+        <input type="text" placeholder="Your Address" required />
+
+        <label>Payment Method:</label>
+        <select required>
+>>>>>>> cbd676a (Pages)
           <option>Credit Card</option>
           <option>PayPal</option>
           <option>Cash on Delivery</option>
         </select>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         <button type="submit" className="confirm-btn">
@@ -204,6 +231,12 @@ const CheckoutPage = () => {
 >>>>>>> 23ea5f4 (edit shopping cart and checkout)
 =======
 >>>>>>> ea2b2a5 (edit shopping cart and checkout)
+=======
+        <button type="submit" className="confirm-btn" onClick={handleCheckout}>
+          Confirm Order
+        </button>
+      </form>
+>>>>>>> cbd676a (Pages)
     </div>
   );
 };
