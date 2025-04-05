@@ -43,6 +43,7 @@ import CheckoutPage from './pages/CheckoutPage';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import UserPage from './pages/UserPage'; 
 =======
 >>>>>>> 93241b1 (Pages)
@@ -232,6 +233,8 @@ import UserPage from './pages/UserPage';
 =======
 import UserPage from './pages/UserPage'; 
 >>>>>>> 3f6e088 (Checkout/Cart)
+=======
+>>>>>>> f8d2833 (Pages)
 import './App.css';
 
 // Your Google OAuth client ID (you'll need to get this from Google Cloud Console)
@@ -320,6 +323,12 @@ function App() {
                 <Route path="/reset-password/:token" element={
                   <ResetPassword />
                 } />
+                 <Route path="/cart" element={
+                  <CartPage/>
+                } />
+                 <Route path="/checkout" element={
+                  <CheckoutPage/> 
+                 } />
               </Routes>
             </main>
             <Footer />
