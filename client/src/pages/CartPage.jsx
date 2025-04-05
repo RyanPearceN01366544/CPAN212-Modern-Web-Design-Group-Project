@@ -9,6 +9,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext"; // Import CartContext
@@ -107,6 +108,13 @@ const CartPage = ({ cart = [], setCart = () => {} }) => {
 >>>>>>> 3f6e088 (Checkout/Cart)
 =======
 >>>>>>> f8d2833 (Pages)
+=======
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./Cart.css";
+
+const CartPage = ({ cart = [], setCart = () => {} }) => {
+>>>>>>> 0396ef7 (Checkout/Cart)
   const navigate = useNavigate();
 
   const updateQuantity = (id, amount) => {
@@ -123,6 +131,7 @@ const CartPage = ({ cart = [], setCart = () => {} }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         item.id === id
           ? { ...item, quantity: Math.max(1, item.quantity + amount) }
           : item
@@ -169,6 +178,11 @@ const CartPage = ({ cart = [], setCart = () => {} }) => {
 =======
         item.id === id ? { ...item, quantity: Math.max(1, item.quantity + amount) } : item
 >>>>>>> f8d2833 (Pages)
+=======
+        item.id === id
+          ? { ...item, quantity: Math.max(1, item.quantity + amount) }
+          : item
+>>>>>>> 0396ef7 (Checkout/Cart)
       )
     );
   };
