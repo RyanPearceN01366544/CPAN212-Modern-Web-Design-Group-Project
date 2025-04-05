@@ -1,0 +1,96 @@
+.user-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #222;
+  }
+  
+  .user-info,
+  .order-history {
+    margin-bottom: 30px;
+  }
+  
+  .user-info p {
+    margin: 8px 0;
+  }
+  
+  .edit-btn {
+    margin-top: 15px;
+    padding: 10px 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .order-history table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .order-history th,
+  .order-history td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .order-history th {
+    background-color: #f2f2f2;
+  }
+  
+  @media (max-width: 600px) {
+    .user-container {
+      padding: 20px;
+    }
+  
+    .order-history table,
+    .order-history thead,
+    .order-history tbody,
+    .order-history th,
+    .order-history td,
+    .order-history tr {
+      display: block;
+    }
+  
+    .order-history td {
+      padding: 10px;
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+    }
+  
+    .order-history td::before {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      width: 45%;
+      padding-right: 10px;
+      font-weight: bold;
+      content: attr(data-label);
+    }
+  
+    .order-history thead {
+      display: none;
+    }
+  }
+  
