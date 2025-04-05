@@ -84,6 +84,7 @@ function App() {
                       </div>
                     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   </div>
                 } />
                 <Route path="/product/:id" element={
@@ -126,6 +127,8 @@ function App() {
           </div>
         </Router>
 =======
+=======
+>>>>>>> ea2b2a5 (edit shopping cart and checkout)
                   } />
                   <Route path="/product/:id" element={<ProductDetail />} />
                   <Route path="/signin" element={<SignIn />} />
@@ -141,7 +144,10 @@ function App() {
             </div>
           </Router>
         </CartProvider>
+<<<<<<< HEAD
 >>>>>>> 23ea5f4 (edit shopping cart and checkout)
+=======
+>>>>>>> ea2b2a5 (edit shopping cart and checkout)
       </AuthProvider>
     </GoogleOAuthProvider>
   );

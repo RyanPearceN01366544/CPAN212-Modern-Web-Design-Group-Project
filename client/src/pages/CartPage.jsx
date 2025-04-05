@@ -21,8 +21,10 @@ const CartPage = () => {
 =======
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext"; // Import CartContext
 import "./Cart.css";
 
+<<<<<<< HEAD
 const CartPage = ({ cart = [], setCart = () => {} }) => {
 >>>>>>> 33d27ad (Checkout/Cart)
   const navigate = useNavigate();
@@ -61,6 +63,12 @@ const CartPage = () => {
   const navigate = useNavigate();
 
 >>>>>>> 23ea5f4 (edit shopping cart and checkout)
+=======
+const CartPage = () => {
+  const { cartItems, updateQuantity, removeFromCart, getCartTotal } = useCart();
+  const navigate = useNavigate();
+
+>>>>>>> ea2b2a5 (edit shopping cart and checkout)
   return (
     <div className="cart-container">
       <h2>Shopping Cart</h2>

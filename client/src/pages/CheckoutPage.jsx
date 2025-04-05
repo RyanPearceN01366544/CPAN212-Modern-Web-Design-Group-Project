@@ -16,11 +16,15 @@ const CheckoutPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 33d27ad (Checkout/Cart)
 =======
   const { cartItems, getCartTotal, clearCart } = useCart();
 >>>>>>> 23ea5f4 (edit shopping cart and checkout)
+=======
+  const { cartItems, getCartTotal, clearCart } = useCart();
+>>>>>>> ea2b2a5 (edit shopping cart and checkout)
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -74,6 +78,7 @@ const CheckoutPage = () => {
     <div className="checkout-container">
       <h2>Checkout</h2>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <p>Enter your details to complete the purchase.</p>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -92,6 +97,8 @@ const CheckoutPage = () => {
         />
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> ea2b2a5 (edit shopping cart and checkout)
       <div className="checkout-content">
         {/* Payment and Billing Form */}
         <div className="checkout-form">
@@ -99,6 +106,7 @@ const CheckoutPage = () => {
           <form onSubmit={handleSubmit}>
             <label>Name<span>*</span>:</label>
             <input type="text" name="name" placeholder="Your Full Name" value={formData.name} onChange={handleChange} required />
+<<<<<<< HEAD
 >>>>>>> 23ea5f4 (edit shopping cart and checkout)
 
             <label>Address<span>*</span>:</label>
@@ -119,18 +127,13 @@ const CheckoutPage = () => {
         <input type="text" placeholder="Your Name" required />
 =======
 >>>>>>> 33d27ad (Checkout/Cart)
+=======
+>>>>>>> ea2b2a5 (edit shopping cart and checkout)
 
-        <label htmlFor="address">Address<span>*</span>:</label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          placeholder="Shipping Address"
-          value={formData.address}
-          onChange={handleChange}
-          required
-        />
+            <label>Address<span>*</span>:</label>
+            <input type="text" name="address" placeholder="Shipping Address" value={formData.address} onChange={handleChange} required />
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         <label>Payment Method:</label>
         <select required>
@@ -170,6 +173,15 @@ const CheckoutPage = () => {
               <option>Cash on Delivery</option>
             </select>
 
+=======
+            <label>Payment Method:</label>
+            <select name="payment" value={formData.payment} onChange={handleChange} required>
+              <option>Credit Card</option>
+              <option>PayPal</option>
+              <option>Cash on Delivery</option>
+            </select>
+
+>>>>>>> ea2b2a5 (edit shopping cart and checkout)
             <button type="submit" className="confirm-btn">Place Your Order</button>
           </form>
         </div>
@@ -188,7 +200,10 @@ const CheckoutPage = () => {
           <h3>Total: ${getCartTotal().toFixed(2)}</h3>
         </div>
       </div>
+<<<<<<< HEAD
 >>>>>>> 23ea5f4 (edit shopping cart and checkout)
+=======
+>>>>>>> ea2b2a5 (edit shopping cart and checkout)
     </div>
   );
 };
