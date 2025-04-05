@@ -15,10 +15,16 @@ const user_router = express.Router();
 // ResetPassword -> When the user resets their password. (WIP)
 // GetCart -> Get the cart. 
 // GetUserInfo -> Get information about the current user or ID of a using.
+<<<<<<< HEAD
 
 // == EMAIL STUFF == <- R
 const transporter = nodemailer.createTransport({ // R: Creates an Email!
   host: process.env.EMAIL_SERVICE,
+=======
+// == EMAIL STUFF == <- R
+const transporter = nodemailer.createTransport({ // R: Creates an Email!
+  host: process.env.EMAIL_SERVICE, 
+>>>>>>> 3806a96be04f1430d576c7f85aff9fa986d3f9d0
   port: 465,
   auth: {
       user: process.env.EMAIL_USER,
@@ -131,6 +137,7 @@ user_router.get("/Logout", async(req, res) => {
 // R: -- FORGOT/CHANGE PASSWORD --
 user_router.post("/ForgotPassword", async(req, res) => {
   const {email} = req.body;
+<<<<<<< HEAD
 
   const existingUser = await User.findOne({ email });
   if (existingUser)
@@ -175,6 +182,52 @@ user_router.post("/ResetPassword", async(req, res) => {
     const user_ = User.findOne({email});
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
+=======
+  
+  const existingUser = await User.findOne({ email });
+  if (existingUser)
+  {
+    const token = jwt.sign(
+      {
+        // R: -- Insert Email into Token --
+        email: existingUser.email,
+      },
+      process.env.JWT_SECRET, // R: --> Process Secret
+      { expiresIn: '2h'} // R: --> 2 Hours.
+    );
+    setMailOptions(email, `http://localhost:5173/Reset-Password/${token}`);
+    console.log(mailOptions);
+    transporter.sendMail(mailOptions, (err_, info_) => {
+      if (err_){
+        console.log(err_);
+        console.log(err_.name);
+        console.log(err_.cause);
+        console.log(err_.message);
+      }
+      else{
+        console.log(info_);
+      }
+    });
+    res.json({resetPasswordToken: token});
+  }
+  else {
+    res.status(401).json({message: "User doesn't exist!"})
+  }
+});
+user_router.post("/ResetPassword", async(req, res) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+  const {email, newPassword} = req.body;
+
+  if (!token) {
+    return res.status(401).json({message: "Authorization token required!"});
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user_ = User.findOne({email});
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+>>>>>>> 3806a96be04f1430d576c7f85aff9fa986d3f9d0
     if (user_ && decoded) {
       User.findOneAndUpdate({email}, {$set: {password: hashedPassword}});
     }
