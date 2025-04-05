@@ -7,14 +7,18 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4225664 (user page)
 =======
 >>>>>>> 0709973 (user page)
+=======
+>>>>>>> 8399781 (user page)
   const [user, setUser] = useState({
     name: "",
     email: "",
     address: "",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   });
@@ -55,6 +59,12 @@ const UserPage = () => {
   });
 
 >>>>>>> 0396ef7 (Checkout/Cart)
+=======
+  });
+
+  const [isEditing, setIsEditing] = useState(true); // Start in editing mode
+
+>>>>>>> 8399781 (user page)
   const [orders] = useState([
     { id: 1, date: "2025-04-01", total: "$59.99", status: "Delivered" },
     { id: 2, date: "2025-03-22", total: "$120.00", status: "Shipped" },
@@ -66,10 +76,13 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4225664 (user page)
 =======
 >>>>>>> 0709973 (user page)
+=======
+>>>>>>> 8399781 (user page)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -88,6 +101,7 @@ const UserPage = () => {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 90c915d (Checkout/Cart)
 =======
@@ -98,6 +112,8 @@ const UserPage = () => {
 >>>>>>> 0709973 (user page)
 =======
 >>>>>>> 0396ef7 (Checkout/Cart)
+=======
+>>>>>>> 8399781 (user page)
   return (
     <div className="user-container">
       <h2>User Account</h2>
@@ -109,10 +125,13 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4225664 (user page)
 =======
 >>>>>>> 0709973 (user page)
+=======
+>>>>>>> 8399781 (user page)
         {isEditing ? (
           <>
             <label>
@@ -158,6 +177,7 @@ const UserPage = () => {
         )}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> c9bb840 (Checkout/Cart)
@@ -178,6 +198,8 @@ const UserPage = () => {
 >>>>>>> 0709973 (user page)
 =======
 >>>>>>> 0396ef7 (Checkout/Cart)
+=======
+>>>>>>> 8399781 (user page)
       </div>
 
       <div className="order-history">
