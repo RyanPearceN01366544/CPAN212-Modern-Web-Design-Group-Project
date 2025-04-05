@@ -758,7 +758,6 @@ user_router.post("/Cart", auth.verifyToken, async(req, res) => {
     return res.status(400).json({message: "An Unexpected Error Has Occured!"});
   }
 });
-
 user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
