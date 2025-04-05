@@ -20,7 +20,7 @@ const authService = {
 
     register: async (userData) => {
         try {
-            const response = await axios.post(`${API_URL}/User/Register/`, userData);
+            const response = await axios.put(`${API_URL}/User/Register/`, userData);
             return response.data;
         } catch (error) {
             throw error.response?.data || { message: 'Registration failed' };

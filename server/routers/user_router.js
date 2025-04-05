@@ -39,12 +39,16 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
 
 
 // == ROUTES == <- R
+<<<<<<< HEAD
 user_router.post("/Register", async (req, res) => {
 =======
 user_router.post("/Register/", async (req, res) => {
     console.log("=== Registration Request ===");
     console.log("Request Body:", req.body);
 >>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
+=======
+user_router.put("/Register", async (req, res) => {
+>>>>>>> d198a1a (Update auth endpoints: Change Register to PUT, fix port numbers to 8000)
     try {
         const { username, email, password, firstName, lastName } = req.body;
         console.log("Parsed Data:", { username, email, firstName, lastName });
@@ -79,12 +83,16 @@ user_router.post("/Register/", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 user_router.get("/Login", async (req, res) => {
 =======
 user_router.post("/Login/", async (req, res) => {
     console.log("=== Login Request ===");
     console.log("Request Body:", req.body);
 >>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
+=======
+user_router.post("/Login", async (req, res) => {
+>>>>>>> d198a1a (Update auth endpoints: Change Register to PUT, fix port numbers to 8000)
     try {
         const { login, password } = req.body;
         console.log("Login attempt with:", { login });

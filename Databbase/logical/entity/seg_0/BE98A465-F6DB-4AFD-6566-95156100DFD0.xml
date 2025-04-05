@@ -1,0 +1,117 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="BE98A465-F6DB-4AFD-6566-95156100DFD0" name="DINNER">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:21:50 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Dinner_code" id="697E651A-483E-EBF7-E6C7-E46AB6A6E25A">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:21:59 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Dinner_date" id="55F8189B-7932-01B1-48B2-6A5774AE2CAD">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:21:59 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Dinner_attended" id="1AFD0E3F-4CE7-9F96-5BBE-90A90FF7A70E">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:21:59 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Dinner_description" id="5C6CC13F-E6D3-375C-46D1-BCE2C4B764C4">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:22:02 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Dessert_code" id="62FD47A6-6846-B85D-3AB8-1EB6CB0DE78E">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:22:02 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Entree_code" id="47312AF7-417D-2AFC-D46E-230009F475AE">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:22:55 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Dessert_code1" id="C946E23E-A09B-027B-232A-A9EE498C6468">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:23:25 UTC</createdTime>
+<generatorID>5B8B82BC-98B7-3186-7FB1-E5EF6277F23D</generatorID>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<referedAttribute>B5686C41-4D4A-5164-3BED-E0D195F67F09</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Entree_code1" id="0A833B81-FF88-10E2-0178-3E409A2D2719">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:28:22 UTC</createdTime>
+<generatorID>4640A0AA-85BF-7183-ADC8-3DB37969E147</generatorID>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<referedAttribute>08137A10-8658-4581-9E13-A50131ABD39C</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="7EA34AC5-0171-B9F9-BC01-71B59EE19F6F" name="DINNER PK">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:22:13 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>697E651A-483E-EBF7-E6C7-E46AB6A6E25A</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
