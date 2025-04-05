@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from "./context/CartContext"; // ✅ Added CartProvider
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ProductGrid from './components/product/ProductGrid';
@@ -25,7 +26,6 @@ import UserPage from './pages/UserPage';
 >>>>>>> 33d27ad (Checkout/Cart)
 import './App.css';
 
-// Your Google OAuth client ID (you'll need to get this from Google Cloud Console)
 const GOOGLE_CLIENT_ID = "986891372297-u48hn7248c8usahsl094udj57lnusp73.apps.googleusercontent.com";
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setSearchResults(null); // Clear search results when category changes
+    setSearchResults(null); 
   };
 
   const handleSearch = async (query) => {
@@ -51,10 +51,9 @@ function App() {
     try {
       const results = await searchProducts(query);
       setSearchResults(results);
-      setSelectedCategory(null); // Clear category when searching
+      setSelectedCategory(null); 
     } catch (error) {
       console.error('Search failed:', error);
-      // You might want to show an error message to the user here
     }
   };
 
@@ -65,23 +64,26 @@ function App() {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <AuthProvider>
-        <Router>
-          <div className="app">
-            <Navbar onSearch={handleSearch} />
-            <main className="main-content">
-              <Routes>
-                <Route path="/" element={
-                  <div className="content-wrapper">
-                    <aside className="filter-sidebar">
-                      <ProductFilter onFilterChange={handleFilterChange} />
-                    </aside>
-                    <div className="product-content">
-                      <ProductGrid 
-                        selectedCategory={selectedCategory}
-                        searchResults={searchResults}
-                        filters={filters}
-                      />
+        <CartProvider> 
+          <Router>
+            <div className="app">
+              <Navbar onSearch={handleSearch} />
+              <main className="main-content">
+                <Routes>
+                  <Route path="/" element={
+                    <div className="content-wrapper">
+                      <aside className="filter-sidebar">
+                        <ProductFilter onFilterChange={handleFilterChange} />
+                      </aside>
+                      <div className="product-content">
+                        <ProductGrid 
+                          selectedCategory={selectedCategory}
+                          searchResults={searchResults}
+                          filters={filters}
+                        />
+                      </div>
                     </div>
+<<<<<<< HEAD
                   </div>
                 } />
                 <Route path="/product/:id" element={
@@ -123,6 +125,23 @@ function App() {
             <Footer />
           </div>
         </Router>
+=======
+                  } />
+                  <Route path="/product/:id" element={<ProductDetail />} />
+                  <Route path="/signin" element={<SignIn />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password/:token" element={<ResetPassword />} />
+                  <Route path="/cart" element={<CartPage />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
+                  <Route path="/user" element={<UserPage />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          </Router>
+        </CartProvider>
+>>>>>>> 23ea5f4 (edit shopping cart and checkout)
       </AuthProvider>
     </GoogleOAuthProvider>
   );

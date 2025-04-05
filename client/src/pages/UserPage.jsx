@@ -8,7 +8,7 @@ const UserPage = () => {
     address: "",
   });
 
-  const [isEditing, setIsEditing] = useState(true); // Start in editing mode
+  const [isEditing, setIsEditing] = useState(true); 
 
   const [orders] = useState([
     { id: 1, date: "2025-04-01", total: "$59.99", status: "Delivered" },

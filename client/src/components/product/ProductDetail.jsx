@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaStar, FaRegStar, FaShoppingCart, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { getProductById } from '../../services/api';
+import { useCart } from '../../context/CartContext';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -10,6 +11,7 @@ const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -113,6 +115,7 @@ const ProductDetail = () => {
             <button 
               className={`add-to-cart-btn ${!product.inStock ? 'out-of-stock' : ''}`}
               disabled={!product.inStock}
+              onClick={() => addToCart(product, quantity)}
             >
               <FaShoppingCart />
               {product.inStock ? 'Add to Cart' : 'Out of Stock'}
