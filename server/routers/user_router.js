@@ -17,7 +17,7 @@ const user_router = express.Router();
 // GetUserInfo -> Get information about the current user or ID of a using.
 // == EMAIL STUFF == <- R
 const transporter = nodemailer.createTransport({ // R: Creates an Email!
-  host: process.env.EMAIL_SERVICE,
+  host: process.env.EMAIL_SERVICE, 
   port: 465,
   auth: {
       user: process.env.EMAIL_USER,
