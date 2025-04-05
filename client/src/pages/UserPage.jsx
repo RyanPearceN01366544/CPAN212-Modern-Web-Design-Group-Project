@@ -5,12 +5,16 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4225664 (user page)
+=======
+>>>>>>> 0709973 (user page)
   const [user, setUser] = useState({
     name: "",
     email: "",
     address: "",
+<<<<<<< HEAD
 <<<<<<< HEAD
   });
 
@@ -37,6 +41,12 @@ const UserPage = () => {
   });
 
 >>>>>>> c9bb840 (Checkout/Cart)
+=======
+  });
+
+  const [isEditing, setIsEditing] = useState(true); // Start in editing mode
+
+>>>>>>> 0709973 (user page)
   const [orders] = useState([
     { id: 1, date: "2025-04-01", total: "$59.99", status: "Delivered" },
     { id: 2, date: "2025-03-22", total: "$120.00", status: "Shipped" },
@@ -46,8 +56,11 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4225664 (user page)
+=======
+>>>>>>> 0709973 (user page)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -65,12 +78,15 @@ const UserPage = () => {
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 90c915d (Checkout/Cart)
 =======
 >>>>>>> 4225664 (user page)
 =======
 >>>>>>> c9bb840 (Checkout/Cart)
+=======
+>>>>>>> 0709973 (user page)
   return (
     <div className="user-container">
       <h2>User Account</h2>
@@ -80,8 +96,11 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4225664 (user page)
+=======
+>>>>>>> 0709973 (user page)
         {isEditing ? (
           <>
             <label>
@@ -126,6 +145,7 @@ const UserPage = () => {
           </>
         )}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> c9bb840 (Checkout/Cart)
@@ -139,6 +159,8 @@ const UserPage = () => {
 >>>>>>> 4225664 (user page)
 =======
 >>>>>>> c9bb840 (Checkout/Cart)
+=======
+>>>>>>> 0709973 (user page)
       </div>
 
       <div className="order-history">
