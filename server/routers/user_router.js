@@ -201,6 +201,7 @@ user_router.get("/Logout", async(req, res) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 user_router.get("/Logout/", async(req, res) => {
@@ -219,6 +220,9 @@ user_router.get("/Logout", async(req, res) => {
 =======
 });
 >>>>>>> 00959ee (Just committing for the Pull Request.)
+=======
+});
+>>>>>>> 3806a96 (Just committing for the Pull Request.)
 // R: -- FORGOT/CHANGE PASSWORD --
 user_router.post("/ForgotPassword", async(req, res) => {
   const {email} = req.body;
@@ -788,8 +792,7 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
     console.log(err_);
     res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
-})
-
+});
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
