@@ -37,7 +37,7 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
 
 
 // == ROUTES == <- R
-user_router.post("/Register", async (req, res) => {
+user_router.put("/Register", async (req, res) => {
     try {
         const { username, email, password, firstName, lastName } = req.body;
         console.log("Parsed Data:", { username, email, firstName, lastName });
@@ -71,7 +71,7 @@ user_router.post("/Register", async (req, res) => {
       }
 });
 
-user_router.get("/Login", async (req, res) => {
+user_router.post("/Login", async (req, res) => {
     try {
         const { login, password } = req.body;
         console.log("Login attempt with:", { login });

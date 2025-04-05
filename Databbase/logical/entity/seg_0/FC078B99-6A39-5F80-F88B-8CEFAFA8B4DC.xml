@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="FC078B99-6A39-5F80-F88B-8CEFAFA8B4DC" name="LOCATION">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:29:34 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Location_id" id="2D12368D-C914-28F2-3289-84376FA3C0B8">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:29:34 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Member_address" id="939796FD-4318-FC91-40E9-5F3384509F96">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:29:34 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Member_city" id="9AFCCA04-1203-4B3E-9460-DD7B003B61F5">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:29:34 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Member_zipcode" id="B4D8F3EA-BE52-BDFC-1D88-D985B75E0125">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:29:34 UTC</createdTime>
+<generatorID>4B16AA3A-DEAE-5911-5500-BECF99588B06</generatorID>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Member_num" id="94FF29CB-7796-94EC-B0B4-21BEE82830BC">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:30:20 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Member_num1" id="4E9C45AE-B38C-4C92-64AB-B0629782B1FA">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:31:29 UTC</createdTime>
+<generatorID>6B277B1F-82FD-DD22-5E5D-6FA735BA0711</generatorID>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<referedAttribute>A846B675-CF0B-CF9D-C489-60D9FAA711F5</referedAttribute>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="DF1C447D-BBD6-2D4B-AFDF-30DB2C0D945C" name="ACCEPTANCE PK">
+<createdBy>test</createdBy>
+<createdTime>2024-04-05 22:29:34 UTC</createdTime>
+<ownerDesignName>Databbase</ownerDesignName>
+<engineerTo>
+<item key="79340823-B9D8-37C6-FD94-3D8DC5DC0906" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>2D12368D-C914-28F2-3289-84376FA3C0B8</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
