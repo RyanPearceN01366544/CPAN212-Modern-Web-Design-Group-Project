@@ -14,7 +14,6 @@ import ResetPassword from './components/auth/ResetPassword';
 import { searchProducts } from './services/api';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
-import UserPage from './pages/UserPage'; 
 import './App.css';
 
 // Your Google OAuth client ID (you'll need to get this from Google Cloud Console)
@@ -60,6 +59,12 @@ function App() {
                 <Route path="/reset-password/:token" element={
                   <ResetPassword />
                 } />
+                 <Route path="/cart" element={
+                  <CartPage/>
+                } />
+                 <Route path="/checkout" element={
+                  <CheckoutPage/> 
+                 } />
               </Routes>
             </main>
             <Footer />
