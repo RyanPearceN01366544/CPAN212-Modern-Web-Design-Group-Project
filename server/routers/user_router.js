@@ -274,8 +274,16 @@ user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
     }
 
     Object.keys(req.body).forEach((key) => { // R: Same thing as PUT /Info route.
-      if (target[key] !== undefined && key !== "privacySettings") { // R: All except privacy settings, don't change that.
+      if (target[key] !== undefined && key !== "privacySettings" && key !== "permissionLevel") { // R: All except privacy settings, don't change that.
         target[key] = req.body[key];
+      }
+      else if (key === "permissionLevel"){
+        if (req.body[key] >= user[key]){
+          target[key] = (user[key] - 1) < 0 ? 0 : user[key] - 1; // Make it one below their rank.
+        }
+        else {
+          target[key] = req.body[key];
+        }
       }
     });
     await target.save(); // R: Save the user.
@@ -304,7 +312,7 @@ user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
     const user = await User.findById(req.user.userID);
-
+    
   }
   catch (err_){
     console.log(err_);
