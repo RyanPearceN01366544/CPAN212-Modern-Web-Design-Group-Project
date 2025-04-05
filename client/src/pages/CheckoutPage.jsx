@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
+=======
+import React from "react";
+>>>>>>> 93241b1 (Pages)
 import { useNavigate } from "react-router-dom";
 import "./Checkout.css";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
+<<<<<<< HEAD
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -25,12 +30,19 @@ const CheckoutPage = () => {
     }
     alert("Thank you for your purchase!");
     navigate("/");
+=======
+
+  const handleCheckout = () => {
+    alert("Thank you for your purchase!");
+    navigate("/"); // Redirect to homepage or shop
+>>>>>>> 93241b1 (Pages)
   };
 
   return (
     <div className="checkout-container">
       <h2>Checkout</h2>
       <p>Enter your details to complete the purchase.</p>
+<<<<<<< HEAD
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name<span>*</span>:</label>
         <input
@@ -62,12 +74,27 @@ const CheckoutPage = () => {
           onChange={handleChange}
           required
         >
+=======
+      <form>
+        <label>Name:</label>
+        <input type="text" placeholder="Your Name" required />
+
+        <label>Address:</label>
+        <input type="text" placeholder="Your Address" required />
+
+        <label>Payment Method:</label>
+        <select required>
+>>>>>>> 93241b1 (Pages)
           <option>Credit Card</option>
           <option>PayPal</option>
           <option>Cash on Delivery</option>
         </select>
 
+<<<<<<< HEAD
         <button type="submit" className="confirm-btn">
+=======
+        <button type="submit" className="confirm-btn" onClick={handleCheckout}>
+>>>>>>> 93241b1 (Pages)
           Confirm Order
         </button>
       </form>

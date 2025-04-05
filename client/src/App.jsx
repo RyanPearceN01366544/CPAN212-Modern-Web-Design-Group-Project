@@ -15,7 +15,10 @@ import ResetPassword from './components/auth/ResetPassword';
 import { searchProducts } from './services/api';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
+<<<<<<< HEAD
 import UserPage from './pages/UserPage'; 
+=======
+>>>>>>> 93241b1 (Pages)
 import './App.css';
 
 // Your Google OAuth client ID (you'll need to get this from Google Cloud Console)
@@ -97,10 +100,14 @@ function App() {
                 } />
                  <Route path="/checkout" element={
                   <CheckoutPage/> 
+<<<<<<< HEAD
                 } />
                  <Route path="/user" element={
                   <UserPage />
                 } /> 
+=======
+                 } />
+>>>>>>> 93241b1 (Pages)
               </Routes>
             </main>
             <Footer />

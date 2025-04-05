@@ -1,4 +1,5 @@
 .cart-container {
+<<<<<<< HEAD
   padding: 20px;
   max-width: 600px;
   margin: auto;
@@ -32,3 +33,29 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+=======
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    margin-left: 5px;
+  }
+  
+  .checkout-btn {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+>>>>>>> 93241b1 (Pages)
