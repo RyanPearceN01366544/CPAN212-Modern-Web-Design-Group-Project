@@ -30,6 +30,11 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        gender: {
+            type: String,
+            enum: ["Not Set", "Male", "Female", "Other"],
+            default: "Not Set"
+        },
         firstName: {
             type: String,
             required: true,
@@ -45,15 +50,27 @@ const userSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
-        cart: {
-            type: [Object],
-            required: true,
-            enum: []
+        cart: [{
+            product: {type: String, required: true},
+            quantity: {type: Number, required: true}
+        }],
+        privacySettings: {
+            hideEmail: {type: Boolean, required: true, default: true},
+            hideGender: {type: Boolean, required: true, default: true},
+            hideFirstName: {type: Boolean, required: true, default: true},
+            hideLastName: {type: Boolean, required: true, default: true},
+            hideAddress: {type: Boolean, required: true, default: true},
         },
-        permissions: {
-            type: [String],
+        permissionLevel: {
+            // Permission Level: States what permission the user has. (This is basically how their labeled and what permission they have.)
+            // 0 -> Basic User/Customer (Only allows own account info and basic shopping.)
+            // 1 -> Employee (User + Should only be able to view customer's history.)
+            // 2 -> Trusted Employee (Employee + Should be able to view customer details.)
+            // 3 -> Manager (Manager + Should be able to add/remove items from the store.)
+            type: Number, 
             required: true,
-            enum: [], // R: Start with no permissions.
+            enum: [0, 1, 2, 3],
+            default: 0
         },
     }
 );
