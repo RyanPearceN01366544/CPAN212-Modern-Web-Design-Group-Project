@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport({ // R: Creates an Email!
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD
   }
-})
+});
 let mailOptions = {};
 const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Reset.
   mailOptions = {
@@ -38,7 +38,7 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
     text: 'Click the following link to reset your password: http://localhost:5173/Reset-Password/...', // Plain text fallback
     html: `<p>Click <a href="${resetLink_}">here</a> to reset your password</p>`
   }
-}
+};
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -195,6 +195,7 @@ user_router.get("/Logout", async(req, res) => {
   res.status(200).json({message: "You have been logged out."});
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 user_router.get("/Logout/", async(req, res) => {
@@ -210,6 +211,9 @@ user_router.get("/Logout", async(req, res) => {
 =======
 >>>>>>> a6f76e3 (Fixed Dumb Mistake.)
 })
+=======
+});
+>>>>>>> 00959ee (Just committing for the Pull Request.)
 // R: -- FORGOT/CHANGE PASSWORD --
 user_router.post("/ForgotPassword", async(req, res) => {
   const {email} = req.body;
@@ -249,7 +253,7 @@ user_router.post("/ForgotPassword", async(req, res) => {
   else {
     res.status(401).json({message: "User doesn't exist!"})
   }
-})
+});
 user_router.post("/ResetPassword", async(req, res) => {
   const token = req.header('Authorization')?.split(' ')[1];
   const {email, newPassword} = req.body;
@@ -648,8 +652,7 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
     console.log(err_);
     res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
-})
-
+});
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
@@ -661,7 +664,6 @@ user_router.post("/Cart", auth.verifyToken, async(req, res) => {
     return res.status(400).json({message: "An Unexpected Error Has Occured!"});
   }
 });
-
 user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
