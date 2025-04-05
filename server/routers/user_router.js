@@ -38,6 +38,7 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 // == ROUTES == <- R
 <<<<<<< HEAD
@@ -55,6 +56,11 @@ user_router.put("/Register", async (req, res) => {
 // R: -- REGISTRY --
 user_router.put("/Register", async (req, res) => {
 >>>>>>> 051283f (Fixed Dumb Mistake.)
+=======
+// R: == ROUTES ==
+// R: -- REGISTRY --
+user_router.put("/Register", async (req, res) => {
+>>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
     try {
         const { username, email, password, firstName, lastName } = req.body;
         console.log("Parsed Data:", { username, email, firstName, lastName });
@@ -101,6 +107,7 @@ user_router.put("/Register", async (req, res) => {
       }
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -116,6 +123,9 @@ user_router.post("/Login", async (req, res) => {
 =======
 user_router.post("/Login", async (req, res) => {
 >>>>>>> 051283f (Fixed Dumb Mistake.)
+=======
+user_router.post("/Login", async (req, res) => {
+>>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
     try {
         const { login, password } = req.body;
         console.log("Login attempt with:", { login });
@@ -159,12 +169,15 @@ user_router.post("/Login", async (req, res) => {
 <<<<<<< HEAD
 user_router.get("/Logout", async(req, res) => {
   res.status(200).json({message: "You have been logged out."});
+<<<<<<< HEAD
 =======
 
 user_router.get("/Logout/", async(req, res) => {
     console.log("=== Logout Request ===");
     res.status(200).json({message: "You have been logged out."});
 >>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
+=======
+>>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
 })
 // R: -- FORGOT/CHANGE PASSWORD --
 user_router.post("/ForgotPassword", async(req, res) => {
@@ -226,21 +239,28 @@ user_router.post("/ResetPassword", async(req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 // R: Using prefix 'Get' before id... otherwise it thinks 'Register' is the :id.
 user_router.get("/Get/", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
     console.log("=== Get User Info Request ===");
     console.log("User:", req.user);
 =======
+=======
+>>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
 // -- USER DATA & MANAGEMENT --
 // R: Using prefix 'Info' before id... otherwise it thinks 'Register' or other routes are the :id.
 // R: The route below this is for the user requesting information of their own account.
 user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
+<<<<<<< HEAD
 >>>>>>> 051283f (Fixed Dumb Mistake.)
+=======
+>>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
     if (req.user) { // R: Is the user existing? If so then...
         res.json(req.user);
     } // R: Otherwise, do nothing as verifyToken will stop them.
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 // R: The route below is the same as above but it's when a user requests the data of a specific user.
 user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
@@ -250,6 +270,11 @@ user_router.get('/Get/:id', auth.verifyToken, async(req, res) => { // R: Get Inf
     console.log("=== Get User By ID Request ===");
     const userID = req.user; // R: Get the requesting user's id.
 >>>>>>> 8f0a197 (Added Router Stuff (WIP))
+=======
+// R: The route below is the same as above but it's when a user requests the data of a specific user.
+user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
+    const userID = req.user.userID; // R: Get the requesting user's id.
+>>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
     const lookupID = req.params.id; // R: The user's information that is being requested.
 
     const requestingUser = await User.findById(userID); // R: The user requesting this information.
@@ -327,6 +352,7 @@ user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
     }
 
     Object.keys(req.body).forEach((key) => { // R: Same thing as PUT /Info route.
+<<<<<<< HEAD
       if (target[key] !== undefined && key !== "privacySettings" && key !== "permissionLevel") { // R: All except privacy settings, don't change that.
         target[key] = req.body[key];
       }
@@ -338,6 +364,11 @@ user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
           target[key] = req.body[key];
         }
       }
+=======
+      if (target[key] !== undefined && key !== "privacySettings") { // R: All except privacy settings, don't change that.
+        target[key] = req.body[key];
+      }
+>>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
     });
     await target.save(); // R: Save the user.
     res.json({message: "Account Edited!"});
@@ -346,6 +377,7 @@ user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
     console.log(err_);
     return res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
+<<<<<<< HEAD
 });
 
 // R: == CART ROUTERS ==
@@ -394,18 +426,56 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
     console.log(err_);
     return res.status(400).json({message: "An unexpected error has occured."});
   }
+=======
+>>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
 });
 
-
 // R: == CART ROUTERS ==
-user_router.get("/Cart/Add", auth.verifyToken, (req, res) => {
-  const {itemID, quantity} = req.body;
-  const userData = User.findById(req.user);
-  
-  let newCart_ = userData.cart;
-  newCart_.push();
-  User.findByIdAndUpdate({_id: req.user._id}, {$set: {cart: newCart_}})
+user_router.get("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    await User.findById(req.user.userID).then((user) => {
+      res.json({cart: user.cart});
+    })
+  }
+  catch (err_) {
+    console.log(err_);
+    res.status(400).json({message: "An Unexpected Error has Occurred!"});
+  }
+})
 
+user_router.post("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = await User.findById(req.user.userID);
+
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An Unexpected Error Has Occured!"});
+  }
+});
+
+user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = User.findById(req.user.userID);
+  
+    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
+      if (user.cart[x].product === product){ // R: if the product is the same key we're looking for...
+        user.cart[x].quantity -= quantity; // R: Decrease by quantity.
+        if (user.cart[x].quantity <= 0) { // R: If the quantity is too low...
+          user.cart.splice(x, 1); // R: Remove it from the array.
+        }
+        break; // R: Stop the loop.
+      }
+    }
+    await user.save(); // R: Save changes.
+    return res.json(user.cart); // R: Return the cart.
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An unexpected error has occured."});
+  }
 });
 
 export default user_router;

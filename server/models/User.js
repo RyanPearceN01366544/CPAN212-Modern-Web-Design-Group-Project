@@ -52,11 +52,18 @@ const userSchema = mongoose.Schema(
 =======
             required: true,
         },
-        cart: {
-            type: [Object],
-            required: true,
-            enum: []
+        cart: [{
+            product: {type: String, required: true},
+            quantity: {type: Number, required: true}
+        }],
+        privacySettings: {
+            hideEmail: {type: Boolean, required: true, default: true},
+            hideGender: {type: Boolean, required: true, default: true},
+            hideFirstName: {type: Boolean, required: true, default: true},
+            hideLastName: {type: Boolean, required: true, default: true},
+            hideAddress: {type: Boolean, required: true, default: true},
         },
+<<<<<<< HEAD
         permissions: {
             type: [String],
 >>>>>>> 8f0a197 (Added Router Stuff (WIP))
@@ -81,6 +88,16 @@ const userSchema = mongoose.Schema(
             // 3 -> Manager (Manager + Should be able to add/remove items from the store.)
             type: Number, 
             required: true,
+=======
+        permissionLevel: {
+            // Permission Level: States what permission the user has. (This is basically how their labeled and what permission they have.)
+            // 0 -> Basic User/Customer (Only allows own account info and basic shopping.)
+            // 1 -> Employee (User + Should only be able to view customer's history.)
+            // 2 -> Trusted Employee (Employee + Should be able to view customer details.)
+            // 3 -> Manager (Manager + Should be able to add/remove items from the store.)
+            type: Number, 
+            required: true,
+>>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
             enum: [0, 1, 2, 3],
             default: 0
         },
