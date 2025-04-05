@@ -11,7 +11,7 @@ const generateToken = (user) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            permissions: user.permissions
+            permissionLevel: user.permissionLevel
         },
         process.env.JWT_SECRET, // R: --> Process Secret
         { expiresIn: '1d'} // R: --> 1 Day
