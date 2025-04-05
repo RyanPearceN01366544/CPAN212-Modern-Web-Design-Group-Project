@@ -16,9 +16,13 @@ import { searchProducts } from './services/api';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import UserPage from './pages/UserPage'; 
 =======
 >>>>>>> 93241b1 (Pages)
+=======
+import UserPage from './pages/UserPage'; 
+>>>>>>> 33d27ad (Checkout/Cart)
 import './App.css';
 
 // Your Google OAuth client ID (you'll need to get this from Google Cloud Console)
@@ -101,13 +105,19 @@ function App() {
                  <Route path="/checkout" element={
                   <CheckoutPage/> 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 33d27ad (Checkout/Cart)
                 } />
                  <Route path="/user" element={
                   <UserPage />
                 } /> 
+<<<<<<< HEAD
 =======
                  } />
 >>>>>>> 93241b1 (Pages)
+=======
+>>>>>>> 33d27ad (Checkout/Cart)
               </Routes>
             </main>
             <Footer />
