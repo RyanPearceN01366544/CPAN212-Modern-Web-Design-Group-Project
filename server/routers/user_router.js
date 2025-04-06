@@ -271,20 +271,27 @@ user_router.post("/ResetPassword", async(req, res) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user_ = User.findOne({email});
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const decoded_ = jwt.verify(token, process.env.JWT_SECRET);
+    const user_ = await User.findOne({email: email});
+    const hashedPassword_ = await bcrypt.hash(newPassword, 10);
 
-    if (user_ && decoded) {
-      User.findOneAndUpdate({email}, {$set: {password: hashedPassword}});
+    if (user_ && decoded_) {
+      user_.password = hashedPassword_;
+      await user_.save();
+      return res.json({message: "Password has successfully been reset!"});
     }
+<<<<<<< HEAD
     else{
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+    else{ 
+>>>>>>> 8037a11 (Fixed Problem with Password Resetting.)
       return res.status(401).json({message: "User Doesn't Exist!"});
     }
   }
   catch (err){
+    console.log(err);
     return res.status(400).json({message: "Invalid or Expired Token!"});
   }
 });
