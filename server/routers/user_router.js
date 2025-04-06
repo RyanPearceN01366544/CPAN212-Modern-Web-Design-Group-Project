@@ -4,6 +4,8 @@ import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 import auth from "../middleware/auth.js";
 import User from "../models/User.js";
+import dotenv from 'dotenv'; // Required for Email.
+dotenv.config();
 
 const user_router = express.Router();
 
@@ -11,19 +13,23 @@ const user_router = express.Router();
 // TODO:  
 // Register -> Registers a user. (DONE)
 // Login -> Login the user with a token. (DONE)
-// ForgotPassword -> When the user wants to send a password reset request. (WIP)
-// ResetPassword -> When the user resets their password. (WIP)
+// ForgotPassword -> When the user wants to send a password reset request. (DNE)
+// ResetPassword -> When the user resets their password. (DONE)
 // GetCart -> Get the cart. 
+// AddCart -> Add a product 
 // GetUserInfo -> Get information about the current user or ID of a using.
+
 // == EMAIL STUFF == <- R
 const transporter = nodemailer.createTransport({ // R: Creates an Email!
-  host: process.env.EMAIL_SERVICE, 
-  port: 465,
+  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
   auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD
+      user: process.env.EMAIL_USER, // FOR SOME REASON, THIS WON'T PROPERLY WORK UNLESS IT'S PLACED IN HERE FOR NO REASON?!
+      pass: process.env.EMAIL_PASSWORD,
   }
-})
+});
 let mailOptions = {};
 const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Reset.
   mailOptions = {
@@ -33,7 +39,7 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
     text: 'Click the following link to reset your password: http://localhost:5173/Reset-Password/...', // Plain text fallback
     html: `<p>Click <a href="${resetLink_}">here</a> to reset your password</p>`
   }
-}
+};
 
 // R: == ROUTES ==
 // R: -- REGISTRY --
@@ -126,30 +132,29 @@ user_router.post("/Login", async (req, res) => {
 );
 user_router.get("/Logout", async(req, res) => {
   res.status(200).json({message: "You have been logged out."});
-})
+});
 // R: -- FORGOT/CHANGE PASSWORD --
 user_router.post("/ForgotPassword", async(req, res) => {
   const {email} = req.body;
-  
   const existingUser = await User.findOne({ email });
   if (existingUser)
   {
     const token = jwt.sign(
       {
         // R: -- Insert Email into Token --
-        email: existingUser.email,
+        email: existingUser.email, 
       },
       process.env.JWT_SECRET, // R: --> Process Secret
       { expiresIn: '2h'} // R: --> 2 Hours.
     );
     setMailOptions(email, `http://localhost:5173/Reset-Password/${token}`);
-    console.log(mailOptions);
+    console.log("Mail Options: ", mailOptions);
     transporter.sendMail(mailOptions, (err_, info_) => {
       if (err_){
-        console.log(err_);
-        console.log(err_.name);
-        console.log(err_.cause);
-        console.log(err_.message);
+        console.log("err_: ", err_);
+        console.log("err_.name: ", err_.name);
+        console.log("err_.cause: ", err_.cause);
+        console.log("err_.message: ", err_.message);
       }
       else{
         console.log(info_);
@@ -160,7 +165,7 @@ user_router.post("/ForgotPassword", async(req, res) => {
   else {
     res.status(401).json({message: "User doesn't exist!"})
   }
-})
+});
 user_router.post("/ResetPassword", async(req, res) => {
   const token = req.header('Authorization')?.split(' ')[1];
   const {email, newPassword} = req.body;
@@ -170,18 +175,21 @@ user_router.post("/ResetPassword", async(req, res) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user_ = User.findOne({email});
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const decoded_ = jwt.verify(token, process.env.JWT_SECRET);
+    const user_ = await User.findOne({email: email});
+    const hashedPassword_ = await bcrypt.hash(newPassword, 10);
 
-    if (user_ && decoded) {
-      User.findOneAndUpdate({email}, {$set: {password: hashedPassword}});
+    if (user_ && decoded_) {
+      user_.password = hashedPassword_;
+      await user_.save();
+      return res.json({message: "Password has successfully been reset!"});
     }
-    else{
+    else{ 
       return res.status(401).json({message: "User Doesn't Exist!"});
     }
   }
   catch (err){
+    console.log(err);
     return res.status(400).json({message: "Invalid or Expired Token!"});
   }
 });
@@ -307,29 +315,162 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
     res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
 })
+user_router.post("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = await User.findById(req.user.userID);
+    let found = false;
+
+    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.    
+      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...      
+        user.cart[x_].quantity += quantity; // R: Increase by quantity.
+        found = true;
+        break; // R: Stop the loop.
+      }
+    }
+    if (found === false){
+      user.cart.push({product: product, quantity: quantity});
+    }
+    await user.save(); // R: Save changes.
+    return res.json(user.cart); // R: Return the cart.
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An unexpected error has occured."});
+  }
+});
+
+// R: == CART ROUTERS ==
+user_router.get("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    await User.findById(req.user.userID).then((user) => {
+      res.json({cart: user.cart});
+    })
+  }
+  catch (err_) {
+    console.log(err_);
+    res.status(400).json({message: "An Unexpected Error has Occurred!"});
+  }
+})
 
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
     const user = await User.findById(req.user.userID);
-    
   }
   catch (err_){
     console.log(err_);
     return res.status(400).json({message: "An Unexpected Error Has Occured!"});
   }
 });
-
 user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
-    const user = User.findById(req.user.userID);
+    const user = await User.findById(req.user.userID);
   
     for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
-      if (user.cart[x].product === product){ // R: if the product is the same key we're looking for...
-        user.cart[x].quantity -= quantity; // R: Decrease by quantity.
-        if (user.cart[x].quantity <= 0) { // R: If the quantity is too low...
-          user.cart.splice(x, 1); // R: Remove it from the array.
+      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
+        user.cart[x_].quantity -= quantity; // R: Decrease by quantity.
+        if (user.cart[x_].quantity <= 0) { // R: If the quantity is too low...
+          user.cart.splice(x_, 1); // R: Remove it from the array.
+        }
+        break; // R: Stop the loop.
+      }
+    }
+    await user.save(); // R: Save changes.
+    return res.json(user.cart); // R: Return the cart.
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An unexpected error has occured."});
+  }
+});
+
+// R: == CART ROUTERS ==
+user_router.get("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    await User.findById(req.user.userID).then((user) => {
+      res.json({cart: user.cart});
+    })
+  }
+  catch (err_) {
+    console.log(err_);
+    res.status(400).json({message: "An Unexpected Error has Occurred!"});
+  }
+})
+
+user_router.post("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = await User.findById(req.user.userID);
+    let found = false;
+
+    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.    
+      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...      
+        user.cart[x_].quantity += quantity; // R: Increase by quantity.
+        found = true;
+        break; // R: Stop the loop.
+      }
+    }
+    if (found === false){
+      user.cart.push({product: product, quantity: quantity});
+    }
+    await user.save(); // R: Save changes.
+    return res.json(user.cart); // R: Return the cart.
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An unexpected error has occured."});
+  }
+});
+
+// R: == CART ROUTERS ==
+user_router.get("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    await User.findById(req.user.userID).then((user) => {
+      res.json({cart: user.cart});
+    })
+  }
+  catch (err_) {
+    console.log(err_);
+    res.status(400).json({message: "An Unexpected Error has Occurred!"});
+  }
+})
+user_router.post("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = await User.findById(req.user.userID);
+  
+    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
+      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
+        user.cart[x_].quantity -= quantity; // R: Decrease by quantity.
+        if (user.cart[x_].quantity <= 0) { // R: If the quantity is too low...
+          user.cart.splice(x_, 1); // R: Remove it from the array.
+        }
+        break; // R: Stop the loop.
+      }
+    }
+    if (found === false){
+      user.cart.push({product: product, quantity: quantity});
+    }
+    await user.save(); // R: Save changes.
+    return res.json(user.cart); // R: Return the cart.
+  }
+  catch (err_){
+    console.log(err_);
+    return res.status(400).json({message: "An Unexpected Error Has Occured!"});
+  }
+});
+user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
+  try{
+    const {product, quantity} = req.body;
+    const user = await User.findById(req.user.userID);
+  
+    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
+      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
+        user.cart[x_].quantity -= quantity; // R: Decrease by quantity.
+        if (user.cart[x_].quantity <= 0) { // R: If the quantity is too low...
+          user.cart.splice(x_, 1); // R: Remove it from the array.
         }
         break; // R: Stop the loop.
       }
