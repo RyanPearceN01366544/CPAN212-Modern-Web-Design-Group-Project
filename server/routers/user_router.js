@@ -749,6 +749,7 @@ user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
     const user = await User.findById(req.user.userID);
+<<<<<<< HEAD
     let found = false;
 
     for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.    
@@ -910,6 +911,8 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
 =======
 >>>>>>> 9ac50d4 (What the heck... Will have to test everything tomorrow but fixing Cart.)
 =======
+=======
+>>>>>>> d731bfd (Update user_router.js)
     console.log(user);
 >>>>>>> 22aec7e (Fix)
   
