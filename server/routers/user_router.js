@@ -909,10 +909,7 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
   
     for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
       if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
-        user.cart[x_].quantity -= quantity; // R: Decrease by quantity.
-        if (user.cart[x_].quantity <= 0) { // R: If the quantity is too low...
-          user.cart.splice(x_, 1); // R: Remove it from the array.
-        }
+        user.cart[x_].quantity += quantity; // R: Decrease by quantity.
         break; // R: Stop the loop.
       }
     }
