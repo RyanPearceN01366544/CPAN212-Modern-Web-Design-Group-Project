@@ -745,6 +745,7 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
     res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
 })
+<<<<<<< HEAD
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
@@ -783,10 +784,13 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
   }
 })
 
+=======
+>>>>>>> f4358d8 (Fixed the Cart)
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
     const user = await User.findById(req.user.userID);
+<<<<<<< HEAD
   }
   catch (err_){
     console.log(err_);
@@ -804,14 +808,26 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
         if (user.cart[x_].quantity <= 0) { // R: If the quantity is too low...
           user.cart.splice(x_, 1); // R: Remove it from the array.
         }
+=======
+    let found = false;
+
+    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.    
+      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...      
+        user.cart[x_].quantity += quantity; // R: Increase by quantity.
+        found = true;
+>>>>>>> f4358d8 (Fixed the Cart)
         break; // R: Stop the loop.
       }
+    }
+    if (found === false){
+      user.cart.push({product: product, quantity: quantity});
     }
     await user.save(); // R: Save changes.
     return res.json(user.cart); // R: Return the cart.
   }
   catch (err_){
     console.log(err_);
+<<<<<<< HEAD
     return res.status(400).json({message: "An unexpected error has occured."});
   }
 });
@@ -874,6 +890,8 @@ user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   }
   catch (err_){
     console.log(err_);
+=======
+>>>>>>> f4358d8 (Fixed the Cart)
     return res.status(400).json({message: "An Unexpected Error Has Occured!"});
   }
 });
