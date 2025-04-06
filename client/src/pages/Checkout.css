@@ -158,9 +158,120 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 =======
+=======
+}
+
+/* Go back button */
+.go-back-btn {
+  padding: 12px 20px;
+  background-color: #ccc;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.go-back-btn:hover {
+  background-color: #888;
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+  .checkout-container {
+    padding: 20px;
+  }
+
+  .step-content {
+    width: 100%;
+  }
+
+  .payment-method {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .payment-option {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .confirm-btn {
+    padding: 15px;
+    font-size: 1.1rem;
+  }
+
+  /* Adjust padding for smaller input fields */
+  .step-content input,
+  .step-content select {
+    padding: 10px;
+    font-size: 1rem;
+  }
+}
+
+/* Responsive for smaller form inputs */
+@media (max-width: 480px) {
+  .step-content input,
+  .step-content select {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .payment-method {
+    flex-direction: column;
+  }
+
+  .payment-option {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .confirm-btn {
+    font-size: 1.1rem;
+  }
+
+  /* Stack card details inputs on smaller screens */
+  .card-details {
+    flex-direction: column;
+  }
+
+  .card-details input {
+    width: 100%;
+  }
+}
+
+/* Progress bar styles */
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.progress {
+  width: 25%;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+.progress.active {
+  background-color: #0055b8;
+}
+
+/* Progress bar step indicator */
+.progress-bar .progress {
+  transition: background-color 0.3s ease;
+>>>>>>> 24f0de6 (semi final part)
 }
 
 /* Go back button */
