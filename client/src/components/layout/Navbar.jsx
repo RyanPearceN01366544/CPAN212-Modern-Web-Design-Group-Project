@@ -11,10 +11,23 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check for user on component mount
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+
+    // Add event listener for storage changes
+    const handleStorageChange = () => {
+      const updatedUser = localStorage.getItem('user');
+      if (updatedUser) {
+        setUser(JSON.parse(updatedUser));
+      } else {
+        setUser(null);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
 
     // Close menu when clicking outside
     const handleClickOutside = (event) => {
@@ -24,7 +37,10 @@ const Navbar = () => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -32,7 +48,7 @@ const Navbar = () => {
     setUser(null);
     setIsMenuOpen(false);
     setIsMobileMenuOpen(false);
-    navigate('/');
+    window.location.href = '/';
   };
 
   const toggleMobileMenu = () => {
@@ -72,18 +88,27 @@ const Navbar = () => {
                   className="account-button" 
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
-                  {user.name}
+                  {user.username || 'Account'}
                 </button>
                 {isMenuOpen && (
                   <div className="account-dropdown">
                     <Link 
-                      to="/account" 
+                      to="/user" 
                       onClick={() => {
                         setIsMenuOpen(false);
                         setIsMobileMenuOpen(false);
                       }}
                     >
-                      Account Info
+                      My Account
+                    </Link>
+                    <Link 
+                      to="/cart" 
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      My Cart
                     </Link>
                     <Link 
                       to="/orders" 
@@ -92,22 +117,18 @@ const Navbar = () => {
                         setIsMobileMenuOpen(false);
                       }}
                     >
-                      Order Info
+                      My Orders
                     </Link>
                     <button onClick={handleLogout}>
-                      Log Out
+                      Sign Out
                     </button>
                   </div>
                 )}
               </>
             ) : (
               <div className="auth-buttons">
-                <Link to="/signin" onClick={() => setIsMobileMenuOpen(false)}>
-                  Sign In
-                </Link>
-                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
-                  Register
-                </Link>
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
+                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>Register</Link>
               </div>
             )}
           </div>

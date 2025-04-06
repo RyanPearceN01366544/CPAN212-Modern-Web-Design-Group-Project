@@ -14,12 +14,14 @@ const Register = () => {
     lastName: ''
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setIsLoading(true);
 
     // Validate passwords match
@@ -31,10 +33,18 @@ const Register = () => {
 
     try {
       const { confirmPassword, ...registrationData } = formData;
-      await authService.register(registrationData);
-      navigate('/signin');
+      const response = await authService.register(registrationData);
+      setSuccess('Account registered successfully!');
+      // Wait for 2 seconds to show success message, then redirect to login
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
     } catch (err) {
-      setError(err.message || 'Registration failed. Please try again.');
+      if (err.message === 'User already exists') {
+        setError('Account already exists. Please try logging in.');
+      } else {
+        setError(err.message || 'Registration failed. Please try again.');
+      }
       console.error('Registration error:', err);
     } finally {
       setIsLoading(false);
@@ -53,6 +63,7 @@ const Register = () => {
       <div className="auth-box">
         <h2>Create Account</h2>
         {error && <div className="error-message">{error}</div>}
+        {success && <div className="success-message">{success}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <div className="input-icon">
@@ -138,7 +149,7 @@ const Register = () => {
         </form>
         <div className="auth-links">
           <p>
-            Already have an account? <Link to="/signin">Sign In</Link>
+            Already have an account? <Link to="/login">Sign In</Link>
           </p>
         </div>
       </div>
