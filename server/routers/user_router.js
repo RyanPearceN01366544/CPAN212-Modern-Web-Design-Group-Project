@@ -324,6 +324,7 @@ user_router.post("/ResetPassword", async(req, res) => {
 
   try {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const decoded_ = jwt.verify(token, process.env.JWT_SECRET);
     const user_ = await User.findOne({email: email});
     const hashedPassword_ = await bcrypt.hash(newPassword, 10);
@@ -348,11 +349,24 @@ user_router.post("/ResetPassword", async(req, res) => {
 =======
     else{ 
 >>>>>>> 8037a11 (Fixed Problem with Password Resetting.)
+=======
+    const decoded_ = jwt.verify(token, process.env.JWT_SECRET);
+    const user_ = await User.findOne({email: email});
+    const hashedPassword_ = await bcrypt.hash(newPassword, 10);
+
+    if (user_ && decoded_) {
+      user_.password = hashedPassword_;
+      await user_.save();
+      return res.json({message: "Password has successfully been reset!"});
+    }
+    else{ 
+>>>>>>> 6711f3d (Fixed Problem with Password Resetting.)
       return res.status(401).json({message: "User Doesn't Exist!"});
     }
   }
   catch (err){
     console.log(err);
+<<<<<<< HEAD
     return res.status(400).json({message: "Invalid or Expired Token!"});
   }
 });
@@ -383,6 +397,8 @@ user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through
     }
   }
   catch (err){
+=======
+>>>>>>> 6711f3d (Fixed Problem with Password Resetting.)
     return res.status(400).json({message: "Invalid or Expired Token!"});
   }
 });
