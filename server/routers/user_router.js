@@ -34,9 +34,16 @@ const transporter = nodemailer.createTransport({ // R: Creates an Email!
 
 // == EMAIL STUFF == <- R
 const transporter = nodemailer.createTransport({ // R: Creates an Email!
+<<<<<<< HEAD
   host: process.env.EMAIL_SERVICE,
   port: 465,
 >>>>>>> d9d0fa2 (Fixing Merge Issues on Server for Some Reason???)
+=======
+  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+>>>>>>> 63c5fa2 (Fixed Mail... God this sucked.)
   auth: {
       user: process.env.EMAIL_USER, // FOR SOME REASON, THIS WON'T PROPERLY WORK UNLESS IT'S PLACED IN HERE FOR NO REASON?!
       pass: process.env.EMAIL_PASSWORD,
@@ -234,6 +241,7 @@ user_router.get("/Logout", async(req, res) => {
 // R: -- FORGOT/CHANGE PASSWORD --
 user_router.post("/ForgotPassword", async(req, res) => {
   const {email} = req.body;
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -246,6 +254,8 @@ user_router.post("/ForgotPassword", async(req, res) => {
 >>>>>>> a1dd1e7 (Fixed Mail... God this sucked.)
 =======
 >>>>>>> d9d0fa2 (Fixing Merge Issues on Server for Some Reason???)
+=======
+>>>>>>> 63c5fa2 (Fixed Mail... God this sucked.)
   const existingUser = await User.findOne({ email });
   if (existingUser)
   {
@@ -253,15 +263,20 @@ user_router.post("/ForgotPassword", async(req, res) => {
       {
         // R: -- Insert Email into Token --
 <<<<<<< HEAD
+<<<<<<< HEAD
         email: existingUser.email, 
 =======
         email: existingUser.email,
 >>>>>>> d9d0fa2 (Fixing Merge Issues on Server for Some Reason???)
+=======
+        email: existingUser.email, 
+>>>>>>> 63c5fa2 (Fixed Mail... God this sucked.)
       },
       process.env.JWT_SECRET, // R: --> Process Secret
       { expiresIn: '2h'} // R: --> 2 Hours.
     );
     setMailOptions(email, `http://localhost:5173/Reset-Password/${token}`);
+<<<<<<< HEAD
 <<<<<<< HEAD
     console.log("Mail Options: ", mailOptions);
     transporter.sendMail(mailOptions, (err_, info_) => {
@@ -279,6 +294,15 @@ user_router.post("/ForgotPassword", async(req, res) => {
         console.log(err_.cause);
         console.log(err_.message);
 >>>>>>> d9d0fa2 (Fixing Merge Issues on Server for Some Reason???)
+=======
+    console.log("Mail Options: ", mailOptions);
+    transporter.sendMail(mailOptions, (err_, info_) => {
+      if (err_){
+        console.log("err_: ", err_);
+        console.log("err_.name: ", err_.name);
+        console.log("err_.cause: ", err_.cause);
+        console.log("err_.message: ", err_.message);
+>>>>>>> 63c5fa2 (Fixed Mail... God this sucked.)
       }
       else{
         console.log(info_);
