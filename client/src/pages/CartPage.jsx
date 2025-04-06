@@ -13,6 +13,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 =======
 import React, { useState } from "react";
@@ -39,9 +40,12 @@ const CartPage = () => {
 >>>>>>> 93241b1 (Pages)
 =======
 import React from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> 4f9e431 (semi final part)
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext"; // Import CartContext
-import "./Cart.css";
+import "./Cart.css"; // Assuming Cart.css includes updated styles
 
 <<<<<<< HEAD
 const CartPage = ({ cart = [], setCart = () => {} }) => {
@@ -241,10 +245,16 @@ const CartPage = () => {
 =======
 const CartPage = () => {
   const { cartItems, updateQuantity, removeFromCart, getCartTotal } = useCart();
+  const [discountCode, setDiscountCode] = useState("");
+  const [shippingOption, setShippingOption] = useState("standard");
+  const [discountApplied, setDiscountApplied] = useState(false);
   const navigate = useNavigate();
 
+<<<<<<< HEAD
 >>>>>>> ea2b2a5 (edit shopping cart and checkout)
 =======
+=======
+>>>>>>> 4f9e431 (semi final part)
   const handleDiscountApply = () => {
     if (discountCode === "SAVE10") {
       setDiscountApplied(true);
@@ -260,6 +270,7 @@ const CartPage = () => {
   const shippingCost = shippingOption === "express" ? 15.00 : 5.00;
   const totalAfterDiscount = discountApplied ? getCartTotal() - 10 : getCartTotal(); // Example discount of $10
 
+<<<<<<< HEAD
 >>>>>>> 6512b4d (semi final part)
   return (
     <div className="cart-container">
@@ -289,6 +300,22 @@ const CartPage = () => {
           {/* Cart Items List */}
           <ul className="cart-items-list">
 >>>>>>> 6512b4d (semi final part)
+=======
+  return (
+    <div className="cart-container">
+      <h2 className="cart-title">Your Shopping Cart</h2>
+      {cartItems.length === 0 ? (
+        <div className="empty-cart">
+          <p>Your cart is empty. Start shopping to fill it up!</p>
+          <button onClick={() => navigate("/")} className="shop-more-btn">
+            Shop Now
+          </button>
+        </div>
+      ) : (
+        <>
+          {/* Cart Items List */}
+          <ul className="cart-items-list">
+>>>>>>> 4f9e431 (semi final part)
             {cartItems.map((item) => (
               <li key={item.id} className="cart-item">
                 <div className="item-details">
@@ -332,6 +359,7 @@ const CartPage = () => {
             ))}
           </ul>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <h3>Total: ${getCartTotal().toFixed(2)}</h3>
 =======
             {cart.map((item) => (
@@ -350,6 +378,8 @@ const CartPage = () => {
             Proceed to Checkout
           </button>
 =======
+=======
+>>>>>>> 4f9e431 (semi final part)
 
           {/* Shipping and Discount Section */}
           <div className="cart-options">
@@ -390,7 +420,10 @@ const CartPage = () => {
               </button>
             </div>
           </div>
+<<<<<<< HEAD
 >>>>>>> 6512b4d (semi final part)
+=======
+>>>>>>> 4f9e431 (semi final part)
         </>
       )}
     </div>
