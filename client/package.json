@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.6.1",
     "@sendgrid/mail": "^8.1.4",
     "axios": "^1.8.4",
+<<<<<<< HEAD
     "react": "^19.0.0",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -54,6 +55,8 @@
     "@heroicons/react": "^2.2.0",
     "formik": "^2.4.6",
     "framer-motion": "^12.6.3",
+=======
+>>>>>>> 6789d09 (semi final part)
     "react": "^19.0.0",
 <<<<<<< HEAD
 <<<<<<< HEAD
