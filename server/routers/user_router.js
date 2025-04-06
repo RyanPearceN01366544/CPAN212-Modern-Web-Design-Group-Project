@@ -8,7 +8,6 @@ import dotenv from 'dotenv'; // Required for Email.
 dotenv.config();
 
 const user_router = express.Router();
-
 // == R ==
 // TODO:  
 // Register -> Registers a user. (DONE)
@@ -891,6 +890,7 @@ user_router.post("/Cart", auth.verifyToken, async(req, res) => {
     const {product, quantity} = req.body;
     const user = await User.findById(req.user.userID);
 <<<<<<< HEAD
+<<<<<<< HEAD
     
   }
   catch (err_){
@@ -906,6 +906,9 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
     const user = await User.findById(req.user.userID);
 =======
 >>>>>>> 9ac50d4 (What the heck... Will have to test everything tomorrow but fixing Cart.)
+=======
+    console.log(user);
+>>>>>>> 22aec7e (Fix)
   
     for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
       if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
