@@ -16,6 +16,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 33d27ad (Checkout/Cart)
 =======
@@ -41,6 +42,8 @@
 =======
 =======
 >>>>>>> 4f9e431 (semi final part)
+=======
+>>>>>>> 26850c4 (semi final part)
   max-width: 1200px;
   margin: 60px auto;
   padding: 50px;
@@ -95,9 +98,12 @@
   list-style: none;
   padding: 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 6512b4d (semi final part)
 =======
 >>>>>>> 4f9e431 (semi final part)
+=======
+>>>>>>> 26850c4 (semi final part)
 }
 
 .cart-item {
@@ -186,7 +192,161 @@
   cursor: pointer;
   transition: background-color 0.3s;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+}
+
+.cart-item .remove-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Order Summary Section */
+.order-summary {
+  margin-top: 40px;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 15px;
+  font-size: 1.3rem;
+}
+
+.order-summary h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+.order-summary .summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.order-summary .summary-item h4 {
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.order-summary .total {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #27ae60;
+}
+
+/* Checkout Button */
+.continue-checkout button {
+  padding: 16px 35px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: #27ae60;
+  color: white;
+  border-radius: 12px;
+  transition: background-color 0.3s;
+}
+
+.continue-checkout button:hover {
+  background-color: #219150;
+}
+
+/* PayPal Checkout */
+.paypal-checkout button {
+  padding: 16px 35px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: #f7c544;
+  border-radius: 12px;
+  transition: background-color 0.3s;
+}
+
+.paypal-checkout button:hover {
+  background-color: #e6b23e;
+}
+
+/* Shipping and Discount Section */
+.cart-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.shipping-options,
+.discount-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.shipping-options select,
+.discount-input {
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.apply-discount {
+  background-color: #3498db;
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.apply-discount:hover {
+  background-color: #2980b9;
+}
+
+.discount-applied {
+  font-size: 1.1rem;
+  color: #2ecc71;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+/* Mobile Fixes */
+@media (max-width: 768px) {
+  .cart-container {
+    padding: 25px;
+  }
+
+  .cart-title {
+    font-size: 2rem;
+  }
+
+  .cart-items-list {
+    padding-left: 0;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .item-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item-price {
+    margin-top: 10px;
+  }
+
+  .order-summary {
+    text-align: center;
+  }
+
+  .continue-checkout button {
+    width: 100%;
+  }
+
+  .paypal-checkout button {
+    width: 100%;
+  }
+>>>>>>> 26850c4 (semi final part)
 }
 
 .cart-item .remove-btn:hover {
