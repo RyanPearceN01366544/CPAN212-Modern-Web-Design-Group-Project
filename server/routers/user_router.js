@@ -4,6 +4,8 @@ import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 import auth from "../middleware/auth.js";
 import User from "../models/User.js";
+import dotenv from 'dotenv'; // Required for Email.
+dotenv.config();
 
 const user_router = express.Router();
 
@@ -11,9 +13,10 @@ const user_router = express.Router();
 // TODO:  
 // Register -> Registers a user. (DONE)
 // Login -> Login the user with a token. (DONE)
-// ForgotPassword -> When the user wants to send a password reset request. (WIP)
-// ResetPassword -> When the user resets their password. (WIP)
+// ForgotPassword -> When the user wants to send a password reset request. (DNE)
+// ResetPassword -> When the user resets their password. (DONE)
 // GetCart -> Get the cart. 
+// AddCart -> Add a product 
 // GetUserInfo -> Get information about the current user or ID of a using.
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -22,11 +25,13 @@ const user_router = express.Router();
 
 // == EMAIL STUFF == <- R
 const transporter = nodemailer.createTransport({ // R: Creates an Email!
-  host: process.env.EMAIL_SERVICE,
-  port: 465,
+  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
   auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD
+      user: process.env.EMAIL_USER, // FOR SOME REASON, THIS WON'T PROPERLY WORK UNLESS IT'S PLACED IN HERE FOR NO REASON?!
+      pass: process.env.EMAIL_PASSWORD,
   }
 });
 let mailOptions = {};
@@ -217,6 +222,7 @@ user_router.get("/Logout", async(req, res) => {
 // R: -- FORGOT/CHANGE PASSWORD --
 user_router.post("/ForgotPassword", async(req, res) => {
   const {email} = req.body;
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
@@ -224,25 +230,27 @@ user_router.post("/ForgotPassword", async(req, res) => {
   const {email} = req.body;
 
 >>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
+=======
+>>>>>>> a1dd1e7 (Fixed Mail... God this sucked.)
   const existingUser = await User.findOne({ email });
   if (existingUser)
   {
     const token = jwt.sign(
       {
         // R: -- Insert Email into Token --
-        email: existingUser.email,
+        email: existingUser.email, 
       },
       process.env.JWT_SECRET, // R: --> Process Secret
       { expiresIn: '2h'} // R: --> 2 Hours.
     );
     setMailOptions(email, `http://localhost:5173/Reset-Password/${token}`);
-    console.log(mailOptions);
+    console.log("Mail Options: ", mailOptions);
     transporter.sendMail(mailOptions, (err_, info_) => {
       if (err_){
-        console.log(err_);
-        console.log(err_.name);
-        console.log(err_.cause);
-        console.log(err_.message);
+        console.log("err_: ", err_);
+        console.log("err_.name: ", err_.name);
+        console.log("err_.cause: ", err_.cause);
+        console.log("err_.message: ", err_.message);
       }
       else{
         console.log(info_);
