@@ -462,6 +462,9 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
         break; // R: Stop the loop.
       }
     }
+    if (found === false){
+      user.cart.push({product: product, quantity: quantity});
+    }
     await user.save(); // R: Save changes.
     return res.json(user.cart); // R: Return the cart.
   }
