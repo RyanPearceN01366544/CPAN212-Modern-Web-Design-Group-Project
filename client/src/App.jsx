@@ -131,7 +131,7 @@ function App() {
 >>>>>>> ea2b2a5 (edit shopping cart and checkout)
                   } />
                   <Route path="/product/:id" element={<ProductDetail />} />
-                  <Route path="/signin" element={<SignIn />} />
+                  <Route path="/login" element={<SignIn />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/reset-password/:token" element={<ResetPassword />} />
