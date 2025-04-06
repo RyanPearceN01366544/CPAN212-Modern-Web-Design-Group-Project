@@ -843,6 +843,7 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
     res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
 })
+<<<<<<< HEAD
 
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
@@ -885,6 +886,8 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
 =======
 })
 >>>>>>> 9ac50d4 (What the heck... Will have to test everything tomorrow but fixing Cart.)
+=======
+>>>>>>> 82e1956 (Update user_router.js)
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
