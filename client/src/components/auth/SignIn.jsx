@@ -18,12 +18,15 @@ const SignIn = () => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
+    console.log('Attempting login with:', formData);
 
     try {
       const response = await authService.login(formData.login, formData.password);
-      setIsLoading(false);
-      navigate('/');
+      console.log('Login response:', response);
+      // Force reload the page to update the navbar
+      window.location.href = '/';
     } catch (err) {
+      console.log('Login error details:', err);
       setError(err.message || 'Login failed. Please try again.');
       console.error('Login error:', err);
     } finally {

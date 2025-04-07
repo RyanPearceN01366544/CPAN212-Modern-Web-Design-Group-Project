@@ -66,11 +66,15 @@
 
 .account-button {
   padding: 0.5rem 1rem;
-  background: none;
+  background: #007bff;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-  color: #333;
+  color: white;
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .account-dropdown {
@@ -80,9 +84,10 @@
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   min-width: 200px;
   z-index: 1000;
+  margin-top: 0.5rem;
 }
 
 .account-dropdown a,
@@ -96,28 +101,47 @@
   background: none;
   border: none;
   cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
 }
 
 .account-dropdown a:hover,
 .account-dropdown button:hover {
   background-color: #f8f9fa;
+  color: #007bff;
 }
 
 .auth-buttons {
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 
 .auth-buttons a {
   text-decoration: none;
-  color: #333;
   padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.auth-buttons a:first-child {
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.auth-buttons a:first-child:hover {
+  background-color: #007bff;
+  color: white;
 }
 
 .auth-buttons a:last-child {
   background-color: #007bff;
   color: white;
-  border-radius: 4px;
+}
+
+.auth-buttons a:last-child:hover {
+  background-color: #0056b3;
 }
 
 .mobile-menu-button {

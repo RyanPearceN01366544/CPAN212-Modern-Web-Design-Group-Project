@@ -152,17 +152,23 @@
 }
 
 .error-message {
-  color: #e74c3c;
-  text-align: center;
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 0.75rem;
   margin-bottom: 1rem;
-  font-size: 0.9rem;
+  border-radius: 4px;
+  text-align: center;
 }
 
 .success-message {
-  color: #27ae60;
-  text-align: center;
+  color: #28a745;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 0.75rem;
   margin-bottom: 1rem;
-  font-size: 0.9rem;
+  border-radius: 4px;
+  text-align: center;
 }
 
 /* Responsive Design */
