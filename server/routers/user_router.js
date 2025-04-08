@@ -352,7 +352,7 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
       }
     }
     await user.save(); // R: Save changes.
-    return res.json(user.cart); // R: Return the cart.
+    return res.json(user.cart); // R: Return the cart. 
   }
   catch (err_){
     console.log(err_);
