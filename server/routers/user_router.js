@@ -17,14 +17,6 @@ const user_router = express.Router();
 // GetCart -> Get the cart. 
 // AddCart -> Add a product 
 // GetUserInfo -> Get information about the current user or ID of a using.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 
 // == EMAIL STUFF == <- R
 const transporter = nodemailer.createTransport({ // R: Creates an Email!
@@ -32,23 +24,6 @@ const transporter = nodemailer.createTransport({ // R: Creates an Email!
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
-<<<<<<< HEAD
-=======
-
-// == EMAIL STUFF == <- R
-const transporter = nodemailer.createTransport({ // R: Creates an Email!
-<<<<<<< HEAD
-  host: process.env.EMAIL_SERVICE,
-  port: 465,
->>>>>>> d9d0fa2 (Fixing Merge Issues on Server for Some Reason???)
-=======
-  service: "gmail",
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
->>>>>>> 63c5fa2 (Fixed Mail... God this sucked.)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   auth: {
       user: process.env.EMAIL_USER, // FOR SOME REASON, THIS WON'T PROPERLY WORK UNLESS IT'S PLACED IN HERE FOR NO REASON?!
       pass: process.env.EMAIL_PASSWORD,
@@ -65,48 +40,9 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
   }
 };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-// == ROUTES == <- R
-<<<<<<< HEAD
-user_router.post("/Register", async (req, res) => {
-=======
-user_router.post("/Register/", async (req, res) => {
-    console.log("=== Registration Request ===");
-    console.log("Request Body:", req.body);
->>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
-=======
-user_router.put("/Register", async (req, res) => {
->>>>>>> d198a1a (Update auth endpoints: Change Register to PUT, fix port numbers to 8000)
-=======
 // R: == ROUTES ==
 // R: -- REGISTRY --
 user_router.put("/Register", async (req, res) => {
->>>>>>> 051283f (Fixed Dumb Mistake.)
-=======
-// R: == ROUTES ==
-// R: -- REGISTRY --
-user_router.put("/Register", async (req, res) => {
->>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
-=======
-
-// == ROUTES == <- R
-user_router.post("/Register", async (req, res) => {
->>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
-=======
-// R: == ROUTES ==
-// R: -- REGISTRY --
-user_router.put("/Register", async (req, res) => {
->>>>>>> a6f76e3 (Fixed Dumb Mistake.)
-=======
-// R: == ROUTES ==
-// R: -- REGISTRY --
-user_router.put("/Register", async (req, res) => {
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     try {
         const { username, email, password, firstName, lastName } = req.body;
         console.log("Parsed Data:", { username, email, firstName, lastName });
@@ -152,38 +88,7 @@ user_router.put("/Register", async (req, res) => {
         res.status(500).json({ message: "Error Registering User!" });
       }
 });
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-user_router.get("/Login", async (req, res) => {
-=======
-user_router.post("/Login/", async (req, res) => {
-    console.log("=== Login Request ===");
-    console.log("Request Body:", req.body);
->>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
-=======
 user_router.post("/Login", async (req, res) => {
->>>>>>> d198a1a (Update auth endpoints: Change Register to PUT, fix port numbers to 8000)
-=======
-user_router.post("/Login", async (req, res) => {
->>>>>>> 051283f (Fixed Dumb Mistake.)
-=======
-user_router.post("/Login", async (req, res) => {
->>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
-=======
-user_router.get("/Login", async (req, res) => {
->>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
-=======
-user_router.post("/Login", async (req, res) => {
->>>>>>> a6f76e3 (Fixed Dumb Mistake.)
-=======
-user_router.post("/Login", async (req, res) => {
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     try {
         const { login, password } = req.body;
         console.log("Login attempt with:", { login });
@@ -224,198 +129,6 @@ user_router.post("/Login", async (req, res) => {
       }
     }
 );
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-user_router.get("/Logout", async(req, res) => {
-  res.status(200).json({message: "You have been logged out."});
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-user_router.get("/Logout/", async(req, res) => {
-    console.log("=== Logout Request ===");
-    res.status(200).json({message: "You have been logged out."});
->>>>>>> 598bc6f (Implement user authentication with MongoDB integration)
-=======
->>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
-=======
-user_router.get("/Logout", async(req, res) => {
-  res.status(200).json({message: "You have been logged out."});
->>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
-=======
->>>>>>> a6f76e3 (Fixed Dumb Mistake.)
-})
-=======
-});
->>>>>>> 00959ee (Just committing for the Pull Request.)
-=======
-});
->>>>>>> 3806a96 (Just committing for the Pull Request.)
-// R: -- FORGOT/CHANGE PASSWORD --
-user_router.post("/ForgotPassword", async(req, res) => {
-  const {email} = req.body;
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-user_router.post("/ForgotPassword", async(req, res) => {
-  const {email} = req.body;
-
->>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
-=======
->>>>>>> a1dd1e7 (Fixed Mail... God this sucked.)
-=======
->>>>>>> d9d0fa2 (Fixing Merge Issues on Server for Some Reason???)
-=======
->>>>>>> 63c5fa2 (Fixed Mail... God this sucked.)
-  const existingUser = await User.findOne({ email });
-  if (existingUser)
-  {
-    const token = jwt.sign(
-      {
-        // R: -- Insert Email into Token --
-<<<<<<< HEAD
-<<<<<<< HEAD
-        email: existingUser.email, 
-=======
-        email: existingUser.email,
->>>>>>> d9d0fa2 (Fixing Merge Issues on Server for Some Reason???)
-=======
-        email: existingUser.email, 
->>>>>>> 63c5fa2 (Fixed Mail... God this sucked.)
-      },
-      process.env.JWT_SECRET, // R: --> Process Secret
-      { expiresIn: '2h'} // R: --> 2 Hours.
-    );
-    setMailOptions(email, `http://localhost:5173/Reset-Password/${token}`);
-<<<<<<< HEAD
-<<<<<<< HEAD
-    console.log("Mail Options: ", mailOptions);
-    transporter.sendMail(mailOptions, (err_, info_) => {
-      if (err_){
-        console.log("err_: ", err_);
-        console.log("err_.name: ", err_.name);
-        console.log("err_.cause: ", err_.cause);
-        console.log("err_.message: ", err_.message);
-=======
-    console.log(mailOptions);
-    transporter.sendMail(mailOptions, (err_, info_) => {
-      if (err_){
-        console.log(err_);
-        console.log(err_.name);
-        console.log(err_.cause);
-        console.log(err_.message);
->>>>>>> d9d0fa2 (Fixing Merge Issues on Server for Some Reason???)
-=======
-    console.log("Mail Options: ", mailOptions);
-    transporter.sendMail(mailOptions, (err_, info_) => {
-      if (err_){
-        console.log("err_: ", err_);
-        console.log("err_.name: ", err_.name);
-        console.log("err_.cause: ", err_.cause);
-        console.log("err_.message: ", err_.message);
->>>>>>> 63c5fa2 (Fixed Mail... God this sucked.)
-      }
-      else{
-        console.log(info_);
-      }
-    });
-    res.json({resetPasswordToken: token});
-  }
-  else {
-    res.status(401).json({message: "User doesn't exist!"})
-  }
-});
-user_router.post("/ResetPassword", async(req, res) => {
-  const token = req.header('Authorization')?.split(' ')[1];
-  const {email, newPassword} = req.body;
-
-  if (!token) {
-    return res.status(401).json({message: "Authorization token required!"});
-  }
-
-  try {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const decoded_ = jwt.verify(token, process.env.JWT_SECRET);
-    const user_ = await User.findOne({email: email});
-    const hashedPassword_ = await bcrypt.hash(newPassword, 10);
-
-    if (user_ && decoded_) {
-      user_.password = hashedPassword_;
-      await user_.save();
-      return res.json({message: "Password has successfully been reset!"});
-=======
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user_ = User.findOne({email});
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-    if (user_ && decoded) {
-      User.findOneAndUpdate({email}, {$set: {password: hashedPassword}});
->>>>>>> d9d0fa2 (Fixing Merge Issues on Server for Some Reason???)
-    }
-<<<<<<< HEAD
-    else{
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    else{ 
->>>>>>> 8037a11 (Fixed Problem with Password Resetting.)
-=======
-    const decoded_ = jwt.verify(token, process.env.JWT_SECRET);
-    const user_ = await User.findOne({email: email});
-    const hashedPassword_ = await bcrypt.hash(newPassword, 10);
-
-    if (user_ && decoded_) {
-      user_.password = hashedPassword_;
-      await user_.save();
-      return res.json({message: "Password has successfully been reset!"});
-    }
-    else{ 
->>>>>>> 6711f3d (Fixed Problem with Password Resetting.)
-      return res.status(401).json({message: "User Doesn't Exist!"});
-    }
-  }
-  catch (err){
-    console.log(err);
-<<<<<<< HEAD
-    return res.status(400).json({message: "Invalid or Expired Token!"});
-  }
-});
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-// R: Using prefix 'Get' before id... otherwise it thinks 'Register' is the :id.
-user_router.get("/Get/", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
-    console.log("=== Get User Info Request ===");
-    console.log("User:", req.user);
-=======
-=======
->>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
-// -- USER DATA & MANAGEMENT --
-// R: Using prefix 'Info' before id... otherwise it thinks 'Register' or other routes are the :id.
-// R: The route below this is for the user requesting information of their own account.
-user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
-<<<<<<< HEAD
->>>>>>> 051283f (Fixed Dumb Mistake.)
-=======
->>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
-=======
-      return res.status(401).json({message: "User doesn't exist!"});
-=======
-      return res.status(401).json({message: "User Doesn't Exist!"});
->>>>>>> a6f76e3 (Fixed Dumb Mistake.)
-    }
-  }
-  catch (err){
-=======
->>>>>>> 6711f3d (Fixed Problem with Password Resetting.)
-=======
 user_router.get("/Logout", async(req, res) => {
   res.status(200).json({message: "You have been logged out."});
 });
@@ -476,62 +189,21 @@ user_router.post("/ResetPassword", async(req, res) => {
   }
   catch (err){
     console.log(err);
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     return res.status(400).json({message: "Invalid or Expired Token!"});
   }
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-// R: Using prefix 'Get' before id... otherwise it thinks 'Register' is the :id.
-user_router.get("/Get", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
->>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
-=======
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 // -- USER DATA & MANAGEMENT --
 // R: Using prefix 'Info' before id... otherwise it thinks 'Register' or other routes are the :id.
 // R: The route below this is for the user requesting information of their own account.
 user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
-<<<<<<< HEAD
->>>>>>> a6f76e3 (Fixed Dumb Mistake.)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     if (req.user) { // R: Is the user existing? If so then...
         res.json(req.user);
     } // R: Otherwise, do nothing as verifyToken will stop them.
 });
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 // R: The route below is the same as above but it's when a user requests the data of a specific user.
 user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
     const userID = req.user.userID; // R: Get the requesting user's id.
-=======
-=======
->>>>>>> b397ff3 (Added Router Stuff (WIP))
-user_router.get('/Get/:id', auth.verifyToken, async(req, res) => { // R: Get Information obout user.
-    console.log("=== Get User By ID Request ===");
-    const userID = req.user; // R: Get the requesting user's id.
->>>>>>> 8f0a197 (Added Router Stuff (WIP))
-=======
-// R: The route below is the same as above but it's when a user requests the data of a specific user.
-user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
-    const userID = req.user.userID; // R: Get the requesting user's id.
->>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
-=======
-// R: The route below is the same as above but it's when a user requests the data of a specific user.
-user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
-    const userID = req.user.userID; // R: Get the requesting user's id.
->>>>>>> a6f76e3 (Fixed Dumb Mistake.)
-=======
-// R: The route below is the same as above but it's when a user requests the data of a specific user.
-user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
-    const userID = req.user.userID; // R: Get the requesting user's id.
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     const lookupID = req.params.id; // R: The user's information that is being requested.
 
     const requestingUser = await User.findById(userID); // R: The user requesting this information.
@@ -541,13 +213,6 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
         console.log("User not found:", lookupID);
         return res.status(404).json({ message: "User not found." });
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a6f76e3 (Fixed Dumb Mistake.)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     // R: Continue and get the privacy settings versus permissions.
     let dataToSend_ = {};
     if (requestingUser.permissionLevel >= 2 && requestingUser.permissionLevel > lookupUser.permissionLevel) { 
@@ -571,10 +236,6 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
         address: "[Hidden]", // R: Should always be hidden from users.
       }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 
     return res.json(dataToSend_); // R: This will send the appropriate data.
 });
@@ -620,196 +281,6 @@ user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
     }
 
     Object.keys(req.body).forEach((key) => { // R: Same thing as PUT /Info route.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      if (target[key] !== undefined && key !== "privacySettings" && key !== "permissionLevel") { // R: All except privacy settings, don't change that.
-        target[key] = req.body[key];
-      }
-      else if (key === "permissionLevel"){
-        if (req.body[key] >= user[key]) {
-          target[key] = (user[key] - 1) < 0 ? 0 : user[key] - 1; // Make it one below their rank.
-        }
-        else {
-          target[key] = req.body[key];
-        }
-      }
-=======
-      if (target[key] !== undefined && key !== "privacySettings") { // R: All except privacy settings, don't change that.
-        target[key] = req.body[key];
-      }
->>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
-=======
-      if (target[key] !== undefined && key !== "privacySettings" && key !== "permissionLevel") { // R: All except privacy settings, don't change that.
-        target[key] = req.body[key];
-      }
-      else if (key === "permissionLevel"){
-        if (req.body[key] >= user[key]){
-          target[key] = (user[key] - 1) < 0 ? 0 : user[key] - 1; // Make it one below their rank.
-        }
-        else {
-          target[key] = req.body[key];
-        }
-      }
->>>>>>> 594d5fc (Quick Authorization Error, Didn't Account for Something. Dumb on my part.)
-    });
-    await target.save(); // R: Save the user.
-    res.json({message: "Account Edited!"});
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An Unexpected Error has Occurred!"});
-  }
-<<<<<<< HEAD
-});
-
-// R: == CART ROUTERS ==
-user_router.get("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    await User.findById(req.user.userID).then((user) => {
-      res.json({cart: user.cart});
-    })
-  }
-  catch (err_) {
-    console.log(err_);
-    res.status(400).json({message: "An Unexpected Error has Occurred!"});
-  }
-})
-
-user_router.post("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = await User.findById(req.user.userID);
-    
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An Unexpected Error Has Occured!"});
-  }
-});
-
-user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = User.findById(req.user.userID);
-  
-    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
-      if (user.cart[x].product === product){ // R: if the product is the same key we're looking for...
-        user.cart[x].quantity -= quantity; // R: Decrease by quantity.
-        if (user.cart[x].quantity <= 0) { // R: If the quantity is too low...
-          user.cart.splice(x, 1); // R: Remove it from the array.
-        }
-        break; // R: Stop the loop.
-      }
-    }
-    await user.save(); // R: Save changes.
-    return res.json(user.cart); // R: Return the cart.
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An unexpected error has occured."});
-  }
-=======
->>>>>>> 4ce3e54 (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
-});
-
-// R: == CART ROUTERS ==
-user_router.get("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    await User.findById(req.user.userID).then((user) => {
-      res.json({cart: user.cart});
-    })
-  }
-  catch (err_) {
-    console.log(err_);
-    res.status(400).json({message: "An Unexpected Error has Occurred!"});
-  }
-})
-
-user_router.post("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = await User.findById(req.user.userID);
-    
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An Unexpected Error Has Occured!"});
-  }
-});
-
-user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = User.findById(req.user.userID);
-  
-    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
-      if (user.cart[x].product === product){ // R: if the product is the same key we're looking for...
-        user.cart[x].quantity -= quantity; // R: Decrease by quantity.
-        if (user.cart[x].quantity <= 0) { // R: If the quantity is too low...
-          user.cart.splice(x, 1); // R: Remove it from the array.
-        }
-        break; // R: Stop the loop.
-      }
-    }
-    await user.save(); // R: Save changes.
-    return res.json(user.cart); // R: Return the cart.
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An unexpected error has occured."});
-  }
-});
-=======
-=======
->>>>>>> a6f76e3 (Fixed Dumb Mistake.)
-
-    return res.json(dataToSend_); // R: This will send the appropriate data.
-});
-// R: The last of these routes are the same but they set data.
-user_router.post("/Info", auth.verifyToken, async(req, res) => {
-  try{
-    const user = await User.findById(req.user.userID);
-    if (!user){
-      return res.json({message: "Missing User!"});
-    }
-
-    Object.keys(req.body).forEach((key) => { // R: Get each variable inside req.body
-      if (user[key] !== undefined && key !== "privacySettings" && key != "permissionLevel") { // R: Check if the user's var is in the Schema.
-        user[key] = req.body[key]; // R: Update the user's var.
-      }
-      else if (key === "privacySettings"){ // R: Addition to avoid mistakes.
-        Object.keys(user[key]).forEach((setting) => { // R: So, it will go through privacySettings and check if it is undefined, if it is then set it to what it's already at.
-          user[key][setting] = req.body[key][setting] !== undefined ? req.body[key][setting] : user[key][setting];
-        })
-      }
-    });
-    await user.save(); // R: Save the user.
-    return res.json({message: "Account Edited!"});
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An unexpected error has occured!"});
-  }
-});
-user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
-  try{ // R: Same thing but we check the user's permissionLevel and the user's permissionLevel.
-    const user = await User.findById(req.user.userID);
-    const target = await User.findById(req.params.id);
-    if (!user){
-      return res.json({message: "Missing User!"});
-    }
-    if (!target){
-      return res.json({message: "Missing Target!"});
-    }
-    if (user.permissionLevel <= 2 || user.permissionLevel <= target.permissionLevel)
-    {
-      return res.json({message: "You can't change the information of this account. You don't have the proper authority."});
-    }
-
-    Object.keys(req.body).forEach((key) => { // R: Same thing as PUT /Info route.
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
       if (target[key] !== undefined && key !== "privacySettings" && key !== "permissionLevel") { // R: All except privacy settings, don't change that.
         target[key] = req.body[key];
       }
@@ -830,10 +301,6 @@ user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
     return res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
 });
-<<<<<<< HEAD
->>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 
 // R: == CART ROUTERS ==
 user_router.get("/Cart", auth.verifyToken, async(req, res) => {
@@ -847,274 +314,20 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
     res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
 })
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
     const user = await User.findById(req.user.userID);
-<<<<<<< HEAD
-<<<<<<< HEAD
-    let found = false;
-
-    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.    
-      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...      
-        user.cart[x_].quantity += quantity; // R: Increase by quantity.
-        found = true;
-        break; // R: Stop the loop.
-      }
-    }
-    if (found === false){
-      user.cart.push({product: product, quantity: quantity});
-    }
-    await user.save(); // R: Save changes.
-    return res.json(user.cart); // R: Return the cart.
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An unexpected error has occured."});
-  }
-});
-
-// R: == CART ROUTERS ==
-user_router.get("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    await User.findById(req.user.userID).then((user) => {
-      res.json({cart: user.cart});
-    })
-  }
-  catch (err_) {
-    console.log(err_);
-    res.status(400).json({message: "An Unexpected Error has Occurred!"});
-  }
-})
-
-=======
->>>>>>> f4358d8 (Fixed the Cart)
-user_router.post("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = await User.findById(req.user.userID);
-<<<<<<< HEAD
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An Unexpected Error Has Occured!"});
-  }
-});
-user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = await User.findById(req.user.userID);
-  
-    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
-      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
-        user.cart[x_].quantity -= quantity; // R: Decrease by quantity.
-        if (user.cart[x_].quantity <= 0) { // R: If the quantity is too low...
-          user.cart.splice(x_, 1); // R: Remove it from the array.
-        }
-=======
-    let found = false;
-
-    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.    
-      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...      
-        user.cart[x_].quantity += quantity; // R: Increase by quantity.
-        found = true;
->>>>>>> f4358d8 (Fixed the Cart)
-        break; // R: Stop the loop.
-      }
-    }
-    if (found === false){
-      user.cart.push({product: product, quantity: quantity});
-    }
-    await user.save(); // R: Save changes.
-    return res.json(user.cart); // R: Return the cart.
-  }
-  catch (err_){
-    console.log(err_);
-<<<<<<< HEAD
-    return res.status(400).json({message: "An unexpected error has occured."});
-  }
-});
-
-// R: == CART ROUTERS ==
-user_router.get("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    await User.findById(req.user.userID).then((user) => {
-      res.json({cart: user.cart});
-    })
-  }
-  catch (err_) {
-    console.log(err_);
-    res.status(400).json({message: "An Unexpected Error has Occurred!"});
-  }
-})
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-user_router.post("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = await User.findById(req.user.userID);
-    let found = false;
-
-    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.    
-      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...      
-        user.cart[x_].quantity += quantity; // R: Increase by quantity.
-        found = true;
-        break; // R: Stop the loop.
-      }
-    }
-    if (found === false){
-      user.cart.push({product: product, quantity: quantity});
-    }
-    await user.save(); // R: Save changes.
-    return res.json(user.cart); // R: Return the cart.
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An unexpected error has occured."});
-  }
-});
-
-// R: == CART ROUTERS ==
-user_router.get("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    await User.findById(req.user.userID).then((user) => {
-      res.json({cart: user.cart});
-    })
-  }
-  catch (err_) {
-    console.log(err_);
-    res.status(400).json({message: "An Unexpected Error has Occurred!"});
-  }
-<<<<<<< HEAD
-});
-=======
-})
->>>>>>> 9ac50d4 (What the heck... Will have to test everything tomorrow but fixing Cart.)
-=======
->>>>>>> 82e1956 (Update user_router.js)
-user_router.post("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = await User.findById(req.user.userID);
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
-  }
-  catch (err_){
-    console.log(err_);
-=======
->>>>>>> f4358d8 (Fixed the Cart)
-    return res.status(400).json({message: "An Unexpected Error Has Occured!"});
-  }
-});
-user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = await User.findById(req.user.userID);
-=======
->>>>>>> 9ac50d4 (What the heck... Will have to test everything tomorrow but fixing Cart.)
-=======
-=======
->>>>>>> d731bfd (Update user_router.js)
     console.log(user);
->>>>>>> 22aec7e (Fix)
-=======
-    console.log(user);
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
-  
-    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
-      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
-        user.cart[x_].quantity -= quantity; // R: Decrease by quantity.
-        if (user.cart[x_].quantity <= 0) { // R: If the quantity is too low...
-          user.cart.splice(x_, 1); // R: Remove it from the array.
-        }
-        break; // R: Stop the loop.
-      }
-    }
-    await user.save(); // R: Save changes.
-    return res.json(user.cart); // R: Return the cart.
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An unexpected error has occured."});
-  }
-});
-
-// R: == CART ROUTERS ==
-user_router.get("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    await User.findById(req.user.userID).then((user) => {
-      res.json({cart: user.cart});
-    })
-  }
-  catch (err_) {
-    console.log(err_);
-    res.status(400).json({message: "An Unexpected Error has Occurred!"});
-  }
-})
-<<<<<<< HEAD
-=======
->>>>>>> f14044a (user_router)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
-user_router.post("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = await User.findById(req.user.userID);
   
     for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
       if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
         user.cart[x_].quantity += quantity; // R: Decrease by quantity.
-        if (user.cart[x_].quantity <= 0) { // R: If the quantity is too low...
-          user.cart.splice(x_, 1); // R: Remove it from the array.
-        }
         break; // R: Stop the loop.
       }
     }
-<<<<<<< HEAD
-    await user.save(); // R: Save changes.
-    return res.json(user.cart); // R: Return the cart.
-  }
-  catch (err_){
-    console.log(err_);
-    return res.status(400).json({message: "An unexpected error has occured."});
-  }
-});
-
-// R: == CART ROUTERS ==
-user_router.get("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    await User.findById(req.user.userID).then((user) => {
-      res.json({cart: user.cart});
-    })
-  }
-  catch (err_) {
-    console.log(err_);
-    res.status(400).json({message: "An Unexpected Error has Occurred!"});
-  }
-})
-user_router.post("/Cart", auth.verifyToken, async(req, res) => {
-  try{
-    const {product, quantity} = req.body;
-    const user = await User.findById(req.user.userID);
-  
-    for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
-      if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
-        user.cart[x_].quantity += quantity; // R: Decrease by quantity.
-        if (user.cart[x_].quantity <= 0) { // R: If the quantity is too low...
-          user.cart.splice(x_, 1); // R: Remove it from the array.
-        }
-        break; // R: Stop the loop.
-      }
-=======
     if (found === false){
       user.cart.push({product: product, quantity: quantity});
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     }
     await user.save(); // R: Save changes.
     return res.json(user.cart); // R: Return the cart.

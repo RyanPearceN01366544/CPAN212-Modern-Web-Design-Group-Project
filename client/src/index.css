@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-=======
->>>>>>> 01b19ea (created client template)
-=======
->>>>>>> 6e765cf (created client template)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -28,30 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-body {
-  margin: 0;
-  padding: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  place-items: center;
-}
-
-#root {
-  width: 100%;
-  min-height: 100vh;
-}
-
-=======
->>>>>>> 01b19ea (created client template)
-=======
->>>>>>> 6e765cf (created client template)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 a {
   font-weight: 500;
   color: #646cff;
@@ -61,14 +22,6 @@ a:hover {
   color: #535bf2;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 6e765cf (created client template)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 body {
   margin: 0;
   display: flex;
@@ -77,13 +30,6 @@ body {
   min-height: 100vh;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 01b19ea (created client template)
-=======
->>>>>>> 6e765cf (created client template)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

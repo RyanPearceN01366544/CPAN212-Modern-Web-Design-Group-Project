@@ -10,158 +10,22 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@mui/icons-material": "^6.4.8",
-    "@mui/material": "^6.4.8",
-    "@paypal/react-paypal-js": "^8.8.2",
-    "@react-oauth/google": "^0.12.1",
-    "@reduxjs/toolkit": "^2.6.1",
-    "@sendgrid/mail": "^8.1.4",
-    "axios": "^1.8.4",
-<<<<<<< HEAD
-    "react": "^19.0.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "react-dom": "^19.0.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "react-icons": "^5.5.0",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.4.0"
-=======
-  "type": "module",
-=======
->>>>>>> 8c18dd4 (edit)
-=======
-  "type": "module",
->>>>>>> 8c0bcd6 (created client template)
-=======
->>>>>>> adcfb14 (edit)
-=======
->>>>>>> 4635f46 (edit)
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@heroicons/react": "^2.2.0",
     "formik": "^2.4.6",
     "framer-motion": "^12.6.3",
-=======
->>>>>>> 6789d09 (semi final part)
     "react": "^19.0.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "react-dom": "^19.0.0"
->>>>>>> 01b19ea (created client template)
-=======
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.1",
     "yup": "^1.6.1"
->>>>>>> 8c18dd4 (edit)
-=======
-    "react-dom": "^19.0.0"
->>>>>>> 8c0bcd6 (created client template)
-=======
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.1",
-    "yup": "^1.6.1"
->>>>>>> adcfb14 (edit)
-=======
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.1",
-    "yup": "^1.6.1"
->>>>>>> 4635f46 (edit)
-=======
-    "react-router-dom": "^7.4.1",
-    "yup": "^1.6.1"
->>>>>>> 27bfaa2 (edit)
-=======
-    "react-dom": "^19.0.0"
->>>>>>> f3a1b10 (created client template)
-=======
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.1",
-    "yup": "^1.6.1"
->>>>>>> 348536c (edit)
-=======
-    "react-dom": "^19.0.0"
->>>>>>> 8e5f4c4 (created client template)
-=======
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.1",
-    "yup": "^1.6.1"
->>>>>>> 3a3be73 (edit)
-=======
-    "react-dom": "^19.0.0"
->>>>>>> 551f956 (created client template)
-=======
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.1",
-    "yup": "^1.6.1"
->>>>>>> 938a7de (edit)
-=======
-    "react-dom": "^19.0.0"
->>>>>>> 50646cc (created client template)
-=======
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.1",
-    "yup": "^1.6.1"
->>>>>>> 981f321 (edit)
-=======
-    "react-dom": "^19.0.0"
->>>>>>> b198087 (created client template)
-=======
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.1",
-    "yup": "^1.6.1"
->>>>>>> 7ecc2ba (edit)
-=======
-    "react-router-dom": "^7.4.1",
-    "yup": "^1.6.1"
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "autoprefixer": "^10.4.21",
-=======
->>>>>>> 01b19ea (created client template)
-=======
->>>>>>> 8e5f4c4 (created client template)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.0.14",
-=======
->>>>>>> 01b19ea (created client template)
-=======
->>>>>>> 8e5f4c4 (created client template)
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     "vite": "^6.2.0"
   }
 }

@@ -33,37 +33,18 @@ const Register = () => {
 
     try {
       const { confirmPassword, ...registrationData } = formData;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
       const response = await authService.register(registrationData);
       setSuccess('Account registered successfully!');
       // Wait for 2 seconds to show success message, then redirect to login
       setTimeout(() => {
         navigate('/login');
       }, 2000);
-<<<<<<< HEAD
     } catch (err) {
       if (err.message === 'User already exists') {
         setError('Account already exists. Please try logging in.');
       } else {
         setError(err.message || 'Registration failed. Please try again.');
       }
-=======
-      await authService.register(registrationData);
-      navigate('/signin');
-    } catch (err) {
-      setError(err.message || 'Registration failed. Please try again.');
->>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
-=======
-    } catch (err) {
-      if (err.message === 'User already exists') {
-        setError('Account already exists. Please try logging in.');
-      } else {
-        setError(err.message || 'Registration failed. Please try again.');
-      }
->>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
       console.error('Registration error:', err);
     } finally {
       setIsLoading(false);
