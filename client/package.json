@@ -31,6 +31,7 @@
 <<<<<<< HEAD
     "react-dom": "^19.0.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react-icons": "^5.5.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.4.0"
@@ -126,6 +127,10 @@
     "react-router-dom": "^7.4.1",
     "yup": "^1.6.1"
 >>>>>>> 7ecc2ba (edit)
+=======
+    "react-router-dom": "^7.4.1",
+    "yup": "^1.6.1"
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -134,15 +139,19 @@
     "@vitejs/plugin-react": "^4.3.4",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "autoprefixer": "^10.4.21",
 =======
 >>>>>>> 01b19ea (created client template)
 =======
 >>>>>>> 8e5f4c4 (created client template)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     "postcss": "^8.5.3",
@@ -151,6 +160,8 @@
 >>>>>>> 01b19ea (created client template)
 =======
 >>>>>>> 8e5f4c4 (created client template)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     "vite": "^6.2.0"
   }
 }

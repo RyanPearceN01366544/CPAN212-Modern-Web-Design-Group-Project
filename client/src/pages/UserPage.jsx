@@ -8,12 +8,15 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4225664 (user page)
 =======
 >>>>>>> 0709973 (user page)
 =======
 >>>>>>> 8399781 (user page)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -21,10 +24,14 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   });
 
   const [isEditing, setIsEditing] = useState(true); 
 
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> c9bb840 (Checkout/Cart)
@@ -65,6 +72,8 @@ const UserPage = () => {
   const [isEditing, setIsEditing] = useState(true); // Start in editing mode
 
 >>>>>>> 8399781 (user page)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   const [orders] = useState([
     { id: 1, date: "2025-04-01", total: "$59.99", status: "Delivered" },
     { id: 2, date: "2025-03-22", total: "$120.00", status: "Shipped" },
@@ -77,12 +86,15 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4225664 (user page)
 =======
 >>>>>>> 0709973 (user page)
 =======
 >>>>>>> 8399781 (user page)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -102,6 +114,7 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 90c915d (Checkout/Cart)
 =======
@@ -114,6 +127,8 @@ const UserPage = () => {
 >>>>>>> 0396ef7 (Checkout/Cart)
 =======
 >>>>>>> 8399781 (user page)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   return (
     <div className="user-container">
       <h2>User Account</h2>
@@ -126,12 +141,15 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4225664 (user page)
 =======
 >>>>>>> 0709973 (user page)
 =======
 >>>>>>> 8399781 (user page)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
         {isEditing ? (
           <>
             <label>
@@ -178,6 +196,7 @@ const UserPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> c9bb840 (Checkout/Cart)
@@ -200,6 +219,8 @@ const UserPage = () => {
 >>>>>>> 0396ef7 (Checkout/Cart)
 =======
 >>>>>>> 8399781 (user page)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
       </div>
 
       <div className="order-history">

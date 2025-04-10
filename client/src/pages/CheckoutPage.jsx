@@ -12,6 +12,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState } from "react";
 =======
 import React from "react";
@@ -19,6 +20,9 @@ import React from "react";
 =======
 import React, { useState } from "react";
 >>>>>>> 33d27ad (Checkout/Cart)
+=======
+import React, { useState } from "react";
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 import { useNavigate } from "react-router-dom";
 import "./Checkout.css";
 import { useCart } from "../context/CartContext";
@@ -27,6 +31,7 @@ import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"; /
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -60,6 +65,10 @@ const CheckoutPage = () => {
 =======
 
 >>>>>>> 2d3ca2d (semi final part)
+=======
+  const { cartItems, getCartTotal, clearCart } = useCart();
+
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -67,6 +76,7 @@ const CheckoutPage = () => {
     cardNumber: "",
     cardExpiry: "",
     cardCVV: "",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -670,6 +680,8 @@ const CheckoutPage = () => {
 >>>>>>> 24f0de6 (semi final part)
 =======
 >>>>>>> 2d3ca2d (semi final part)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   });
 
   const [currentStep, setCurrentStep] = useState(1); // 1 = Shipping, 2 = Delivery, 3 = Payment, 4 = Review
@@ -715,6 +727,9 @@ const CheckoutPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     }
   };
 
@@ -936,6 +951,7 @@ const CheckoutPage = () => {
       default:
         return null;
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
     alert("Thank you for your purchase!");
 <<<<<<< HEAD
@@ -1659,11 +1675,14 @@ const CheckoutPage = () => {
         return null;
     }
 >>>>>>> 2d3ca2d (semi final part)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   };
 
   return (
     <div className="checkout-container">
       <h2>Checkout</h2>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1944,12 +1963,15 @@ const CheckoutPage = () => {
       </form>
 >>>>>>> cbd676a (Pages)
 =======
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
       <div className="progress-bar">
         <div className={`progress ${currentStep === 1 ? "active" : ""}`}></div>
         <div className={`progress ${currentStep === 2 ? "active" : ""}`}></div>
         <div className={`progress ${currentStep === 3 ? "active" : ""}`}></div>
         <div className={`progress ${currentStep === 4 ? "active" : ""}`}></div>
       </div>
+<<<<<<< HEAD
 =======
       <div className="progress-bar">
         <div className={`progress ${currentStep === 1 ? "active" : ""}`}></div>
@@ -1990,6 +2012,8 @@ const CheckoutPage = () => {
         <div className={`progress ${currentStep === 4 ? "active" : ""}`}></div>
       </div>
 >>>>>>> 2d3ca2d (semi final part)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
       <form onSubmit={handleNextStep}>
         {renderStep()}
         <div className="button-container">
@@ -2008,6 +2032,7 @@ const CheckoutPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 6512b4d (semi final part)
 =======
 >>>>>>> 4f9e431 (semi final part)
@@ -2019,6 +2044,8 @@ const CheckoutPage = () => {
 >>>>>>> 24f0de6 (semi final part)
 =======
 >>>>>>> 2d3ca2d (semi final part)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     </div>
   );
 };

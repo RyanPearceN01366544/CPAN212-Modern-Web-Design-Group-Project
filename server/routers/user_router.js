@@ -20,8 +20,11 @@ const user_router = express.Router();
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 
 // == EMAIL STUFF == <- R
 const transporter = nodemailer.createTransport({ // R: Creates an Email!
@@ -29,6 +32,7 @@ const transporter = nodemailer.createTransport({ // R: Creates an Email!
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
+<<<<<<< HEAD
 =======
 
 // == EMAIL STUFF == <- R
@@ -43,6 +47,8 @@ const transporter = nodemailer.createTransport({ // R: Creates an Email!
   port: 587,
   secure: false,
 >>>>>>> 63c5fa2 (Fixed Mail... God this sucked.)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   auth: {
       user: process.env.EMAIL_USER, // FOR SOME REASON, THIS WON'T PROPERLY WORK UNLESS IT'S PLACED IN HERE FOR NO REASON?!
       pass: process.env.EMAIL_PASSWORD,
@@ -59,6 +65,7 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
   }
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -95,6 +102,11 @@ user_router.post("/Register", async (req, res) => {
 // R: -- REGISTRY --
 user_router.put("/Register", async (req, res) => {
 >>>>>>> a6f76e3 (Fixed Dumb Mistake.)
+=======
+// R: == ROUTES ==
+// R: -- REGISTRY --
+user_router.put("/Register", async (req, res) => {
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     try {
         const { username, email, password, firstName, lastName } = req.body;
         console.log("Parsed Data:", { username, email, firstName, lastName });
@@ -143,6 +155,7 @@ user_router.put("/Register", async (req, res) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -168,6 +181,9 @@ user_router.get("/Login", async (req, res) => {
 =======
 user_router.post("/Login", async (req, res) => {
 >>>>>>> a6f76e3 (Fixed Dumb Mistake.)
+=======
+user_router.post("/Login", async (req, res) => {
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     try {
         const { login, password } = req.body;
         console.log("Login attempt with:", { login });
@@ -208,6 +224,7 @@ user_router.post("/Login", async (req, res) => {
       }
     }
 );
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 user_router.get("/Logout", async(req, res) => {
@@ -398,25 +415,94 @@ user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through
   catch (err){
 =======
 >>>>>>> 6711f3d (Fixed Problem with Password Resetting.)
+=======
+user_router.get("/Logout", async(req, res) => {
+  res.status(200).json({message: "You have been logged out."});
+});
+// R: -- FORGOT/CHANGE PASSWORD --
+user_router.post("/ForgotPassword", async(req, res) => {
+  const {email} = req.body;
+  const existingUser = await User.findOne({ email });
+  if (existingUser)
+  {
+    const token = jwt.sign(
+      {
+        // R: -- Insert Email into Token --
+        email: existingUser.email, 
+      },
+      process.env.JWT_SECRET, // R: --> Process Secret
+      { expiresIn: '2h'} // R: --> 2 Hours.
+    );
+    setMailOptions(email, `http://localhost:5173/Reset-Password/${token}`);
+    console.log("Mail Options: ", mailOptions);
+    transporter.sendMail(mailOptions, (err_, info_) => {
+      if (err_){
+        console.log("err_: ", err_);
+        console.log("err_.name: ", err_.name);
+        console.log("err_.cause: ", err_.cause);
+        console.log("err_.message: ", err_.message);
+      }
+      else{
+        console.log(info_);
+      }
+    });
+    res.json({resetPasswordToken: token});
+  }
+  else {
+    res.status(401).json({message: "User doesn't exist!"})
+  }
+});
+user_router.post("/ResetPassword", async(req, res) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+  const {email, newPassword} = req.body;
+
+  if (!token) {
+    return res.status(401).json({message: "Authorization token required!"});
+  }
+
+  try {
+    const decoded_ = jwt.verify(token, process.env.JWT_SECRET);
+    const user_ = await User.findOne({email: email});
+    const hashedPassword_ = await bcrypt.hash(newPassword, 10);
+
+    if (user_ && decoded_) {
+      user_.password = hashedPassword_;
+      await user_.save();
+      return res.json({message: "Password has successfully been reset!"});
+    }
+    else{ 
+      return res.status(401).json({message: "User Doesn't Exist!"});
+    }
+  }
+  catch (err){
+    console.log(err);
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     return res.status(400).json({message: "Invalid or Expired Token!"});
   }
 });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 // R: Using prefix 'Get' before id... otherwise it thinks 'Register' is the :id.
 user_router.get("/Get", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
 >>>>>>> 9f7dca1 (Added Emailing System - TODO: Need to remove .env)
 =======
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 // -- USER DATA & MANAGEMENT --
 // R: Using prefix 'Info' before id... otherwise it thinks 'Register' or other routes are the :id.
 // R: The route below this is for the user requesting information of their own account.
 user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
+<<<<<<< HEAD
 >>>>>>> a6f76e3 (Fixed Dumb Mistake.)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     if (req.user) { // R: Is the user existing? If so then...
         res.json(req.user);
     } // R: Otherwise, do nothing as verifyToken will stop them.
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -441,6 +527,11 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
 user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
     const userID = req.user.userID; // R: Get the requesting user's id.
 >>>>>>> a6f76e3 (Fixed Dumb Mistake.)
+=======
+// R: The route below is the same as above but it's when a user requests the data of a specific user.
+user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get Information obout user.
+    const userID = req.user.userID; // R: Get the requesting user's id.
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     const lookupID = req.params.id; // R: The user's information that is being requested.
 
     const requestingUser = await User.findById(userID); // R: The user requesting this information.
@@ -452,8 +543,11 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> a6f76e3 (Fixed Dumb Mistake.)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     // R: Continue and get the privacy settings versus permissions.
     let dataToSend_ = {};
     if (requestingUser.permissionLevel >= 2 && requestingUser.permissionLevel > lookupUser.permissionLevel) { 
@@ -478,6 +572,9 @@ user_router.get("/Info/:id", auth.verifyToken, async(req, res) => { // R: Get In
       }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 
     return res.json(dataToSend_); // R: This will send the appropriate data.
 });
@@ -523,6 +620,7 @@ user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
     }
 
     Object.keys(req.body).forEach((key) => { // R: Same thing as PUT /Info route.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       if (target[key] !== undefined && key !== "privacySettings" && key !== "permissionLevel") { // R: All except privacy settings, don't change that.
@@ -710,6 +808,8 @@ user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
     }
 
     Object.keys(req.body).forEach((key) => { // R: Same thing as PUT /Info route.
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
       if (target[key] !== undefined && key !== "privacySettings" && key !== "permissionLevel") { // R: All except privacy settings, don't change that.
         target[key] = req.body[key];
       }
@@ -730,7 +830,10 @@ user_router.post("/Info/:id", auth.verifyToken, async(req, res) => {
     return res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
 });
+<<<<<<< HEAD
 >>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 
 // R: == CART ROUTERS ==
 user_router.get("/Cart", auth.verifyToken, async(req, res) => {
@@ -745,10 +848,14 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
   }
 })
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
     const user = await User.findById(req.user.userID);
+<<<<<<< HEAD
 <<<<<<< HEAD
     let found = false;
 
@@ -916,6 +1023,9 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
 >>>>>>> d731bfd (Update user_router.js)
     console.log(user);
 >>>>>>> 22aec7e (Fix)
+=======
+    console.log(user);
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   
     for (let x_ = 0; x_ < user.cart.length; x++) { // R: Loop through the cart.
       if (user.cart[x_].product === product){ // R: if the product is the same key we're looking for...
@@ -947,8 +1057,11 @@ user_router.get("/Cart", auth.verifyToken, async(req, res) => {
     res.status(400).json({message: "An Unexpected Error has Occurred!"});
   }
 })
+<<<<<<< HEAD
 =======
 >>>>>>> f14044a (user_router)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 user_router.post("/Cart", auth.verifyToken, async(req, res) => {
   try{
     const {product, quantity} = req.body;
@@ -963,6 +1076,7 @@ user_router.post("/Cart", auth.verifyToken, async(req, res) => {
         break; // R: Stop the loop.
       }
     }
+<<<<<<< HEAD
     await user.save(); // R: Save changes.
     return res.json(user.cart); // R: Return the cart.
   }
@@ -997,6 +1111,10 @@ user_router.post("/Cart", auth.verifyToken, async(req, res) => {
         }
         break; // R: Stop the loop.
       }
+=======
+    if (found === false){
+      user.cart.push({product: product, quantity: quantity});
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     }
     await user.save(); // R: Save changes.
     return res.json(user.cart); // R: Return the cart.

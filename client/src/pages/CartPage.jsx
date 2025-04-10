@@ -18,6 +18,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 =======
 import React, { useState } from "react";
@@ -260,6 +261,8 @@ const CartPage = () => {
 =======
 >>>>>>> 4f9e431 (semi final part)
 =======
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext"; // Import CartContext
@@ -272,6 +275,7 @@ const CartPage = () => {
   const [discountApplied, setDiscountApplied] = useState(false);
   const navigate = useNavigate();
 
+<<<<<<< HEAD
 >>>>>>> 26850c4 (semi final part)
 =======
 import React, { useState } from "react";
@@ -315,6 +319,8 @@ const CartPage = () => {
   const navigate = useNavigate();
 
 >>>>>>> 2d3ca2d (semi final part)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   const handleDiscountApply = () => {
     if (discountCode === "SAVE10") {
       setDiscountApplied(true);
@@ -330,6 +336,7 @@ const CartPage = () => {
   const shippingCost = shippingOption === "express" ? 15.00 : 5.00;
   const totalAfterDiscount = discountApplied ? getCartTotal() - 10 : getCartTotal(); // Example discount of $10
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -365,6 +372,8 @@ const CartPage = () => {
           <ul className="cart-items-list">
 >>>>>>> 6512b4d (semi final part)
 =======
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
   return (
     <div className="cart-container">
       <h2 className="cart-title">Your Shopping Cart</h2>
@@ -379,6 +388,7 @@ const CartPage = () => {
         <>
           {/* Cart Items List */}
           <ul className="cart-items-list">
+<<<<<<< HEAD
 >>>>>>> 4f9e431 (semi final part)
 =======
   return (
@@ -444,6 +454,8 @@ const CartPage = () => {
           {/* Cart Items List */}
           <ul className="cart-items-list">
 >>>>>>> 2d3ca2d (semi final part)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
             {cartItems.map((item) => (
               <li key={item.id} className="cart-item">
                 <div className="item-details">
@@ -492,6 +504,7 @@ const CartPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           <h3>Total: ${getCartTotal().toFixed(2)}</h3>
 =======
             {cart.map((item) => (
@@ -520,6 +533,8 @@ const CartPage = () => {
 >>>>>>> 24f0de6 (semi final part)
 =======
 >>>>>>> 2d3ca2d (semi final part)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 
           {/* Shipping and Discount Section */}
           <div className="cart-options">
@@ -565,6 +580,7 @@ const CartPage = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 6512b4d (semi final part)
 =======
 >>>>>>> 4f9e431 (semi final part)
@@ -576,6 +592,8 @@ const CartPage = () => {
 >>>>>>> 24f0de6 (semi final part)
 =======
 >>>>>>> 2d3ca2d (semi final part)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
         </>
       )}
     </div>

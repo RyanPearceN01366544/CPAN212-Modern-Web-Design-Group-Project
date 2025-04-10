@@ -14,6 +14,7 @@ import { AuthProvider } from './context/AuthContext';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { CartProvider } from "./context/CartContext"; // ✅ Added CartProvider
 =======
 >>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
@@ -21,6 +22,9 @@ import { CartProvider } from "./context/CartContext"; // ✅ Added CartProvider
 >>>>>>> cbd676a (Pages)
 =======
 >>>>>>> 1d4ac54 (Pages)
+=======
+import { CartProvider } from "./context/CartContext"; // ✅ Added CartProvider
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ProductGrid from './components/product/ProductGrid';
@@ -47,12 +51,16 @@ import CheckoutPage from './pages/CheckoutPage';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import UserPage from './pages/UserPage'; 
 =======
 >>>>>>> 93241b1 (Pages)
 =======
 import UserPage from './pages/UserPage'; 
 >>>>>>> 33d27ad (Checkout/Cart)
+=======
+import UserPage from './pages/UserPage'; 
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 import './App.css';
 
 const GOOGLE_CLIENT_ID = "986891372297-u48hn7248c8usahsl094udj57lnusp73.apps.googleusercontent.com";
@@ -94,6 +102,9 @@ function App() {
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <AuthProvider>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
         <CartProvider> 
           <Router>
             <div className="app">
@@ -113,6 +124,7 @@ function App() {
                         />
                       </div>
                     </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -182,6 +194,8 @@ function App() {
 =======
 =======
 >>>>>>> ea2b2a5 (edit shopping cart and checkout)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
                   } />
                   <Route path="/product/:id" element={<ProductDetail />} />
                   <Route path="/login" element={<SignIn />} />
@@ -198,16 +212,20 @@ function App() {
           </Router>
         </CartProvider>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 23ea5f4 (edit shopping cart and checkout)
 =======
 >>>>>>> ea2b2a5 (edit shopping cart and checkout)
 =======
 >>>>>>> d8e3586 (Implement user authentication with MongoDB integration)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
       </AuthProvider>
     </GoogleOAuthProvider>
   );
 }
 
+<<<<<<< HEAD
 export default App;
 =======
 =======
@@ -355,3 +373,6 @@ function App() {
 
 export default App
 >>>>>>> 6e765cf (created client template)
+=======
+export default App
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15

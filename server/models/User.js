@@ -50,6 +50,7 @@ const userSchema = mongoose.Schema(
             type: Number,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             required: true,
         },
@@ -84,6 +85,8 @@ const userSchema = mongoose.Schema(
         permissions: {
             type: [String],
 >>>>>>> 8f0a197 (Added Router Stuff (WIP))
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
             required: true,
         },
         cart: [{
@@ -105,6 +108,7 @@ const userSchema = mongoose.Schema(
             // 3 -> Manager (Manager + Should be able to add/remove items from the store.)
             type: Number, 
             required: true,
+<<<<<<< HEAD
 =======
         permissionLevel: {
             // Permission Level: States what permission the user has. (This is basically how their labeled and what permission they have.)
@@ -125,6 +129,8 @@ const userSchema = mongoose.Schema(
             type: Number, 
             required: true,
 >>>>>>> 32e136a (Authorizational Changes and Getting/Setting Information on a User. (Currently, Cart is a WIP but it's almost done.))
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
             enum: [0, 1, 2, 3],
             default: 0
         },

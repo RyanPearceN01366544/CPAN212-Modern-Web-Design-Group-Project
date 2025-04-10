@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
@@ -33,6 +34,8 @@ createRoot(document.getElementById('root')).render(
 >>>>>>> 6e765cf (created client template)
 )
 =======
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
@@ -41,6 +44,7 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+<<<<<<< HEAD
 =======
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -51,12 +55,18 @@ import './index.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
 >>>>>>> ea2b2a5 (edit shopping cart and checkout)
+=======
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
     <CartProvider>
       <App />
     </CartProvider>
   </React.StrictMode>
+<<<<<<< HEAD
 );
 <<<<<<< HEAD
 >>>>>>> 23ea5f4 (edit shopping cart and checkout)
 =======
 >>>>>>> ea2b2a5 (edit shopping cart and checkout)
+=======
+);
+>>>>>>> 8f97ca3948dd4581105e40dc27f7c7dc2e44be15
