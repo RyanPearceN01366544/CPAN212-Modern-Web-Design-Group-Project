@@ -23,15 +23,9 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  images: {
-    link1: {
-      type: String,
+  images: { // R: Replaced in favor of Array.
+      type: [String],
       required: true
-    },
-    link2: {
-      type: String,
-      required: true
-    }
   },
   price: {
     type: Number,

@@ -64,6 +64,7 @@ const SignIn = () => {
       
       // For now, just store the basic info
       localStorage.setItem('user', JSON.stringify({
+        token: tokenResponse.access_token, // R: Adding for easy user usage with ID.
         email: userInfo.email,
         name: userInfo.name,
         picture: userInfo.picture

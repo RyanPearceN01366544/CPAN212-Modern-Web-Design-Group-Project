@@ -16,6 +16,18 @@ product_router.get("/", async (req, res) => {
   }
 });
 
+// R: Adding Get By ID.
+product_router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ error: "Product not found" });
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to retrieve product details" });
+  }
+});
+
+/* R: This would've been nice for getting the SKU of a product... but you'll have to settle with this.
 // 🔍 GET product by SKU
 product_router.get("/:sku", async (req, res) => {
   try {
@@ -27,19 +39,22 @@ product_router.get("/:sku", async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve product details" });
   }
 });
+*/
 
 // 🧠 FILTER products by query (category, gender, type, color)
-product_router.get("/filter/search", async (req, res) => {
-  const { category, gender, type, color } = req.query;
+product_router.get("/filter/search", async (req, res) => { // R: Editted to allow title searching & changing to body for ease.
+  const { name, category, gender, type, color } = req.body;
 
   const filter = {};
-  if (category) filter.category = category;
-  if (gender) filter.gender = gender;
-  if (type) filter.type = type;
-  if (color) filter.color = color;
+  if (name) filter.name = {$regex: name, $options: 'i'}; // R: Case insensitive and checks for item.
+  if (category) filter.category = {$regex: category, $options: 'i'};
+  //if (gender) filter.gender = {$regex: gender, $options: 'i'}; // R: Gender doesn't exist on model. Too late to fix.
+  if (type) filter.type = {$regex: type, $options: 'i'};
+  if (color) filter.color = {$regex: color, $options: 'i'};
 
   try {
-    const products = await Product.find(filter);
+    
+    let products = await Product.find(filter);
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ error: "Failed to filter products" });
