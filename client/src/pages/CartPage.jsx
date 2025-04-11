@@ -37,49 +37,17 @@ const CartPage = () => {
         </div>
       ) : (
         <>
-          {/* Cart Items List */}
-          <ul className="cart-items-list">
-            {cartItems.map((item) => (
-              <li key={item.id} className="cart-item">
-                <div className="item-details">
-                  <img src={item.image} alt={item.name} className="item-image" />
-                  <div className="item-info">
-                    <span className="item-name">{item.name}</span>
-                    <span className="item-price">${item.price.toFixed(2)}</span>
-                  </div>
-                </div>
-
-                {/* Quantity Controls */}
-                <div className="quantity-controls">
-                  <button
-                    className="quantity-btn"
-                    onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                    disabled={item.quantity <= 1}
-                    aria-label="Decrease quantity"
-                  >
-                    -
-                  </button>
-                  <span className="item-quantity">{item.quantity}</span>
-                  <button
-                    className="quantity-btn"
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    aria-label="Increase quantity"
-                  >
-                    +
-                  </button>
-                </div>
-
-                {/* Remove Button */}
-                <button className="remove-btn" onClick={() => removeFromCart(item.id)} aria-label="Remove item">
-                  Remove
-                </button>
-
-                {/* Item Subtotal */}
-                <div className="item-subtotal">
-                  Subtotal: ${(item.price * item.quantity).toFixed(2)}
-                </div>
+          <ul>
+            {cartItems.map((item) => {
+              return(
+              <li key={item._id} className="cart-item">
+                <span>{item.name}</span>
+                <span>${item.price} x {item.quantity}</span>
+                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                <button onClick={() => removeFromCart(item.id)}>Remove</button>
               </li>
-            ))}
+            )})}
           </ul>
 
           {/* Shipping and Discount Section */}

@@ -12,7 +12,7 @@ const cartReducer = (state, action) => {
       const existingIndex = state.cartItems.findIndex(
         item => item.id === action.payload.product.id
       );
-
+      
       if (existingIndex >= 0) {
         // ✅ Corrected state update (no mutation)
         const updatedCart = state.cartItems.map((item, index) =>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaLock } from 'react-icons/fa';
 import './Auth.css';
@@ -8,11 +8,42 @@ const ResetPassword = () => {
     password: '',
     confirmPassword: ''
   });
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
   const { token } = useParams();
+
+  useEffect(() => { // R: Basic check for email to send with the token for the backend.
+    handleGetEmail();
+  }, [])
+
+  const handleGetEmail = async() => {
+    try{
+      const fptPromise_ = await fetch(`http://localhost:8000/User/GetForgetPasswordToken`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const fptData_ = await fptPromise_.json();
+
+      if (fptData_ && fptData_.email){
+        setEmail(fptData_.email);
+      }
+      else{
+        setError("Your password reset request has been rejected. Click on the newest email password reset to reset properly.");
+        setIsSuccess(false);
+      }
+    }
+    catch (err_) {
+      console.log(err_);
+      setError("Your password reset request has expired.");
+      setIsSuccess(false);
+    }
+  }
 
   const handleChange = (e) => {
     setPasswords({
@@ -37,6 +68,7 @@ const ResetPassword = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           token,
@@ -77,7 +109,7 @@ const ResetPassword = () => {
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h2>Reset Password</h2>
+        <h2>Reset Password ({email ? email : "Loading..."})</h2>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">

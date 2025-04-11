@@ -5,16 +5,17 @@ import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const {
-    image,
-    title,
+    images,
+    name,
     price,
     originalPrice,
     rating,
-    reviews,
-    inStock,
+    itemsLeft,
     freeShipping,
-    id
+    _id
   } = product;
+  const inStock = itemsLeft > 0;
+  console.log(product);
 
   const renderStars = (rating) => {
     const stars = [];
@@ -31,13 +32,13 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <Link to={`/product/${id}`} className="product-card">
+    <Link to={`/product/${_id}`} className="product-card">
       <div className="product-image-container">
-        <img src={image} alt={title} className="product-image" />
+        <img src={images[0]} alt={name} className="product-image" />
       </div>
 
       <div className="product-info">
-        <h3 className="product-title">{title}</h3>
+        <h3 className="product-title">{name}</h3>
         
         <div className="price-row">
           <span className="current-price">${price.toFixed(2)}</span>
@@ -48,7 +49,6 @@ const ProductCard = ({ product }) => {
 
         <div className="rating-row">
           <div className="stars">{renderStars(rating)}</div>
-          <span className="review-count">({reviews})</span>
         </div>
 
         <div className="shipping-info-container">
