@@ -42,14 +42,15 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
 
 let emailTokens = [] // R: An array of objects for the emails linked to which tokens.
 const addEmailToken = (token_, email_) => {
-  if (emailTokens[x_].filter((obj_) => {return obj_.email === email_})) { // R: Replace if it already exists...
+  if (emailTokens.filter((obj_) => {return obj_.email === email_})) { // R: Replace if it already exists...
     removeEmailToken(email_); // R: Remove old token.
   }
-  emailTokens.push({token: token_, email: email_}) // R: Replace with new token.
+  console.log("Password Reset Token Added!\n" + {token: token_, email: email_});
+  emailTokens.push({token: token_, email: email_}); // R: Replace with new token.
 }
 const removeEmailToken = (email) => { // R: Removes the email from the list of tokens.
   for (let x_ = 0; x_ < emailTokens.length; x_++) {
-    if (emailTokens[x_] === token) {
+    if (emailTokens[x_].email === email) {
       emailTokens = emailTokens.filter((obj_) => { return obj_.email != email}); // R: Just removes the token by email.
     }
   }
@@ -163,7 +164,7 @@ user_router.post("/ForgotPassword", async(req, res) => {
       process.env.JWT_SECRET, // R: --> Process Secret
       { expiresIn: '2h'} // R: --> 2 Hours.
     );
-    addEmailToken(token, email);
+    addEmailToken(token.split(' ')[0], email);
     setMailOptions(email, `http://localhost:5173/Reset-Password/${token}`);
     console.log("Mail Options: ", mailOptions);
     transporter.sendMail(mailOptions, (err_, info_) => {
@@ -183,11 +184,23 @@ user_router.post("/ForgotPassword", async(req, res) => {
     res.status(401).json({message: "User doesn't exist!"})
   }
 });
-user_router.post('/GetForgetPasswordToken', async(req, res) => {
+user_router.get('/GetForgetPasswordToken', async(req, res) => {
   const token = req.header('Authorization')?.split(' ')[1];
+  console.log("Starting Check!\n-- Email Tokens --\n" + emailTokens);
   
-  const acc_ = emailTokens.filter((obj_) => {obj_.token === token});
+  let acc_ = {};
+  for (let x_ = 0; x_ < emailTokens.length; x_++) {
+    if (emailTokens[x_].token == token) {
+      acc_ = emailTokens[x_];
+      console.log("Found it!");
+    }
+    else{
+      console.log(`emailToken: ${emailTokens[x_].token}\nToken Gained: ${token}`);
+    }
+  }
+  console.log("acc_ === " + acc_);
   if (acc_) {
+    console.log("Test 2!");
     return res.json({email: acc_.email});
   }
 })

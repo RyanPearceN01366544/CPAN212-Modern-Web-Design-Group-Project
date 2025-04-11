@@ -28,7 +28,10 @@ const ResetPassword = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-      const fptData_ = await fptPromise_.json();
+      const fptData_ = await fptPromise_.json();      
+      if (!fptPromise_.ok) {
+        throw new Error(data.message || 'Failed to reset password');
+      }
 
       if (fptData_ && fptData_.email){
         setEmail(fptData_.email);
@@ -71,7 +74,7 @@ const ResetPassword = () => {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          token,
+          email,
           newPassword: passwords.password
         }),
       });
