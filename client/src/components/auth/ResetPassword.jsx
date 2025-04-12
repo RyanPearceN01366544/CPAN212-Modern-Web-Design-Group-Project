@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaLock } from 'react-icons/fa';
 import './Auth.css';
+import authService from '../../services/auth.service';
 
 const ResetPassword = () => {
   const [passwords, setPasswords] = useState({
@@ -86,15 +87,21 @@ const ResetPassword = () => {
       }
 
       setIsSuccess(true);
-      setTimeout(() => {
-        navigate('/login');
-      }, 3000);
+      setTimeout(() => {    
+        handleAutoLogin();
+      }, 2000);
     } catch (err) {
       setError(err.message || 'Failed to reset password. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
+
+  const handleAutoLogin = async() => {
+    const response = await authService.login(email, passwords.password);
+    console.log('Login response:', response);
+    navigate('/');
+  }
 
   if (isSuccess) {
     return (

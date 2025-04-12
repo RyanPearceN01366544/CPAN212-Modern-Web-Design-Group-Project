@@ -36,10 +36,8 @@ const Register = () => {
       const response = await authService.register(registrationData);
       setSuccess('Account registered successfully!');
       // Wait for 2 seconds to show success message, then redirect to login
-      setTimeout(async() => { // R: Removed tediousness of logging in after registration considering we aren't checking with email.
-        const response = await authService.login(formData.login, formData.password);
-        console.log('Login response:', response);
-        navigate('/');
+      setTimeout(() => { // R: Removed tediousness of logging in after registration considering we aren't checking with email.
+        handleAutoLogin();
       }, 2000);
     } catch (err) {
       if (err.message === 'User already exists') {
@@ -52,6 +50,12 @@ const Register = () => {
       setIsLoading(false);
     }
   };
+
+  const handleAutoLogin = async() => {
+    const response = await authService.login(formData.email, formData.password);
+    console.log('Login response:', response);
+    navigate('/');
+  }
 
   const handleChange = (e) => {
     setFormData({
