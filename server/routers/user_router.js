@@ -236,9 +236,11 @@ user_router.post("/ResetPassword", async(req, res) => {
 // -- USER DATA & MANAGEMENT --
 // R: Using prefix 'Info' before id... otherwise it thinks 'Register' or other routes are the :id.
 // R: The route below this is for the user requesting information of their own account.
-user_router.get("/Info", auth.verifyToken, (req, res) => { // R: Passing through verifyToken function...
-    if (req.user) { // R: Is the user existing? If so then...
-        res.json(req.user);
+user_router.get("/Info", auth.verifyToken, async(req, res) => { // R: Passing through verifyToken function...
+  const userID_ = req.user.userID;
+  const userData_ = await User.findById(userID_);  
+  if (req.user) { // R: Is the user existing? If so then...
+        res.json(userData_);
     } // R: Otherwise, do nothing as verifyToken will stop them.
 });
 // R: The route below is the same as above but it's when a user requests the data of a specific user.

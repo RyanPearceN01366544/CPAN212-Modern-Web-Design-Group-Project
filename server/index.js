@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import userRouter from './routers/user_router.js';
 import productRouter from './routers/product_router.js';
+import order_router from './routers/order_router.js';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(cookieParser());
 // Routes
 app.use('/User', userRouter);
 app.use('/Product', productRouter);
+app.use('/Orders', order_router);
 
 // Unknown Website Exception Catching.
 app.use("", (req, res) => {
