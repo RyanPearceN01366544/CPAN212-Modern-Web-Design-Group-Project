@@ -8,22 +8,17 @@ const CategoryNav = ({ onCategorySelect }) => {
   const buttonRef = useRef(null);
   const navigate = useNavigate();
 
-  // Main shopping categories that are commonly used in e-commerce
+  // Categories from the database
   const categories = [
+    "Shoes",
+    "Apparel",
+    "Accessories",
     "Electronics",
-    "Fashion",
-    "Home & Living",
-    "Beauty",
-    "Sports",
-    "Books",
     "Toys & Games",
-    "Automotive",
-    "Health",
+    "Home & Living",
+    "Kitchen",
     "Jewelry",
-    "Pet Supplies",
-    "Garden & Tools",
-    "Office Products",
-    "Groceries"
+    "Garden & Tools"
   ];
 
   // Number of visible categories based on screen width
@@ -73,25 +68,22 @@ const CategoryNav = ({ onCategorySelect }) => {
   const updateDropdownPosition = () => {
     if (buttonRef.current && dropdownRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
-      const dropdownWidth = dropdownRef.current.offsetWidth;
-      const windowWidth = window.innerWidth;
-      
-      let left = buttonRect.left;
-      if (left + dropdownWidth > windowWidth) {
-        left = windowWidth - dropdownWidth - 20;
-      }
-      
-      dropdownRef.current.style.left = `${left}px`;
       dropdownRef.current.style.top = `${buttonRect.bottom + window.scrollY}px`;
+      dropdownRef.current.style.right = `${window.innerWidth - buttonRect.right}px`;
     }
   };
 
   useEffect(() => {
     if (showAllCategories) {
       updateDropdownPosition();
+      window.addEventListener('scroll', updateDropdownPosition);
       window.addEventListener('resize', updateDropdownPosition);
-      return () => window.removeEventListener('resize', updateDropdownPosition);
     }
+
+    return () => {
+      window.removeEventListener('scroll', updateDropdownPosition);
+      window.removeEventListener('resize', updateDropdownPosition);
+    };
   }, [showAllCategories]);
 
   return (

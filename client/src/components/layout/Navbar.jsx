@@ -1,14 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import CategoryNav from './CategoryNav';
+import { useCart } from '../../context/CartContext';
+import { searchProducts } from '../../services/api';
 import './Navbar.css';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const menuRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { state } = useCart();
+
+  const cartItemCount = state.cartItems.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
     // Check for user on component mount
@@ -60,6 +67,29 @@ const Navbar = () => {
     console.log('Selected category:', category);
   };
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    try {
+      const results = await searchProducts({ name: searchQuery.trim() }, 1, 20);
+      // Store both search query and results
+      localStorage.setItem('searchQuery', searchQuery.trim());
+      localStorage.setItem('searchResults', JSON.stringify(results));
+      
+      // Force a new navigation even if we're already on the search page
+      if (location.pathname === '/search') {
+        navigate('/search', { replace: true });
+      } else {
+        navigate('/search');
+      }
+      
+      setSearchQuery('');
+    } catch (error) {
+      console.error('Error searching products:', error);
+    }
+  };
+
   return (
     <header>
       <nav className="navbar">
@@ -71,14 +101,19 @@ const Navbar = () => {
           {isMobileMenuOpen ? '✕' : '☰'}
         </button>
 
-        <div className="nav-search">
-          <input type="text" placeholder="Search products..." />
-          <button>Search</button>
-        </div>
+        <form className="nav-search" onSubmit={handleSearch}>
+          <input 
+            type="text" 
+            placeholder="Search products..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button type="submit">Search</button>
+        </form>
 
         <div className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
           <Link to="/cart" className="nav-cart" onClick={() => setIsMobileMenuOpen(false)}>
-            Cart <span className="cart-count">0</span>
+            Cart <span className="cart-count">{cartItemCount}</span>
           </Link>
           
           <div className="nav-account" ref={menuRef}>
@@ -109,15 +144,6 @@ const Navbar = () => {
                       }}
                     >
                       My Cart
-                    </Link>
-                    <Link 
-                      to="/orders" 
-                      onClick={() => {
-                        setIsMenuOpen(false);
-                        setIsMobileMenuOpen(false);
-                      }}
-                    >
-                      My Orders
                     </Link>
                     <button onClick={handleLogout}>
                       Sign Out

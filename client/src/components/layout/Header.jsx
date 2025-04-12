@@ -76,9 +76,6 @@ const Header = ({ onSearch }) => {
                   <button onClick={() => handleNavigation('/profile')} className="dropdown-item">
                     <FaUser /> Profile
                   </button>
-                  <button onClick={() => handleNavigation('/orders')} className="dropdown-item">
-                    <FaShoppingBag /> Orders
-                  </button>
                   <button onClick={() => handleNavigation('/wishlist')} className="dropdown-item">
                     <FaHeart /> Wishlist
                   </button>

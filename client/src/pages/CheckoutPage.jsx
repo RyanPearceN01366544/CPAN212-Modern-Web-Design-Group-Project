@@ -7,7 +7,7 @@ import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const { cartItems, getCartTotal, clearCart } = useCart();
+  const { state, clearCart } = useCart();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +16,7 @@ const CheckoutPage = () => {
     cardNumber: "",
     cardExpiry: "",
     cardCVV: "",
+    shippingMethod: "standard"
   });
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -31,10 +32,44 @@ const CheckoutPage = () => {
   const handleNextStep = (e) => {
     e.preventDefault();
 
+    // Validate shipping info
+    if (currentStep === 1) {
+      if (!formData.name || !formData.address) {
+        setErrors({
+          ...errors,
+          name: !formData.name ? "Name is required" : "",
+          address: !formData.address ? "Address is required" : ""
+        });
+        return;
+      }
+    }
+
+    // Validate delivery method
+    if (currentStep === 2) {
+      if (!formData.shippingMethod) {
+        setErrors({
+          ...errors,
+          shippingMethod: "Please select a shipping method"
+        });
+        return;
+      }
+    }
+
+    // Validate payment
+    if (currentStep === 3) {
+      if (formData.payment === "Credit Card") {
+        if (!validateCardDetails()) {
+          return;
+        }
+      }
+    }
+
+    // Handle final submission
     if (currentStep === 4) {
       if (
         !formData.name ||
         !formData.address ||
+        !formData.shippingMethod ||
         (formData.payment === "Credit Card" &&
           (!formData.cardNumber || !formData.cardExpiry || !formData.cardCVV))
       ) {
@@ -52,7 +87,7 @@ const CheckoutPage = () => {
         navigate("/order-success");
       }
 
-      return; // Stop here for PayPal — it’s handled asynchronously
+      return; // Stop here for PayPal — it's handled asynchronously
     }
 
     setCurrentStep(currentStep + 1);
@@ -91,6 +126,10 @@ const CheckoutPage = () => {
     return valid;
   };
 
+  const getCartTotal = () => {
+    return state.cartItems.reduce((total, item) => total + Number(item.price) * item.quantity, 0);
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -105,6 +144,7 @@ const CheckoutPage = () => {
               value={formData.name}
               onChange={handleChange}
             />
+            {errors.name && <p className="error-text">{errors.name}</p>}
             <label>Address<span>*</span>:</label>
             <input
               type="text"
@@ -113,6 +153,7 @@ const CheckoutPage = () => {
               value={formData.address}
               onChange={handleChange}
             />
+            {errors.address && <p className="error-text">{errors.address}</p>}
           </div>
         );
       case 2:
@@ -120,11 +161,16 @@ const CheckoutPage = () => {
           <div className="step-content">
             <h3>Delivery Method</h3>
             <label>Select Delivery Option:</label>
-            <select>
-              <option>Standard Shipping</option>
-              <option>Express Shipping</option>
-              <option>Same-Day Delivery</option>
+            <select 
+              name="shippingMethod"
+              value={formData.shippingMethod}
+              onChange={handleChange}
+            >
+              <option value="standard">Standard Shipping ($5.00)</option>
+              <option value="express">Express Shipping ($15.00)</option>
+              <option value="same-day">Same-Day Delivery ($25.00)</option>
             </select>
+            {errors.shippingMethod && <p className="error-text">{errors.shippingMethod}</p>}
           </div>
         );
       case 3:
@@ -132,7 +178,10 @@ const CheckoutPage = () => {
           <div className="step-content">
             <h3>Payment Method</h3>
             <div className="payment-method">
-              <div className="payment-option" onClick={() => setFormData({ ...formData, payment: 'Credit Card' })}>
+              <div 
+                className={`payment-option ${formData.payment === "Credit Card" ? "active" : ""}`}
+                onClick={() => setFormData({ ...formData, payment: 'Credit Card' })}
+              >
                 <input
                   type="radio"
                   name="payment"
@@ -141,12 +190,15 @@ const CheckoutPage = () => {
                   onChange={handleChange}
                 />
                 <div className="payment-option-content">
-                  <FaCcVisa size={30} color="#0055b8" />
-                  <FaCcMastercard size={30} color="#ff5f00" />
+                  <FaCcVisa size={28} color="#1A1F71" />
+                  <FaCcMastercard size={28} color="#EB001B" />
                   <span>Credit/Debit Card</span>
                 </div>
               </div>
-              <div className="payment-option" onClick={() => setFormData({ ...formData, payment: 'PayPal' })}>
+              <div 
+                className={`payment-option ${formData.payment === "PayPal" ? "active" : ""}`}
+                onClick={() => setFormData({ ...formData, payment: 'PayPal' })}
+              >
                 <input
                   type="radio"
                   name="payment"
@@ -155,77 +207,72 @@ const CheckoutPage = () => {
                   onChange={handleChange}
                 />
                 <div className="payment-option-content">
-                  <FaPaypal size={30} color="#003087" />
+                  <FaPaypal size={28} color="#003087" />
                   <span>PayPal</span>
                 </div>
               </div>
             </div>
 
             {formData.payment === "Credit Card" && (
-              <>
-                <label>Card Number:</label>
-                <input
-                  type="text"
-                  name="cardNumber"
-                  placeholder="Enter your card number"
-                  value={formData.cardNumber}
-                  onChange={handleChange}
-                />
-                {errors.cardNumber && <p className="error-text">{errors.cardNumber}</p>}
+              <div className="card-details">
+                <div>
+                  <label>Card Number</label>
+                  <input
+                    type="text"
+                    name="cardNumber"
+                    placeholder="1234 5678 9012 3456"
+                    value={formData.cardNumber}
+                    onChange={handleChange}
+                  />
+                  {errors.cardNumber && <p className="error-text">{errors.cardNumber}</p>}
+                </div>
 
-                <label>Expiration Date (MM/YY):</label>
-                <input
-                  type="text"
-                  name="cardExpiry"
-                  placeholder="MM/YY"
-                  value={formData.cardExpiry}
-                  onChange={handleChange}
-                />
-                {errors.cardExpiry && <p className="error-text">{errors.cardExpiry}</p>}
+                <div>
+                  <label>Expiry (MM/YY)</label>
+                  <input
+                    type="text"
+                    name="cardExpiry"
+                    placeholder="MM/YY"
+                    value={formData.cardExpiry}
+                    onChange={handleChange}
+                  />
+                  {errors.cardExpiry && <p className="error-text">{errors.cardExpiry}</p>}
+                </div>
 
-                <label>CVV:</label>
-                <input
-                  type="text"
-                  name="cardCVV"
-                  placeholder="Enter CVV"
-                  value={formData.cardCVV}
-                  onChange={handleChange}
-                />
-                {errors.cardCVV && <p className="error-text">{errors.cardCVV}</p>}
-              </>
+                <div>
+                  <label>CVV</label>
+                  <input
+                    type="text"
+                    name="cardCVV"
+                    placeholder="123"
+                    value={formData.cardCVV}
+                    onChange={handleChange}
+                  />
+                  {errors.cardCVV && <p className="error-text">{errors.cardCVV}</p>}
+                </div>
+              </div>
             )}
 
             {formData.payment === "PayPal" && (
               <div className="paypal-button-container">
-                <PayPalScriptProvider options={{ 
-                  "client-id": "test", // Use "test" for sandbox testing
-                  currency: "USD" 
-                }}>
+                <PayPalScriptProvider options={{ "client-id": "test" }}>
                   <PayPalButtons
-                    style={{
-                      layout: "vertical",
-                      size: "responsive",
-                      shape: "pill",
-                      color: "blue",
-                    }}
                     createOrder={(data, actions) => {
                       return actions.order.create({
-                        purchase_units: [{
-                          amount: {
-                            value: getCartTotal().toFixed(2),
+                        purchase_units: [
+                          {
+                            amount: {
+                              value: getCartTotal().toFixed(2),
+                            },
                           },
-                        }],
+                        ],
                       });
                     }}
-                    onApprove={async (data, actions) => {
-                      const details = await actions.order.capture();
-                      alert(`Transaction completed by ${details.payer.name.given_name}`);
-                      clearCart();
-                      navigate("/order-success");
-                    }}
-                    onError={(err) => {
-                      alert("There was an error with PayPal. Please try again.");
-                      console.error("PayPal Error:", err);
+                    onApprove={(data, actions) => {
+                      return actions.order.capture().then((details) => {
+                        clearCart();
+                        navigate("/order-success");
+                      });
                     }}
                   />
                 </PayPalScriptProvider>
@@ -234,26 +281,36 @@ const CheckoutPage = () => {
           </div>
         );
       case 4:
+        const subtotal = getCartTotal();
+        const shippingCost = 
+          formData.shippingMethod === "express" ? 15.00 : 
+          formData.shippingMethod === "same-day" ? 25.00 : 
+          5.00;
+        const total = subtotal + shippingCost;
+
         return (
           <div className="step-content">
             <h3>Review Your Order</h3>
-            <ul>
-              {cartItems.map((item) => (
-                <li key={item.id} className="order-item">
-                  <span>{item.name}</span>
-                  <span>${(item.price * item.quantity).toFixed(2)} ({item.quantity})</span>
-                </li>
-              ))}
-            </ul>
-            <h3>Total: ${getCartTotal().toFixed(2)}</h3>
-            <div>
-              <h4>Shipping Information</h4>
-              <p>{formData.name}</p>
-              <p>{formData.address}</p>
-            </div>
-            <div>
-              <h4>Payment Method</h4>
-              <p>{formData.payment === "Credit Card" ? "Credit/Debit Card" : "PayPal"}</p>
+            <div className="order-summary">
+              <div className="summary-item">
+                <span>Subtotal:</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              <div className="summary-item">
+                <span>Shipping:</span>
+                <span>${shippingCost.toFixed(2)}</span>
+              </div>
+              <div className="summary-item total">
+                <span>Total:</span>
+                <span>${total.toFixed(2)}</span>
+              </div>
+              <div className="order-details">
+                <h4>Shipping Details</h4>
+                <p><strong>Name:</strong> {formData.name}</p>
+                <p><strong>Address:</strong> {formData.address}</p>
+                <p><strong>Shipping Method:</strong> {formData.shippingMethod.charAt(0).toUpperCase() + formData.shippingMethod.slice(1)} Shipping</p>
+                <p><strong>Payment Method:</strong> {formData.payment}</p>
+              </div>
             </div>
           </div>
         );
@@ -267,11 +324,13 @@ const CheckoutPage = () => {
       <h2>Checkout</h2>
       <div className="progress-bar">
         {[1, 2, 3, 4].map((step) => (
-          <div key={step} className={`progress ${currentStep === step ? "active" : ""}`}></div>
+          <div key={step} className={`progress ${currentStep >= step ? "active" : ""}`}></div>
         ))}
       </div>
+
       <form onSubmit={handleNextStep}>
         {renderStep()}
+
         <div className="button-container">
           {currentStep > 1 && (
             <button type="button" className="back-btn" onClick={handlePreviousStep}>

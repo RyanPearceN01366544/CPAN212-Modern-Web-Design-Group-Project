@@ -1,93 +1,136 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://fakestoreapi.com'
+  baseURL: 'http://localhost:8000'
 });
-
-// Map our categories to Fake Store API categories
-const categoryMap = {
-  "Electronics": "electronics",
-  "Jewelry": "jewelery",
-  "Fashion": ["men's clothing", "women's clothing"]
-};
 
 // Helper function to format product data
-const formatProduct = (product) => ({ // R: I mean, I guess we can use one but I don't see why. It doesn't even seem to be used.
-  id: product.id,
-  title: product.title,
+const formatProduct = (product) => ({
+  ...product,
+  _id: product._id,
+  name: product.name,
   price: product.price,
-  originalPrice: product.price * 1.2,
-  image: product.image,
-  rating: product.rating.rate,
-  reviews: product.rating.count,
-  inStock: product.itemsLeft,
-  freeShipping: Math.random() > 0.5,
-  category: mapCategoryFromAPI(product.category),
-  description: product.description
+  images: product.images,
+  category: product.category,
+  brand: product.brand,
+  type: product.type,
+  itemsLeft: product.itemsLeft,
+  rating: product.rating || 0
 });
 
-// Helper function to map API categories to our categories
-const mapCategoryFromAPI = (apiCategory) => {
-  for (const [ourCategory, apiCategories] of Object.entries(categoryMap)) {
-    if (Array.isArray(apiCategories)) {
-      if (apiCategories.includes(apiCategory)) {
-        return ourCategory;
-      }
-    } else if (apiCategories === apiCategory) {
-      return ourCategory;
-    }
-  }
-  return apiCategory;
-};
-
-// Helper function to map our categories to API categories
-const mapCategoryToAPI = (ourCategory) => {
-  const apiCategory = categoryMap[ourCategory];
-  if (Array.isArray(apiCategory)) {
-    return apiCategory[0];
-  }
-  return apiCategory || ourCategory.toLowerCase();
-};
-
 // Get all products
-export const getProducts = async() => {
-  const dataPromise_ = await fetch("http://localhost:8000/Product/"); // R: Get the product list...
-  const dataJson_ = await dataPromise_.json(); // R: Parse the data...
-  return Promise.resolve(dataJson_); // R: Send it.
+export const getProducts = async(params = {}) => {
+  try {
+    const response = await api.get(`/Product`, { params });
+    return {
+      ...response.data,
+      products: response.data.products.map(formatProduct)
+    };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return { products: [], totalPages: 0, currentPage: 1, totalProducts: 0 };
+  }
 };
 
 // Get product by ID
-export const getProductById = async(id) => {  
-  if (!id) return Promise.resolve({}); // R: Return if id is undefined.
-  const dataPromise_ = await fetch(`http://localhost:8000/Product/${id}`); // R: Get the product list...
-  const dataJson_ = await dataPromise_.json(); // R: Parse the data...
-  return Promise.resolve(dataJson_); // R: Send it. (Sending only one though since it's getting the product my SKU.)
+export const getProductById = async(id) => {
+  try {
+    const response = await api.get(`/Product/${id}`);
+    return formatProduct(response.data);
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    return null;
+  }
 };
 
 // Get products by category
-export const getProductsByCategory = async(category) => {
-  if (!category) return Promise.resolve([]); // R: Return if no category is selected.
-  const dataPromise_ = await fetch(`http://localhost:8000/Product/?`, {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      category: category
-    }
-  })
-  const dataJson_ = await dataPromise_.json();
-  return Promise.resolve(dataJson_);
+export const getProductsByCategory = async(category, params = {}) => {
+  try {
+    const response = await api.get(`/Product`, {
+      params: {
+        ...params,
+        category
+      }
+    });
+    return {
+      ...response.data,
+      products: response.data.products.map(formatProduct)
+    };
+  } catch (error) {
+    console.error('Error fetching products by category:', error);
+    return { products: [], totalPages: 0, currentPage: 1, totalProducts: 0 };
+  }
 };
 
 // Search products
-export const searchProducts = async(query) => {
-  if (!query) return Promise.resolve([]); // R: Guess... (Return if no query)
+export const searchProducts = async(query, page = 1, limit = 20) => {
+  if (!query) return { products: [], totalPages: 0, currentPage: 1, totalProducts: 0 };
+  try {
+    const response = await api.get(`/Product/filter/search`, {
+      params: {
+        ...query,
+        page,
+        limit
+      }
+    });
+    return {
+      ...response.data,
+      products: response.data.products.map(formatProduct)
+    };
+  } catch (error) {
+    console.error('Error searching products:', error);
+    return { products: [], totalPages: 0, currentPage: 1, totalProducts: 0 };
+  }
+};
 
-  const dataPromise_ = await fetch(`http://localhost:8000/Product/filter/search`,{
-    method: "GET",
-    body: query
-  })
-  const dataJson_ = await dataPromise_.json();
-  return Promise.resolve(dataJson_);
+// User API endpoints
+export const loginUser = async (credentials) => {
+  try {
+    const response = await api.post('/User/login', credentials);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+export const registerUser = async (userData) => {
+  try {
+    const response = await api.post('/User/register', userData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+export const updateUser = async (userId, userData, token) => {
+  try {
+    const response = await api.put(`/User/${userId}`, userData, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+export const createOrder = async (orderData, token) => {
+  try {
+    const response = await api.post('/Order', orderData, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+export const getUserOrders = async (userId, token) => {
+  try {
+    const response = await api.get(`/Order/user/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
 };
