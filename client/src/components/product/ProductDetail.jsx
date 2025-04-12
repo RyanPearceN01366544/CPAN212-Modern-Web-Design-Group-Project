@@ -10,7 +10,6 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const {addToCart} = useCart();
   const navigate = useNavigate();
 
@@ -83,7 +82,7 @@ const ProductDetail = () => {
         </div>
 
         <div className="product-info">
-          <h1 className="product-title">{product.title}</h1>
+          <h1 className="product-title">{product.name}</h1>
           
           <div className="product-rating">
             <div className="stars">{renderStars(product.rating)}</div>
@@ -110,7 +109,7 @@ const ProductDetail = () => {
           <div className="product-actions">
             <div className="quantity-selector">
               <button onClick={() => handleQuantityChange(-1)}>-</button>
-              <span>{quantity}</span>
+              <span style={{color: "black"}}>{quantity}</span>
               <button onClick={() => handleQuantityChange(1)}>+</button>
             </div>
 
