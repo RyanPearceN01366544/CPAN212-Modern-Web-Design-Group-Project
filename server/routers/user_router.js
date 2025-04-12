@@ -35,10 +35,28 @@ const setMailOptions = (to_, resetLink_) => { // R: The Information In Mail Rese
     from: `"ShopEase Support Employee" <${process.env.EMAIL_USER}>`,
     to: to_,
     subject: "Password Reset",
-    text: 'Click the following link to reset your password: http://localhost:5173/Reset-Password/...', // Plain text fallback
+    text: `Click the following link to reset your password: ${resetLink_}`, // R: Fixed cause I was too busy with the emailing and forgot to fix it.
     html: `<p>Click <a href="${resetLink_}">here</a> to reset your password</p>`
   }
 };
+
+let emailTokens = [] // R: An array of objects for the emails linked to which tokens.
+const addEmailToken = (token_, email_) => {
+  if (emailTokens.filter((obj_) => {return obj_.email === email_})) { // R: Replace if it already exists...
+    removeEmailToken(email_); // R: Remove old token.
+  }
+  console.log("Password Reset Token Added!\n" + {token: token_, email: email_});
+  emailTokens.push({token: token_, email: email_}); // R: Replace with new token.
+}
+const removeEmailToken = (email) => { // R: Removes the email from the list of tokens.
+  for (let x_ = 0; x_ < emailTokens.length; x_++) {
+    if (emailTokens[x_].email === email) {
+      emailTokens = emailTokens.filter((obj_) => { return obj_.email != email}); // R: Just removes the token by email.
+    }
+  }
+  return undefined;
+}
+
 
 // R: == ROUTES ==
 // R: -- REGISTRY --
@@ -146,6 +164,7 @@ user_router.post("/ForgotPassword", async(req, res) => {
       process.env.JWT_SECRET, // R: --> Process Secret
       { expiresIn: '2h'} // R: --> 2 Hours.
     );
+    addEmailToken(token.split(' ')[0], email);
     setMailOptions(email, `http://localhost:5173/Reset-Password/${token}`);
     console.log("Mail Options: ", mailOptions);
     transporter.sendMail(mailOptions, (err_, info_) => {
@@ -165,6 +184,26 @@ user_router.post("/ForgotPassword", async(req, res) => {
     res.status(401).json({message: "User doesn't exist!"})
   }
 });
+user_router.get('/GetForgetPasswordToken', async(req, res) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+  console.log("Starting Check!\n-- Email Tokens --\n" + emailTokens);
+  
+  let acc_ = {};
+  for (let x_ = 0; x_ < emailTokens.length; x_++) {
+    if (emailTokens[x_].token == token) {
+      acc_ = emailTokens[x_];
+      console.log("Found it!");
+    }
+    else{
+      console.log(`emailToken: ${emailTokens[x_].token}\nToken Gained: ${token}`);
+    }
+  }
+  console.log("acc_ === " + acc_);
+  if (acc_) {
+    console.log("Test 2!");
+    return res.json({email: acc_.email});
+  }
+})
 user_router.post("/ResetPassword", async(req, res) => {
   const token = req.header('Authorization')?.split(' ')[1];
   const {email, newPassword} = req.body;
@@ -181,6 +220,7 @@ user_router.post("/ResetPassword", async(req, res) => {
     if (user_ && decoded_) {
       user_.password = hashedPassword_;
       await user_.save();
+      removeEmailToken(email);
       return res.json({message: "Password has successfully been reset!"});
     }
     else{ 
@@ -352,7 +392,7 @@ user_router.delete("/Cart", auth.verifyToken, async(req, res) => {
       }
     }
     await user.save(); // R: Save changes.
-    return res.json(user.cart); // R: Return the cart.
+    return res.json(user.cart); // R: Return the cart. 
   }
   catch (err_){
     console.log(err_);

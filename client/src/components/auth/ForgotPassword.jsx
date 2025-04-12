@@ -46,7 +46,7 @@ const ForgotPassword = () => {
             If an account exists for {email}, you will receive a password reset link shortly.
           </p>
           <div className="auth-links">
-            <Link to="/signin">Back to Sign In</Link>
+            <Link to="/login">Back to Sign In</Link>
           </div>
         </div>
       </div>

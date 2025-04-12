@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FaStar, FaRegStar, FaShoppingCart, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { getProductById } from '../../services/api';
 import { useCart } from '../../context/CartContext';
@@ -11,7 +11,8 @@ const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
-  const { addToCart } = useCart();
+  const {addToCart} = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -19,10 +20,24 @@ const ProductDetail = () => {
       if (productData) {
         setProduct(productData);
       }
+      else{
+        console.log("Failed to get product! Return: " + productData);
+      }
     };
 
     fetchProduct();
   }, [id]);
+
+  const addProductToCart = (product, quantity) => {
+    if (localStorage.getItem('user')) {
+      const userData_ = JSON.parse(localStorage.getItem('user'));
+      if (userData_.token){
+        addToCart(product, quantity);
+        return;
+      }
+    }
+    navigate("/login")
+  }
 
   const renderStars = (rating) => {
     const stars = [];
@@ -72,7 +87,6 @@ const ProductDetail = () => {
           
           <div className="product-rating">
             <div className="stars">{renderStars(product.rating)}</div>
-            <span className="review-count">({product.reviews} reviews)</span>
           </div>
 
           <div className="product-price">
@@ -93,18 +107,6 @@ const ProductDetail = () => {
             <p>{product.description}</p>
           </div>
 
-          <div className="product-specifications">
-            <h2>Specifications</h2>
-            <div className="specs-grid">
-              {product.specifications.map((spec, index) => (
-                <div key={index} className="spec-item">
-                  <span className="spec-label">{spec.label}:</span>
-                  <span className="spec-value">{spec.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <div className="product-actions">
             <div className="quantity-selector">
               <button onClick={() => handleQuantityChange(-1)}>-</button>
@@ -113,20 +115,12 @@ const ProductDetail = () => {
             </div>
 
             <button 
-              className={`add-to-cart-btn ${!product.inStock ? 'out-of-stock' : ''}`}
-              disabled={!product.inStock}
-              onClick={() => addToCart(product, quantity)}
+              className={`add-to-cart-btn ${product.itemsLeft <= 0 ? 'out-of-stock' : ''}`}
+              disabled={product.itemsLeft <= 0}
+              onClick={() => addProductToCart(product, quantity)}
             >
               <FaShoppingCart />
-              {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-            </button>
-
-            <button 
-              className={`wishlist-btn ${isWishlisted ? 'active' : ''}`}
-              onClick={() => setIsWishlisted(!isWishlisted)}
-            >
-              {isWishlisted ? <FaHeart /> : <FaRegHeart />}
-              {isWishlisted ? 'Added to Wishlist' : 'Add to Wishlist'}
+              {product.itemsLeft > 0 ? 'Add to Cart' : 'Out of Stock'}
             </button>
           </div>
         </div>
