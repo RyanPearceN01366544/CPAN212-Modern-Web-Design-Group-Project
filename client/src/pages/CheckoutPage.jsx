@@ -19,11 +19,7 @@ const CheckoutPage = () => {
   });
 
   const [currentStep, setCurrentStep] = useState(1);
-  const [errors, setErrors] = useState({
-    cardNumber: "",
-    cardExpiry: "",
-    cardCVV: "",
-  });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -45,20 +41,21 @@ const CheckoutPage = () => {
         alert("Please fill out all required fields.");
         return;
       }
+
       if (formData.payment === "Credit Card" && !validateCardDetails()) {
         return;
       }
 
       if (formData.payment === "Credit Card") {
-        alert("Thank you for your purchase! Your credit card has been charged.");
+        alert("Thank you for your purchase! Your card has been charged.");
         clearCart();
         navigate("/order-success");
-      } else {
-        alert("Redirecting to PayPal for payment...");
       }
-    } else {
-      setCurrentStep(currentStep + 1);
+
+      return; // Stop here for PayPal — it’s handled asynchronously
     }
+
+    setCurrentStep(currentStep + 1);
   };
 
   const handlePreviousStep = (e) => {
@@ -70,11 +67,7 @@ const CheckoutPage = () => {
 
   const validateCardDetails = () => {
     let valid = true;
-    const newErrors = {
-      cardNumber: "",
-      cardExpiry: "",
-      cardCVV: "",
-    };
+    const newErrors = {};
 
     const cardNumberRegex = /^[0-9]{16}$/;
     if (!cardNumberRegex.test(formData.cardNumber)) {
@@ -84,7 +77,7 @@ const CheckoutPage = () => {
 
     const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
     if (!expiryDateRegex.test(formData.cardExpiry)) {
-      newErrors.cardExpiry = "Expiration date must be in MM/YY format.";
+      newErrors.cardExpiry = "Expiration must be in MM/YY format.";
       valid = false;
     }
 
@@ -111,7 +104,6 @@ const CheckoutPage = () => {
               placeholder="Your Full Name"
               value={formData.name}
               onChange={handleChange}
-              required
             />
             <label>Address<span>*</span>:</label>
             <input
@@ -120,7 +112,6 @@ const CheckoutPage = () => {
               placeholder="Shipping Address"
               value={formData.address}
               onChange={handleChange}
-              required
             />
           </div>
         );
@@ -148,7 +139,6 @@ const CheckoutPage = () => {
                   value="Credit Card"
                   checked={formData.payment === "Credit Card"}
                   onChange={handleChange}
-                  required
                 />
                 <div className="payment-option-content">
                   <FaCcVisa size={30} color="#0055b8" />
@@ -163,7 +153,6 @@ const CheckoutPage = () => {
                   value="PayPal"
                   checked={formData.payment === "PayPal"}
                   onChange={handleChange}
-                  required
                 />
                 <div className="payment-option-content">
                   <FaPaypal size={30} color="#003087" />
@@ -181,39 +170,37 @@ const CheckoutPage = () => {
                   placeholder="Enter your card number"
                   value={formData.cardNumber}
                   onChange={handleChange}
-                  required
                 />
                 {errors.cardNumber && <p className="error-text">{errors.cardNumber}</p>}
 
-                <div className="card-details">
-                  <label>Expiration Date (MM/YY):</label>
-                  <input
-                    type="text"
-                    name="cardExpiry"
-                    placeholder="MM/YY"
-                    value={formData.cardExpiry}
-                    onChange={handleChange}
-                    required
-                  />
-                  {errors.cardExpiry && <p className="error-text">{errors.cardExpiry}</p>}
+                <label>Expiration Date (MM/YY):</label>
+                <input
+                  type="text"
+                  name="cardExpiry"
+                  placeholder="MM/YY"
+                  value={formData.cardExpiry}
+                  onChange={handleChange}
+                />
+                {errors.cardExpiry && <p className="error-text">{errors.cardExpiry}</p>}
 
-                  <label>CVV:</label>
-                  <input
-                    type="text"
-                    name="cardCVV"
-                    placeholder="Enter CVV"
-                    value={formData.cardCVV}
-                    onChange={handleChange}
-                    required
-                  />
-                  {errors.cardCVV && <p className="error-text">{errors.cardCVV}</p>}
-                </div>
+                <label>CVV:</label>
+                <input
+                  type="text"
+                  name="cardCVV"
+                  placeholder="Enter CVV"
+                  value={formData.cardCVV}
+                  onChange={handleChange}
+                />
+                {errors.cardCVV && <p className="error-text">{errors.cardCVV}</p>}
               </>
             )}
 
             {formData.payment === "PayPal" && (
               <div className="paypal-button-container">
-                <PayPalScriptProvider options={{ "client-id": "AYsqVV22QSjRX2fheskTfArH-bawhxDjIzzLMmcZnoA2d3H-dHfExUqdi_8uHKCe042A2LVTnzOWeyX6" }}>
+                <PayPalScriptProvider options={{ 
+                  "client-id": "test", // Use "test" for sandbox testing
+                  currency: "USD" 
+                }}>
                   <PayPalButtons
                     style={{
                       layout: "vertical",
@@ -223,23 +210,21 @@ const CheckoutPage = () => {
                     }}
                     createOrder={(data, actions) => {
                       return actions.order.create({
-                        purchase_units: [
-                          {
-                            amount: {
-                              value: getCartTotal().toFixed(2),
-                            },
+                        purchase_units: [{
+                          amount: {
+                            value: getCartTotal().toFixed(2),
                           },
-                        ],
+                        }],
                       });
                     }}
                     onApprove={async (data, actions) => {
                       const details = await actions.order.capture();
-                      alert("Transaction completed by " + details.payer.name.given_name);
+                      alert(`Transaction completed by ${details.payer.name.given_name}`);
                       clearCart();
                       navigate("/order-success");
                     }}
                     onError={(err) => {
-                      alert("There was an error with your PayPal payment. Please try again.");
+                      alert("There was an error with PayPal. Please try again.");
                       console.error("PayPal Error:", err);
                     }}
                   />
@@ -281,10 +266,9 @@ const CheckoutPage = () => {
     <div className="checkout-container">
       <h2>Checkout</h2>
       <div className="progress-bar">
-        <div className={`progress ${currentStep === 1 ? "active" : ""}`}></div>
-        <div className={`progress ${currentStep === 2 ? "active" : ""}`}></div>
-        <div className={`progress ${currentStep === 3 ? "active" : ""}`}></div>
-        <div className={`progress ${currentStep === 4 ? "active" : ""}`}></div>
+        {[1, 2, 3, 4].map((step) => (
+          <div key={step} className={`progress ${currentStep === step ? "active" : ""}`}></div>
+        ))}
       </div>
       <form onSubmit={handleNextStep}>
         {renderStep()}
@@ -294,9 +278,11 @@ const CheckoutPage = () => {
               Go Back
             </button>
           )}
-          <button type="submit" className="confirm-btn">
-            {currentStep === 4 ? "Place Your Order" : "Continue Checkout"}
-          </button>
+          {formData.payment !== "PayPal" && (
+            <button type="submit" className="confirm-btn">
+              {currentStep === 4 ? "Place Your Order" : "Continue Checkout"}
+            </button>
+          )}
         </div>
       </form>
     </div>
