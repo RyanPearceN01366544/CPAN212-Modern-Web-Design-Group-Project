@@ -41,8 +41,8 @@ const CartPage = () => {
             {cartItems.map((item) => {
               return(
               <li key={item._id} className="cart-item">
-                <span>{item.name}</span>
-                <span>${item.price} x {item.quantity}</span>
+                <span style={{color: "black"}}>{item.name}</span>
+                <span style={{color: "black"}}>${item.price} x {item.quantity}</span>
                 <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
                 <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
                 <button onClick={() => removeFromCart(item.id)}>Remove</button>
@@ -53,7 +53,7 @@ const CartPage = () => {
           {/* Shipping and Discount Section */}
           <div className="cart-options">
             <div className="shipping-options">
-              <label htmlFor="shipping">Choose Shipping Method:</label>
+              <label style={{color: "black"}} htmlFor="shipping">Choose Shipping Method:</label>
               <select id="shipping" value={shippingOption} onChange={handleShippingChange}>
                 <option value="standard">Standard Shipping ($5.00)</option>
                 <option value="express">Express Shipping ($15.00)</option>
@@ -78,11 +78,11 @@ const CartPage = () => {
           {/* Cart Summary */}
           <div className="cart-summary">
             <div className="cart-summary-details">
-              <h3 className="total-price">
-                Total: <span>${totalAfterDiscount.toFixed(2)}</span>
+              <h3 style={{color: "black"}} className="total-price">
+                <p style={{color: "black"}}>Total:</p> <span style={{color: "black"}}>${totalAfterDiscount.toFixed(2)}</span>
               </h3>
-              <h4 className="shipping-fee">
-                Shipping: <span>${shippingCost.toFixed(2)}</span>
+              <h4 style={{color: "black"}} className="shipping-fee">
+                <p style={{color: "black"}}>Shipping:</p> <span style={{color: "black"}}>${shippingCost.toFixed(2)}</span>
               </h4>
               <button className="checkout-btn" onClick={() => navigate("/checkout")}>
                 Proceed to Checkout
