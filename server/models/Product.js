@@ -21,7 +21,8 @@ const productSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true
+    required: true,
+    index: true // Add index for better search performance
   },
   images: { // R: Replaced in favor of Array.
       type: [String],
@@ -39,20 +40,37 @@ const productSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    default: "Uncategorized"
+    default: "Uncategorized",
+    index: true // Add index for better search performance
   },
   type: {
     type: String,
-    default: ""
+    default: "",
+    index: true // Add index for better search performance
   },
   brand: {
     type: String,
-    default: ""
+    default: "",
+    index: true // Add index for better search performance
+  },
+  rating: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 5,
+    index: true
   }
 }, {
   timestamps: true
 });
 
+// Add text index for better search
+productSchema.index({ 
+  name: 'text',
+  brand: 'text',
+  category: 'text',
+  type: 'text'
+});
+
 const Product = mongoose.model("Product", productSchema);
 export default Product;
- 

@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import ProductCardSkeleton from './ProductCardSkeleton';
-import { getProducts, getProductsByCategory } from '../../services/api';
+import { getProducts } from '../../services/api';
 import './ProductGrid.css';
 
-const ProductGrid = ({ selectedCategory, searchResults, filters }) => {
+const ProductGrid = ({ selectedCategory, searchResults, filters, onTotalProductsChange }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalProducts, setTotalProducts] = useState(0);
 
   // Fetch products when category or search changes
   useEffect(() => {
     const fetchProducts = async () => {
       if (searchResults !== null) {
-        setProducts(searchResults);
+        setProducts(searchResults.products || []);
+        setTotalPages(searchResults.totalPages || 1);
+        setCurrentPage(searchResults.currentPage || 1);
+        setTotalProducts(searchResults.totalProducts || 0);
+        onTotalProductsChange(searchResults.totalProducts || 0);
         setLoading(false);
         return;
       }
@@ -22,15 +29,21 @@ const ProductGrid = ({ selectedCategory, searchResults, filters }) => {
         setLoading(true);
         setError(null);
         
-        let data;
-        if (selectedCategory) {
-          data = await getProductsByCategory(selectedCategory);
-        } else {
-          data = await getProducts();
-        }
+        const queryParams = {
+          page: currentPage,
+          limit: 20,
+          ...(selectedCategory && { category: selectedCategory }),
+          ...(filters.rating && { rating: filters.rating })
+        };
         
-        if (data && Array.isArray(data)) {
-          setProducts(data);
+        const response = await getProducts(queryParams);
+        
+        if (response && response.products) {
+          setProducts(response.products);
+          setTotalPages(response.totalPages);
+          setCurrentPage(response.currentPage);
+          setTotalProducts(response.totalProducts);
+          onTotalProductsChange(response.totalProducts);
         } else {
           setError('Invalid data received from server');
         }
@@ -43,28 +56,20 @@ const ProductGrid = ({ selectedCategory, searchResults, filters }) => {
     };
 
     fetchProducts();
-  }, [selectedCategory, searchResults]);
+  }, [selectedCategory, searchResults, currentPage, filters, onTotalProductsChange]);
 
   // Apply filters and sorting to products
   const getFilteredAndSortedProducts = () => {
     let filteredProducts = [...products];
 
-    // Apply price filter
-    if (filters.priceRange.min || filters.priceRange.max) {
+    // Apply price range filter
+    if (filters.priceRange.min !== '' || filters.priceRange.max !== '') {
       filteredProducts = filteredProducts.filter(product => {
         const price = product.price;
-        const min = filters.priceRange.min ? parseFloat(filters.priceRange.min) : 0;
-        const max = filters.priceRange.max ? parseFloat(filters.priceRange.max) : Infinity;
+        const min = filters.priceRange.min === '' ? 0 : parseFloat(filters.priceRange.min);
+        const max = filters.priceRange.max === '' ? Infinity : parseFloat(filters.priceRange.max);
         return price >= min && price <= max;
       });
-    }
-
-    // Apply rating filter
-    if (filters.rating) {
-      const minRating = parseFloat(filters.rating);
-      filteredProducts = filteredProducts.filter(product => 
-        product.rating >= minRating
-      );
     }
 
     // Apply sorting
@@ -76,16 +81,33 @@ const ProductGrid = ({ selectedCategory, searchResults, filters }) => {
         filteredProducts.sort((a, b) => b.price - a.price);
         break;
       case 'rating':
-        filteredProducts.sort((a, b) => b.rating - a.rating);
+        filteredProducts.sort((a, b) => (b.rating || 0) - (a.rating || 0));
         break;
-      default: // 'featured' - sort by id as default
-        filteredProducts.sort((a, b) => a.id - b.id);
+      default: // 'featured'
+        break;
     }
 
     return filteredProducts;
   };
 
-  const filteredAndSortedProducts = getFilteredAndSortedProducts();
+  const displayProducts = getFilteredAndSortedProducts();
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="product-grid">
+        {[...Array(8)].map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))}
+      </div>
+    );
+  }
 
   if (error) {
     return <div className="error-message">{error}</div>;
@@ -93,34 +115,38 @@ const ProductGrid = ({ selectedCategory, searchResults, filters }) => {
 
   return (
     <div className="product-grid-container">
-      {selectedCategory && (
-        <div className="category-title">
-          <h2>{selectedCategory}</h2>
-        </div>
-      )}
-      {searchResults !== null && (
-        <div className="search-results-info">
-          <h2>Search Results ({filteredAndSortedProducts.length} items)</h2>
-        </div>
-      )}
       <div className="product-grid">
-        {loading ? (
-          Array.from({ length: 8 }).map((_, index) => (
-            <ProductCardSkeleton key={index} />
-          ))
-        ) : filteredAndSortedProducts.length === 0 ? (
-          <div className="no-products-message">
-            {searchResults !== null
-              ? 'No products found matching your search and filters.'
-              : selectedCategory
-                ? `No products found in ${selectedCategory} category with current filters.`
-                : 'No products found with current filters.'}
-          </div>
-        ) : (
-          filteredAndSortedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))
-        )}
+        {displayProducts.map(product => (
+          <ProductCard key={product._id} product={product} />
+        ))}
+      </div>
+      
+      {totalPages > 1 && (
+        <div className="pagination">
+          <button 
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="pagination-button"
+          >
+            Previous
+          </button>
+          
+          <span className="page-info">
+            Page {currentPage} of {totalPages}
+          </span>
+          
+          <button 
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="pagination-button"
+          >
+            Next
+          </button>
+        </div>
+      )}
+      
+      <div className="product-count">
+        Showing {displayProducts.length} of {totalProducts} products
       </div>
     </div>
   );
